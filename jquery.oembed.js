@@ -55,6 +55,7 @@
         var code = '<a href="' + url + '">' + title + '</a>';
         if (data.html)
             code += "<div>" + data.html + "</div>";
+		return code;
     };
 
     $.fn.oembed.isAvailable = function(url) {
