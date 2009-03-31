@@ -1,14 +1,5 @@
-﻿/// <reference path="jquery-1.3.2-vsdoc.js" />
-
-(function($) {
-    $.fn.mydebug = function() {
-        alert("hola");    
-    }        
-})(jQuery);
-
-(function($) {
-    $.fn.oembed = function(url, options) {
-
+﻿(function($) {
+    $.fn.oembed = function(url, options) {		
         return this.each(function() {
             var options = $.extend({}, $.fn.oembed.defaults, options);
 			
@@ -67,8 +58,7 @@
         var provider = getOEmbedProvider(url);
         return (provider != null);
     };
-
-
+	
     /* Private Methods */
     function getOEmbedProvider(url) {
         for (var i = 0; i < providers.length; i++) {
@@ -153,6 +143,5 @@
             });
         }
     }
-
 })(jQuery);
 
