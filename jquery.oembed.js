@@ -11,17 +11,22 @@
 
         return this.each(function() {
             var options = $.extend({}, $.fn.oembed.defaults, options);
+			
+			var container = $(this);
+			
+			var target = (url != null) ? url : container.attr("href");			
+			
+			if (target != null) {			
+				
+				var provider = getOEmbedProvider(target);
 
-            var provider = getOEmbedProvider(url);
-
-            if (provider != null) {
-                provider.maxWidth = options.maxWidth;
-                provider.maxHeight = options.maxHeight;
-
-                var container = $(this);
-
-                provider.embedCode(url, function(code) { container.html(code); });
-            }
+				if (provider != null) {
+					provider.maxWidth = options.maxWidth;
+					provider.maxHeight = options.maxHeight;               
+					
+					provider.embedCode(target, function(code) { container.html(code); });		
+				}
+			}
         });
     };
 
