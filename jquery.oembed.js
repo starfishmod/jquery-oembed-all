@@ -1,15 +1,17 @@
 ﻿(function($) {
     $.fn.oembed = function(url, options) {		
-        return this.each(function() {
-            var options = $.extend({}, $.fn.oembed.defaults, options);
+	
+		options = $.extend({}, $.fn.oembed.defaults, options);
+		
+        return this.each(function() {      
 			
-			var container = $(this);
-			
-			var target = (url != null) ? url : container.attr("href");			
+			var container = $(this), 
+				target = (url != null) ? url : container.attr("href"), 
+				provider;		
 			
 			if (target != null) {			
 				
-				var provider = getOEmbedProvider(target);
+				provider = getOEmbedProvider(target);
 
 				if (provider != null) {
 					provider.maxWidth = options.maxWidth;
@@ -45,10 +47,8 @@
     };
 
     $.fn.oembed.getGenericCode = function(url, data) {
-        var title = data.title;
-        if (title == null)
-            title = url;
-        var code = '<a href="' + url + '">' + title + '</a>';
+        var title = (data.title != null) ? data.title : url,
+			code = '<a href="' + url + '">' + title + '</a>';			
         if (data.html)
             code += "<div>" + data.html + "</div>";
 		return code;
@@ -120,9 +120,8 @@
             var request = this.getRequestUrl(externalUrl);
 
             $.getJSON(request, function(data) {
-                var type = data.type;
-              
-                var code;
+                
+				var code, type = data.type;
 
                 switch (type) {
                     case "photo":
