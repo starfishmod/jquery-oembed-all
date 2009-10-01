@@ -6,46 +6,69 @@
         return this.each(function() {
 
             var container = $(this);
-            var target = (url != null) ? url : container.attr("href");
+            var resourceURL = (url != null) ? url : container.attr("href");
             var provider;
 
-            if (!callback) callback = function(oembed) {
-                var oembedContainer = container;
-                if (container.attr("href") != null) {
-                    oembedContainer = container.next();
-                    if (oembedContainer == null || !oembedContainer.hasClass("oembed-container")) {
-                        container
-							.after('<div class="oembed-container"></div>')
-							.next(".oembed-container");                        
-                    }
-                }               
-                oembedContainer.html(oembed.code);
+            if (!callback) callback = function(container, oembed) {			
+				 $.fn.oembed.insertCode(container, options.embedMethod, oembed);
             };
 
-            if (target != null) {
-                provider = getOEmbedProvider(target);
+            if (resourceURL != null) {
+                provider = getOEmbedProvider(resourceURL);
 
                 if (provider != null) {
                     provider.maxWidth = options.maxWidth;
-                    provider.maxHeight = options.maxHeight;
-
-                    provider.embedCode(target, callback);
+                    provider.maxHeight = options.maxHeight;					
+                    provider.embedCode(container, resourceURL, callback);
                     return;
                 }
             }
 
-            callback(null);
+            callback(container, null);
         });
     };
 
     // Plugin defaults
     $.fn.oembed.defaults = {
         maxWidth: 500,
-        maxHeight: 400
+        maxHeight: 400,
+		embedMethod: "replace", // "auto", "append", "fill"
     };
+	
+	$.fn.oembed.insertCode = function(container, embedMethod, oembed) {
+		switch(embedMethod)
+		{
+			case "auto":				
+                if (container.attr("href") != null) {
+					insertCode(container, "append", oembed);
+				}
+				else {
+					insertCode(container, "replace", oembed);
+				};
+				break;
+			case "replace":	
+				container.replaceWith(oembed.code);
+				break;
+			case "fill":
+				container.html(oembed.code);
+				break;
+			case "append":
+                var oembedContainer = container.next();
+				if (oembedContainer == null || !oembedContainer.hasClass("oembed-container")) {
+					oembedContainer = container
+						.after('<div class="oembed-container"></div>')
+						.next(".oembed-container");
+				}
+				oembedContainer.html(oembed.code);				
+				break;			
+		}
+	}	
 
     $.fn.oembed.getPhotoCode = function(url, data) {
-        var code = '<div><a href="' + url + '" target="_blank"><img src="' + data.url + '"/></a></div>';
+	    var alt = data.title ? data.title : '';
+        alt += data.author_name ? ' - ' + data.author_name : '';
+        alt += data.provider_name ? ' - ' +data.provider_name : '';
+        var code = '<div><a href="' + url + '" target="_blank"><img src="' + data.url + '" alt="' + alt + '"/></a></div>';
         if (data.html)
             code += "<div>" + data.html + "</div>";
         return code;
@@ -130,7 +153,7 @@
             return url;
         }
 
-        this.embedCode = function(externalUrl, embedCallback) {
+        this.embedCode = function(container, externalUrl, callback) {
 
             var request = this.getRequestUrl(externalUrl);
 
@@ -155,7 +178,7 @@
                         break;
                 }
 
-                embedCallback(oembed);
+                callback(container, oembed);
             });
         }
     }
