@@ -58,6 +58,8 @@
 					oembedContainer = container
 						.after('<div class="oembed-container"></div>')
 						.next(".oembed-container");
+					if (oembed != null && oembed.provider_name != null)
+					    oembedContainer.toggleClass("oembed-contaner-" + oembed.provider_name);		
 				}
 				oembedContainer.html(oembed.code);				
 				break;			
