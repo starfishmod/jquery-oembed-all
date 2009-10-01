@@ -1,25 +1,40 @@
 ﻿(function($) {
-    $.fn.oembed = function(url, options) {		
-	
-		options = $.extend({}, $.fn.oembed.defaults, options);
-		
-        return this.each(function() {      
-			
-			var container = $(this), 
-				target = (url != null) ? url : container.attr("href"), 
-				provider;		
-			
-			if (target != null) {			
-				
-				provider = getOEmbedProvider(target);
+    $.fn.oembed = function(url, options, callback) {
 
-				if (provider != null) {
-					provider.maxWidth = options.maxWidth;
-					provider.maxHeight = options.maxHeight;               
-					
-					provider.embedCode(target, function(code) { container.html(code); });		
-				}
-			}
+        options = $.extend({}, $.fn.oembed.defaults, options);
+
+        return this.each(function() {
+
+            var container = $(this);
+            var target = (url != null) ? url : container.attr("href");
+            var provider;
+
+            if (!callback) callback = function(oembed) {
+                var oembedContainer = container;
+                if (container.attr("href") != null) {
+                    oembedContainer = container.next();
+                    if (oembedContainer == null || !oembedContainer.hasClass("oembed-container")) {
+                        container
+							.after('<div class="oembed-container"></div>')
+							.next(".oembed-container");                        
+                    }
+                }               
+                oembedContainer.html(oembed.code);
+            };
+
+            if (target != null) {
+                provider = getOEmbedProvider(target);
+
+                if (provider != null) {
+                    provider.maxWidth = options.maxWidth;
+                    provider.maxHeight = options.maxHeight;
+
+                    provider.embedCode(target, callback);
+                    return;
+                }
+            }
+
+            callback(null);
         });
     };
 
@@ -48,17 +63,17 @@
 
     $.fn.oembed.getGenericCode = function(url, data) {
         var title = (data.title != null) ? data.title : url,
-			code = '<a href="' + url + '">' + title + '</a>';			
+			code = '<a href="' + url + '">' + title + '</a>';
         if (data.html)
             code += "<div>" + data.html + "</div>";
-		return code;
+        return code;
     };
 
     $.fn.oembed.isAvailable = function(url) {
         var provider = getOEmbedProvider(url);
         return (provider != null);
     };
-	
+
     /* Private Methods */
     function getOEmbedProvider(url) {
         for (var i = 0; i < providers.length; i++) {
@@ -71,7 +86,7 @@
     var providers = [
         new OEmbedProvider("fivemin", "5min.com"),
         new OEmbedProvider("amazon", "amazon.com"),
-        new OEmbedProvider("flickr", "flickr", "http://flickr.com/services/oembed", "jsoncallback"),
+        new OEmbedProvider("flickr", "flickr", "http://flickr.com/services/oembed", "jsoncallback"),    
         new OEmbedProvider("googlevideo", "video.google."),
         new OEmbedProvider("hulu", "hulu.com"),
         new OEmbedProvider("imdb", "imdb.com"),
@@ -107,11 +122,11 @@
             if (url.indexOf("?") <= 0)
                 url = url + "?";
 
-            url += "maxwidth=" + this.maxWidth + 
-						"&maxHeight=" + this.maxHeight + 
-						"&format=json" + 
-						"&url=" + escape(externalUrl) + 
-						"&" + this.callbackparameter + "=?";						
+            url += "maxwidth=" + this.maxWidth +
+						"&maxHeight=" + this.maxHeight +
+						"&format=json" +
+						"&url=" + escape(externalUrl) +
+						"&" + this.callbackparameter + "=?";
             return url;
         }
 
@@ -120,27 +135,28 @@
             var request = this.getRequestUrl(externalUrl);
 
             $.getJSON(request, function(data) {
-                
-				var code, type = data.type;
+
+                var oembed = $.extend(data);
+
+                var code, type = data.type;
 
                 switch (type) {
                     case "photo":
-                        code = $.fn.oembed.getPhotoCode(externalUrl, data);
+                        oembed.code = $.fn.oembed.getPhotoCode(externalUrl, data);
                         break;
                     case "video":
-                        code = $.fn.oembed.getVideoCode(externalUrl, data);
+                        oembed.code = $.fn.oembed.getVideoCode(externalUrl, data);
                         break;
                     case "rich":
-                        code = $.fn.oembed.getRichCode(externalUrl, data);
+                        oembed.code = $.fn.oembed.getRichCode(externalUrl, data);
                         break;
                     default:
-                        code = $.fn.oembed.getGenericCode(externalUrl, data);
+                        oembed.code = $.fn.oembed.getGenericCode(externalUrl, data);
                         break;
                 }
 
-                embedCallback(code);
+                embedCallback(oembed);
             });
         }
     }
 })(jQuery);
-
