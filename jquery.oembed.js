@@ -1,13 +1,13 @@
 ﻿(function($) {
     $.fn.oembed = function(url, options, callback) {
 
-        options = $.extend({}, $.fn.oembed.defaults, options);
+        options = $.extend(true, $.fn.oembed.defaults, options);
 
         return this.each(function() {
 
-            var container = $(this);
-            var resourceURL = (url != null) ? url : container.attr("href");
-            var provider;
+            var container = $(this),
+				resourceURL = (url != null) ? url : container.attr("href"),
+				provider;
 
             if (!callback) callback = function(container, oembed) {			
 				 $.fn.oembed.insertCode(container, options.embedMethod, oembed);
@@ -19,6 +19,7 @@
                 if (provider != null) {
                     provider.maxWidth = options.maxWidth;
                     provider.maxHeight = options.maxHeight;					
+					provider.params = options[provider.name] || {};
                     provider.embedCode(container, resourceURL, callback);
                     return;
                 }
@@ -30,9 +31,9 @@
 
     // Plugin defaults
     $.fn.oembed.defaults = {
-        maxWidth: 500,
-        maxHeight: 400,
-		embedMethod: "replace", // "auto", "append", "fill"
+        maxWidth: null,
+        maxHeight: null,
+		embedMethod: "replace" // "auto", "append", "fill"
     };
 	
 	$.fn.oembed.insertCode = function(container, embedMethod, oembed) {
@@ -59,7 +60,7 @@
 						.after('<div class="oembed-container"></div>')
 						.next(".oembed-container");
 					if (oembed != null && oembed.provider_name != null)
-					    oembedContainer.toggleClass("oembed-contaner-" + oembed.provider_name);		
+					    oembedContainer.toggleClass("oembed-container-" + oembed.provider_name);		
 				}
 				oembedContainer.html(oembed.code);				
 				break;			
@@ -147,11 +148,30 @@
             if (url.indexOf("?") <= 0)
                 url = url + "?";
 
-            url += "maxwidth=" + this.maxWidth +
-						"&maxHeight=" + this.maxHeight +
-						"&format=json" +
-						"&url=" + escape(externalUrl) +
-						"&" + this.callbackparameter + "=?";
+			var qs = "";
+
+			for (var i in this.params) {
+                // We don't want them to jack everything up by changing the callback parameter
+                if (i == this.callbackparameter)
+                  continue;
+                
+				// allows the options to be set to null, don't send null values to the server as parameters
+                if (this.params[i] != null)
+                	qs += "&" + escape(i) + "=" + this.params[i];
+            }			
+
+            url += "format=json";
+			
+			if (this.maxWidth != null)
+				url += "&maxwidth=" + this.maxWidth;
+				
+			if (this.maxHeight != null)
+				url += "&maxheight=" + this.maxHeight;			
+				
+			url += "&url=" + escape(externalUrl) + 			
+					qs + 
+					"&" + this.callbackparameter + "=?";
+					
             return url;
         }
 
