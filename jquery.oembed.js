@@ -125,7 +125,9 @@
         new OEmbedProvider("vimeo", "vimeo.com", "http://vimeo.com/api/oembed.json"),
         new OEmbedProvider("wikipedia", "wikipedia.org"),
         new OEmbedProvider("wordpress", "wordpress.com"),
-        new OEmbedProvider("youtube", "youtube.com")
+        new OEmbedProvider("youtube", "youtube.com"),
+        new OEmbedProvider("vids.myspace.com", "vids.myspace.com", "http://vids.myspace.com/index.cfm?fuseaction=oembed"),
+		new OEmbedProvider("screenr", "screenr.com", "http://screenr.com/api/oembed.json")
     ];
 
     function OEmbedProvider(name, urlPattern, oEmbedUrl, callbackparameter) {
@@ -147,6 +149,8 @@
 
             if (url.indexOf("?") <= 0)
                 url = url + "?";
+			else
+				url = url + "&";
 
 			var qs = "";
 
