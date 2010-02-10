@@ -115,7 +115,7 @@
 		if (params == null)
 			return null;
 		var normalizedParams = {};
-		for (key in params) {
+		for (var key in params) {
 			if (key != null)
 				normalizedParams[key.toLowerCase()] = params[key];
 		}
