@@ -16,10 +16,10 @@
             if (resourceURL != null) {
                 provider = getOEmbedProvider(resourceURL);
 
-                if (provider != null) {
+                if (provider != null) {						
+					provider.params = getNormalizedParams(options[provider.name]) || {};
                     provider.maxWidth = options.maxWidth;
-                    provider.maxHeight = options.maxHeight;					
-					provider.params = options[provider.name] || {};
+                    provider.maxHeight = options.maxHeight;										
                     provider.embedCode(container, resourceURL, callback);
                     return;
                 }
@@ -37,6 +37,8 @@
     };
 	
 	$.fn.oembed.insertCode = function(container, embedMethod, oembed) {
+		if (oembed == null)
+			return;
 		switch(embedMethod)
 		{
 			case "auto":				
@@ -108,6 +110,17 @@
         }
         return null;
     }
+	
+	function getNormalizedParams(params) {
+		if (params == null)
+			return null;
+		var normalizedParams = {};
+		for (key in params) {
+			if (key != null)
+				normalizedParams[key.toLowerCase()] = params[key];
+		}
+		return normalizedParams;
+	}
 
     var providers = [
         new OEmbedProvider("fivemin", "5min.com"),
@@ -153,6 +166,12 @@
 				url = url + "&";
 
 			var qs = "";
+			
+			if (this.maxWidth != null && this.params["maxwidth"] == null)
+				this.params["maxwidth"] = this.maxWidth;				
+				
+			if (this.maxHeight != null && this.params["maxheight"] == null)
+				this.params["maxheight"] = this.maxHeight;
 
 			for (var i in this.params) {
                 // We don't want them to jack everything up by changing the callback parameter
@@ -163,16 +182,9 @@
                 if (this.params[i] != null)
                 	qs += "&" + escape(i) + "=" + this.params[i];
             }			
-
-            url += "format=json";
-			
-			if (this.maxWidth != null)
-				url += "&maxwidth=" + this.maxWidth;
+            
 				
-			if (this.maxHeight != null)
-				url += "&maxheight=" + this.maxHeight;			
-				
-			url += "&url=" + escape(externalUrl) + 			
+			url += "format=json&url=" + escape(externalUrl) + 			
 					qs + 
 					"&" + this.callbackparameter + "=?";
 					
