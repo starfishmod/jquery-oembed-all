@@ -1,5 +1,9 @@
 == jquery-oembed ChangeLog ==
 
+== 1.0.5 ==
+* BugFix: Fixed slideshare & revision3 providers
+* BugFix: Problem with the "auto" insert method.
+
 == 1.0.4 ==
 * Added support for screenr.com videos
 * Added support for vids.myspace.com videos

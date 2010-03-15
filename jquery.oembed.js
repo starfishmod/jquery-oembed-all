@@ -43,10 +43,10 @@
 		{
 			case "auto":				
                 if (container.attr("href") != null) {
-					insertCode(container, "append", oembed);
+					$.fn.oembed.insertCode(container, "append", oembed);
 				}
 				else {
-					insertCode(container, "replace", oembed);
+					$.fn.oembed.insertCode(container, "replace", oembed);
 				};
 				break;
 			case "replace":	
@@ -67,7 +67,7 @@
 				oembedContainer.html(oembed.code);				
 				break;			
 		}
-	}	
+	};
 
     $.fn.oembed.getPhotoCode = function(url, data) {
 	    var alt = data.title ? data.title : '';
@@ -131,8 +131,8 @@
         new OEmbedProvider("imdb", "imdb.com"),
         new OEmbedProvider("metacafe", "metacafe.com"),
         new OEmbedProvider("qik", "qik.com"),
-        new OEmbedProvider("revision3", "slideshare"),
-        new OEmbedProvider("slideshare", "5min.com"),
+        new OEmbedProvider("revision3", "revision3.com"),
+        new OEmbedProvider("slideshare", "slideshare.net"),
         new OEmbedProvider("twitpic", "twitpic.com"),
         new OEmbedProvider("viddler", "viddler.com"),
         new OEmbedProvider("vimeo", "vimeo.com", "http://vimeo.com/api/oembed.json"),
@@ -189,7 +189,7 @@
 					"&" + this.callbackparameter + "=?";
 					
             return url;
-        }
+        };
 
         this.embedCode = function(container, externalUrl, callback) {
 
@@ -218,6 +218,6 @@
 
                 callback(container, oembed);
             });
-        }
+        };
     }
 })(jQuery);
