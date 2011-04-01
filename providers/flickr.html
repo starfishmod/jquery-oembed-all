@@ -1,17 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>slide example</title>
+	<title>jquery-oembed explicit insert example</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>    
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
-	<script type="text/javascript" src="jquery.oembed.js"></script>
+	<script type="text/javascript" src="../jquery.oembed.js"></script>
 </head>
 <body>
-<script type="text/javascript">	
+<script type="text/javascript">
 	$(document).ready(function() {
-		$(".oembed").oembed();
+		$("#container").oembed("http://www.flickr.com/photos/14516334@N00/345009210/");
 	});
 </script>
-<a href="http://www.slideshare.net/cschalk/app-engine-overview-google-hackathon-sxsw-2010" class="oembed">Slideshare - App Engine Overview @ Google Hackathon SXSW 2010</a>
+<div id="container"></div>
 </body>
 </html>
