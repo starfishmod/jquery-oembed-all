@@ -47,17 +47,16 @@ Current 3rd party sources include:
 * ebay
 * scribid
 * screenr
+* tumblr
 
 ---
 ####TODO:
 
 * Disqus
-
 * gravatar
 * stack overflow
 * embedr
 * eventful
 * tal.ki
-* tumblr
 * Amazon
 * A lot more :) Feel free to submit

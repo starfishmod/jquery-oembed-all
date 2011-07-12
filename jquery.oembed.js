@@ -384,7 +384,7 @@
             +'    <img src="'+data.user.avatar_url+'">'
             +'  </div>'
             +'  <div id="photo-info">'
-             +'   <h1><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h1>'
+             +'   <h3><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h3>'
             +'    <p><span id="photo-info-name">'+data.user.name+'</span> '+data.user.timestamp+'</p>'
             +'  </div>'
             +'</div>'
@@ -404,6 +404,15 @@
 	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" '
 	    + ' flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1">'
 	    + '</embed></object>'}),
+    new $.fn.oembed.OEmbedProvider("tumblr", "photo", ["tumblr.com/.+"], "http://$1.tumblr.com/api/read/json?callback=?&id=$2",{
+      templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
+      templateData : function(data){
+          return  '<div id="content">'
+            +'   <h3><a class="nav-link" href="'+data.posts[0]['url-with-slug']+'">'+data.posts[0]['regular-title']+'</a></h3>'
+            +data.posts[0]['regular-body']
+            +'</div>';
+        },
+      }),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, {templateRegex:/.*\/([^\/]+).*/ 
       , template : '<iframe src="http://www.screenr.com/embed/$1" width="650" height="396" frameborder="0"></iframe>'}) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,{templateRegex:/.*\/(\d+)\/?.*/ 
