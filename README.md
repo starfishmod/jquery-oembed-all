@@ -20,12 +20,12 @@ Current 3rd party sources include:
 * Clickthrough
 * Kino Map
 
-###Audio 
+####Audio 
 
 * Soundcloud
 * HuffDuffer
 
-### Photo
+#### Photo
 
 * flickr
 * photobucket
@@ -40,7 +40,7 @@ Current 3rd party sources include:
 * gigapans
 * Slideshare
 
-###TODO:
+####TODO:
 
 * Disqus
 * twitpic
