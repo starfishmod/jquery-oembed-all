@@ -1,0 +1,39 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="../jquery.oembed.js"></script>
+
+
+<script>
+
+ $(document).ready(function () {
+	 
+	$('#info').keyup(function(){
+		tagdata = [];
+		eventdata = [];
+		var scriptruns = [];
+		var text = $('#info').val();
+		text = $('<span>'+text+'</span>').text(); //strip html
+		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		$('#out').empty().html('<span>'+text+'</span>');
+		
+		$(".oembed").oembed(null, {embedMethod: "replace"});
+		
+	}); 
+		
+ });
+ 
+</script>
+</head>
+<body>
+
+
+<textarea id="info" style="width:80%; margin-right:auto; margin-left: auto; height:200px;">
+</textarea>
+<hr/>
+<div id="out"></div>
+
+
+
+</body>
+</html>
