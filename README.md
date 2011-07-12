@@ -19,6 +19,7 @@ Current 3rd party sources include:
 * Dotsub
 * Clickthrough
 * Kino Map
+* Funny Or Die
 
 ####Audio 
 
