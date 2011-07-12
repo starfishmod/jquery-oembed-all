@@ -4,7 +4,9 @@
  * Copyright (c) 2009 Richard Chamorro
  * Licensed under the MIT license
  * 
- * Author: Richard Chamorro 
+ * Orignal Author: Richard Chamorro 
+ * Forked by Andrew Mee to Provide a slightly diffent kind of embedding 
+ * experience
  */
  
 (function ($) {
@@ -54,7 +56,6 @@
         maxWidth: null,
         maxHeight: null,
         embedMethod: "replace",  	// "auto", "append", "fill"		
-        defaultOEmbedProvider: "oohembed", 	// "oohembed", "embed.ly", "none"
         allowedProviders: null,
         disallowedProviders: null,
         customProviders: null, // [ new $.fn.oembed.OEmbedProvider("customprovider", null, ["customprovider\\.com/watch.+v=[\\w-]+&?"]) ]	
@@ -180,26 +181,6 @@
                 }
             });
         }
-
-        // If in greedy mode, we add the default provider
-        defaultProvider = getDefaultOEmbedProvider(settings.defaultOEmbedProvider);
-        if (settings.greedy == true) {
-            activeProviders.push(defaultProvider);
-		}
-        // If any provider has no apiendpoint, we use the default provider endpoint
-        /*for (i = 0; i < activeProviders.length; i++) {
-            if (activeProviders[i].apiendpoint == null)
-                activeProviders[i].apiendpoint = defaultProvider.apiendpoint;
-            if (activeProviders[i].format == null)
-              activeProviders[i].format ='json';
-        }*/
-    }
-
-    function getDefaultOEmbedProvider(defaultOEmbedProvider) {
-        var url = "http://oohembed.com/oohembed/";
-        if (defaultOEmbedProvider == "embed.ly")
-            url = "http://api.embed.ly/v1/api/oembed?";
-        return new $.fn.oembed.OEmbedProvider(defaultOEmbedProvider, null, null, url, "callback");
     }
 
     function getNormalizedParams(params) {
@@ -293,7 +274,7 @@
         this.name = name;
         this.type = type; // "photo", "video", "link", "rich", null
         this.urlschemes = getUrlSchemes(urlschemesarray);
-        this.apiendpoint = apiendpoint ;//|| $.fn.oembed.getDefaultOEmbedProvider($.fn.oembed.defaults.defaultOEmbedProvider);
+        this.apiendpoint = apiendpoint ;
         this.maxWidth = 500;
         this.maxHeight = 400;
         
@@ -337,8 +318,8 @@
     /* Native & common providers */
     $.fn.oembed.providers = [
     //Video
-		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,{templateRegex:/.*v\=([\w-]+)&?.*/ , template : '<iframe width="425" height="349" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'}), // "http://www.youtube.com/oembed"	(no jsonp)
-    new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\.com"]), // "http://lab.viddler.com/services/oembed/" (no jsonp)
+		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,{templateRegex:/.*v\=([\w-]+)&?.*/ 
+      , template : '<iframe width="425" height="349" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
@@ -362,13 +343,19 @@
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]/.+"], "http://api.smugmug.com/services/oembed/"),
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
-		new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"]), // ", "http://www.scribd.com/services/oembed"" (no jsonp)		
-		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,{templateRegex:/.*\/(\d+)\/?.*/ , template : '<iframe src="http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html" frameborder="0" height="400" scrolling="no" width="100%"></iframe>'}), 
+    new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/ 
+      , template : '<object width="355" height="300"><param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" />'
+	    + '<param name="flashvars" value="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1" />'
+	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" '
+	    + ' flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1">'
+	    + '</embed></object>'}),
+		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,{templateRegex:/.*\/(\d+)\/?.*/ 
+      , template : '<iframe src="http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html" frameborder="0" height="400" scrolling="no" width="100%"></iframe>'}), 
 		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
 		
 		// new $.fn.oembed.OEmbedProvider("vids.myspace.com", "video", ["vids\.myspace\.com"]), // "http://vids.myspace.com/index.cfm?fuseaction=oembed" (not working)
 		// new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], "http://screenr.com/api/oembed.json") (error)		
-		// ,		
-		// 
+		//new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"]), // ", "http://www.scribd.com/services/oembed"" (no jsonp)	
+		    //new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\.com"]), // "http://lab.viddler.com/services/oembed/" (no jsonp)
 	];
 })(jQuery);

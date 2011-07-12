@@ -39,6 +39,7 @@ Current 3rd party sources include:
 * Meetup
 * gigapans
 * Slideshare
+* ebay
 
 ####TODO:
 
@@ -50,5 +51,5 @@ Current 3rd party sources include:
 * eventful
 * tal.ki
 * tumblr
+* Amazon
 * A lot more :) Feel free to submit
-
