@@ -104,10 +104,31 @@
 
     function embedCode(container, externalUrl, embedProvider) {
       if(embedProvider.templateRegex){
-        var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
-        settings.beforeEmbed.call(container, oembedData);
-        settings.onEmbed.call(container, oembedData);
-        settings.afterEmbed.call(container, oembedData);
+        
+        if(embedProvider.apiendpoint){
+          ajaxopts = $.extend({
+            url: externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
+            type: 'get',
+            dataType: 'json',
+            success:  function (data) {
+              var oembedData = $.extend({}, data);
+              oembedData.code = embedProvider.templateData(data);
+             
+              settings.beforeEmbed.call(container, oembedData);
+              settings.onEmbed.call(container, oembedData);
+              settings.afterEmbed.call(container, oembedData);
+            },
+            error: settings.onError.call(container, externalUrl, embedProvider)
+          }, settings.ajaxOptions || { } );
+          
+          $.ajax( ajaxopts );
+        }else{
+        
+          var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
+          settings.beforeEmbed.call(container, oembedData);
+          settings.onEmbed.call(container, oembedData);
+          settings.afterEmbed.call(container, oembedData);
+        }
         
       }else{
 
@@ -354,6 +375,26 @@
 		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed"),
 		new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]/photo/.+"], "http://www.23hq.com/23/oembed"),
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]/.+"], "http://api.smugmug.com/services/oembed/"),
+		new $.fn.oembed.OEmbedProvider("twitpic", "photo", ["twitpic.com/.+"], "http://api.twitpic.com/2/media/show.jsonp?callback=?&id=$1",{
+      templateRegex:/.*\/([^\/]+).*/,
+      templateData : function(data){
+          return  '<div id="content">'
+            +'<div id="view-photo-user">'
+            +'  <div id="photo-user-avatar">'
+            +'    <img src="'+data.user.avatar_url+'">'
+            +'  </div>'
+            +'  <div id="photo-info">'
+             +'   <h1><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h1>'
+            +'    <p><span id="photo-info-name">'+data.user.name+'</span> '+data.user.timestamp+'</p>'
+            +'  </div>'
+            +'</div>'
+            +'<div id="photo-wrap" style="margin: auto;width:600px;height:450px;">'
+            +'  <img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'">'
+            +'</div>'
+            +'<div id="view-photo-caption">'+data.message+'</div>'
+          +'</div>';
+        },
+      }),
     
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),

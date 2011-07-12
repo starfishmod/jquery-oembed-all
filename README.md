@@ -22,6 +22,7 @@ Current 3rd party sources include:
 * Kino Map
 * Funny Or Die
 * Colledge Humour
+* Metacafe
 
 ####Audio 
 
@@ -32,10 +33,11 @@ Current 3rd party sources include:
 
 * flickr
 * photobucket
-* instgram
+* instagram
 * yfrog
 * 23HQ
 * Smugmug
+* twitpic
 
 ####Rich
 
@@ -50,10 +52,10 @@ Current 3rd party sources include:
 ####TODO:
 
 * Disqus
-* twitpic
-* gravtar
+
+* gravatar
 * stack overflow
-* emebedr
+* embedr
 * eventful
 * tal.ki
 * tumblr
