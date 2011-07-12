@@ -7,7 +7,7 @@ Instead of using oohembed or other such services it tries to embed the object na
 This project while it will happily use the the oembed framework it is not against using other types of embedding where ever possible.
 
 Current 3rd party sources include:
-#Video
+####Video
 
 * Youtube
 * Blip
@@ -20,11 +20,13 @@ Current 3rd party sources include:
 * Clickthrough
 * Kino Map
 
-#Audio 
+###Audio 
 
 * Soundcloud
 * HuffDuffer
-# Photo
+
+### Photo
+
 * flickr
 * photobucket
 * instgram
@@ -32,13 +34,13 @@ Current 3rd party sources include:
 * 23HQ
 * Smugmug
 
-#Rich
+####Rich
 
 * Meetup
 * gigapans
 * Slideshare
 
-TODO:
+###TODO:
 
 * Disqus
 * twitpic
