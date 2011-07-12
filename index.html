@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://raw.github.com/starfishmod/jquery-oembed-all/master/jquery.oembed.js"></script>
+
+
+<script>
+
+ $(document).ready(function () {
+  $('#info').keyup(function(){
+    var text = $('#info').val();
+    text = $('<span>'+text+'</span>').text(); //strip html
+    text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+    $('#out').empty().html('<span>'+text+'</span>');
+    $(".oembed").oembed(null, {embedMethod: "replace"});
+  });
+ });
+ 
+</script>
   <meta charset='utf-8'>
 
   <title>starfishmod/jquery-oembed-all @ GitHub</title>
@@ -34,16 +51,7 @@
   <a href="http://github.com/starfishmod/jquery-oembed-all"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/starfishmod/jquery-oembed-all/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/starfishmod/jquery-oembed-all/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/starfishmod/jquery-oembed-all">jquery-oembed-all</a>
-      <span class="small">by <a href="http://github.com/starfishmod">starfishmod</a></span></h1>
+    <h1><a href="http://github.com/starfishmod/jquery-oembed-all">jquery-oembed-all</a></h1>
 
     <div class="description">
       A fork with improvements of the jquery-oembed project
@@ -55,22 +63,15 @@ Instead of using oohembed or other such services it tries to embed the object na
 <p>Jquery</p>
 <h2>License</h2>
 <p>MIT</p>
-<h2>Authors</h2>
-<p>Andrew Mee (primary.edw@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Andrew (primary.edw@gmail.com)<br/>      </p>
+
+<table style="width:80%; margin-right:auto; margin-left: auto; ">
+<tr><th width="50%">Try It Out - Paste URLS in Here</th><th>Output</th></tr>
+<tr><td><textarea id="info" style="width:100%; margin-right:auto; margin-left: auto; height:200px;">
+</textarea></td><td width="50%"><div id="out"></div></td></tr>
+</table>
 
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/starfishmod/jquery-oembed-all/zipball/master">zip</a> or
-      <a href="http://github.com/starfishmod/jquery-oembed-all/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/starfishmod/jquery-oembed-all</pre>
-    </p>
+    
 
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/starfishmod/jquery-oembed-all">starfishmod/jquery-oembed-all</a>
