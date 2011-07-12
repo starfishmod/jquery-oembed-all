@@ -7,6 +7,7 @@ Instead of using oohembed or other such services it tries to embed the object na
 This project while it will happily use the the oembed framework it is not against using other types of embedding where ever possible.
 
 Current 3rd party sources include:
+---------------------------------
 ####Video
 
 * Youtube
