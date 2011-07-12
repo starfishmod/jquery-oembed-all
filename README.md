@@ -21,6 +21,7 @@ Current 3rd party sources include:
 * Clickthrough
 * Kino Map
 * Funny Or Die
+* Colledge Humour
 
 ####Audio 
 
@@ -42,7 +43,9 @@ Current 3rd party sources include:
 * gigapans
 * Slideshare
 * ebay
+* scribid
 
+---
 ####TODO:
 
 * Disqus
