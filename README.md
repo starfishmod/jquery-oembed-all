@@ -44,6 +44,7 @@ Current 3rd party sources include:
 * Slideshare
 * ebay
 * scribid
+* screenr
 
 ---
 ####TODO:

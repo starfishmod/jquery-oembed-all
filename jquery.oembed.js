@@ -340,6 +340,7 @@
     new $.fn.oembed.OEmbedProvider("dotsub", "video", ["dotsub\\.com/view/.+"], "http://dotsub.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("clickthrough", "video", ["clikthrough\\.com/theater/video/\\d+"], "http://clikthrough.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("Kinomap", "video", ["kinomap\\.com/.+"], "http://www.kinomap.com/oembed"),
+    
     //Audio
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
@@ -358,15 +359,16 @@
 	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" '
 	    + ' flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1">'
 	    + '</embed></object>'}),
+    new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, {templateRegex:/.*\/([^\/]+).*/ 
+      , template : '<iframe src="http://www.screenr.com/embed/$1" width="650" height="396" frameborder="0"></iframe>'}) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,{templateRegex:/.*\/(\d+)\/?.*/ 
       , template : '<iframe src="http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html" frameborder="0" height="400" scrolling="no" width="100%"></iframe>'}), 
-    new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null
-      ,{templateRegex:/.*doc\/([^\/]+).*/ 
+    new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null,{templateRegex:/.*doc\/([^\/]+).*/ 
       , template : '<iframe class="scribd_iframe_embed" src="http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list" data-auto-height="true" data-aspect-ratio="" scrolling="no" width="100%" height="600" frameborder="0"></iframe>'}), 
 		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
 		
 		// new $.fn.oembed.OEmbedProvider("vids.myspace.com", "video", ["vids\.myspace\.com"]), // "http://vids.myspace.com/index.cfm?fuseaction=oembed" (not working)
-		// new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], "http://screenr.com/api/oembed.json") (error)		
+		// (error)		
 		
 		    //new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\.com"]), // "http://lab.viddler.com/services/oembed/" (no jsonp)
 	];
