@@ -71,13 +71,8 @@
 
     /* Private functions */
     function getRequestUrl(provider, externalUrl) {
-
         var url = provider.apiendpoint, qs = "",  i;
-
-        if (url.indexOf("?") <= 0)
-            url = url + "?";
-        else
-            url = url + "&";
+        url += (url.indexOf("?") <= 0)?"?":"&";
 
         if (provider.maxWidth != null && provider.params["maxwidth"] == null)
             provider.params["maxwidth"] = provider.maxWidth;
@@ -96,8 +91,7 @@
         }
 
         url += "format="+provider.format+"&url=" + escape(externalUrl) +
-					qs +
-					"&" + provider.callbackparameter + "=?";
+					qs +"&" + provider.callbackparameter + "=?";
 
         return url;
     };
@@ -338,6 +332,7 @@
 
     /* Native & common providers */
     $.fn.oembed.providers = [
+    
     //Video
 		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,{templateRegex:/.*v\=([\w-]+)&?.*/ 
       , template : '<iframe width="425" height="349" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'}), 
@@ -352,6 +347,8 @@
           +'<embed src="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1" type="application/x-shockwave-flash" wmode="transparent" width="600" height="338" allowScriptAccess="always"></embed></object>'}), 
     new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,{templateRegex:/.*watch\/(\d+)\/(\w+)\/.*/ 
       , template : '<embed src="http://www.metacafe.com/fplayer/$1/$2.swf" width="400" height="345" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" allowFullScreen="true"> </embed>'}), 
+    new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],null,{templateRegex:/.*playlist\/([^\/]+).*/ 
+      , template : '<div style="width:425px;height:520px;"><object width="425" height="520"><param name="movie" value="http://embedr.com/swf/slider/$1/425/520/default/false/std"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent"><embed src="http://embedr.com/swf/slider/$1/425/520/default/false/std" type="application/x-shockwave-flash" allowFullScreen="true" width="425" height="520" wmode="transparent"></embed></object>'}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
@@ -420,10 +417,6 @@
     new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null,{templateRegex:/.*doc\/([^\/]+).*/ 
       , template : '<iframe class="scribd_iframe_embed" src="http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list" data-auto-height="true" data-aspect-ratio="" scrolling="no" width="100%" height="600" frameborder="0"></iframe>'}), 
 		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
-		
-		// new $.fn.oembed.OEmbedProvider("vids.myspace.com", "video", ["vids\.myspace\.com"]), // "http://vids.myspace.com/index.cfm?fuseaction=oembed" (not working)
-		// (error)		
-		
-		    //new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\.com"]), // "http://lab.viddler.com/services/oembed/" (no jsonp)
+
 	];
 })(jQuery);
