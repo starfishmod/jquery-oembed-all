@@ -4,7 +4,7 @@ Jquery-Oembed
 This is a fork of the jquery-oembed located at http://code.google.com/p/jquery-oembed/.
 
 Instead of using oohembed or other such services it tries to embed the object natively without using a third-party server.
-This project while it will happily use native oembed services, it is not against using other types of embedding where ever possible.
+This project will happily use native oembed services when it can, however it also use other types of embedding whenever oembed is not possible.
 
 
 Current 3rd party sources include:
@@ -50,6 +50,7 @@ Current 3rd party sources include:
 * scribd
 * screenr
 * tumblr
+* imdb
 
 ---
 ####TODO:
@@ -58,6 +59,7 @@ Current 3rd party sources include:
 * gravatar
 * stack overflow
 * eventful
-* tal.ki
+* tal.ki - Uses a script embed - may not work
 * Amazon
+* iFixit
 * A lot more :) Feel free to submit
