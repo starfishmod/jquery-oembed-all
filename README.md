@@ -50,7 +50,8 @@ Current 3rd party sources include:
 * scribd
 * screenr
 * tumblr
-* imdb
+* imdb - using imdbapi.com
+* wikipedia
 
 ---
 ####TODO:
