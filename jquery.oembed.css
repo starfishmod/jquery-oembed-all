@@ -1,0 +1,99 @@
+div.githubrepos  {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    list-style-type: none;
+    margin: 0 0 10px;
+    padding: 8px 10px 0;
+    font: 13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;
+    background: url("http://github.com/images/icons/public.png") no-repeat scroll 6px 9px transparent;
+    width : 452px;
+}
+
+div.githubrepos .body {
+    background: -moz-linear-gradient(center top , #FAFAFA, #EFEFEF) repeat scroll 0 0 transparent;
+    background:  -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EFEFEF));;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top: 1px solid #EEEEEE;
+    margin-left: -10px;
+    margin-top: 8px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+div.githubrepos h3 {
+    font-size: 14px;
+    margin: 0;
+    padding-left: 18px;
+    white-space: nowrap;
+}
+
+div.githubrepos p.description {
+    color: #444444;
+    font-size: 12px;
+    margin: 0 0 3px;
+}
+
+div.githubrepos p.updated-at {
+    color: #888888;
+    font-size: 11px;
+    margin: 0;
+}
+
+div.githubrepos ul.repo-stats {
+    background: url("http://github.com/images/modules/pagehead/actions_fade.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    float: right;
+    font-size: 11px;
+    font-weight: bold;
+    padding-left: 15px;
+    position: relative;
+    z-index: 5;
+    margin:0;
+}
+div.githubrepos ul.repo-stats li {
+    border: medium none;
+    color: #666666;
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 !important;
+}
+div.githubrepos ul.repo-stats li a {
+    background-color: transparent;
+    background-position: 5px -2px;
+    border: medium none;
+    color: #666666 !important;
+    background-position: 5px -2px;
+    background-repeat: no-repeat;
+    border-left: 1px solid #DDDDDD;
+    display: inline-block;
+    height: 21px;
+    line-height: 21px;
+    padding: 0 5px 0 23px;
+}
+
+
+div.githubrepos ul.repo-stats li:first-child a {
+    border-left: medium none;
+    margin-right: -3px;
+}
+div.githubrepos ul.repo-stats li a:hover {
+    background: none no-repeat scroll 5px -27px #4183C4;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+div.githubrepos ul.repo-stats li:first-child a:hover {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+ul.repo-stats li:last-child a:hover {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+div.githubrepos ul.repo-stats li.watchers a {
+    background-image: url("http://github.com/images/modules/pagehead/repostat_watchers.png");
+}
+
+div.githubrepos ul.repo-stats li.forks a {
+    background-image: url("http://github.com/images/modules/pagehead/repostat_forks.png");
+}

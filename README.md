@@ -50,8 +50,9 @@ Current 3rd party sources include:
 * scribd
 * screenr
 * tumblr
-* imdb - using imdbapi.com
+* imdb - via imdbapi.com
 * wikipedia
+* github
 
 ---
 ####TODO:
@@ -63,4 +64,5 @@ Current 3rd party sources include:
 * tal.ki - Uses a script embed - may not work
 * Amazon
 * iFixit
+* vis.ly
 * A lot more :) Feel free to submit

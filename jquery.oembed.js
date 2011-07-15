@@ -14,8 +14,6 @@
 
         settings = $.extend(true, $.fn.oembed.defaults, options);
 
-        initializeProviders();
-
         return this.each(function () {
 
             var container = $(this),
@@ -56,11 +54,6 @@
         maxWidth: null,
         maxHeight: null,
         embedMethod: "replace",  	// "auto", "append", "fill"		
-        allowedProviders: null,
-        disallowedProviders: null,
-        customProviders: null, // [ new $.fn.oembed.OEmbedProvider("customprovider", null, ["customprovider\\.com/watch.+v=[\\w-]+&?"]) ]	
-        defaultProvider: null,
-        greedy: true,
         onProviderNotFound: function () { },
         beforeEmbed: function () { },
         afterEmbed: function () { },
@@ -157,47 +150,6 @@
       }      
     };
 
-    function initializeProviders() {
-
-        activeProviders = [];
-
-        var defaultProvider, restrictedProviders = [], i, provider;
-
-        if (!isNullOrEmpty(settings.allowedProviders)) {
-            for (i = 0; i < $.fn.oembed.providers.length; i++) {
-                if ($.inArray($.fn.oembed.providers[i].name, settings.allowedProviders) >= 0)
-                    activeProviders.push($.fn.oembed.providers[i]);
-            }
-            // If there are allowed providers, jquery-oembed cannot be greedy
-            settings.greedy = false;
-
-        } else {
-            activeProviders = $.fn.oembed.providers;
-        }
-
-        if (!isNullOrEmpty(settings.disallowedProviders)) {
-            for (i = 0; i < activeProviders.length; i++) {
-                if ($.inArray(activeProviders[i].name, settings.disallowedProviders) < 0)
-                    restrictedProviders.push(activeProviders[i]);
-            }
-            activeProviders = restrictedProviders;
-            // If there are allowed providers, jquery-oembed cannot be greedy
-            settings.greedy = false;
-        }
-
-        if (!isNullOrEmpty(settings.customProviders)) {
-            $.each(settings.customProviders, function (n, customProvider) {
-                if (customProvider instanceof $.fn.oembed.OEmbedProvider) {
-                    activeProviders.push(provider);
-                } else {
-                    provider = new $.fn.oembed.OEmbedProvider();
-                    if (provider.fromJSON(customProvider))
-                        activeProviders.push(provider);
-                }
-            });
-        }
-    }
-
     function getNormalizedParams(params) {
         if (params == null)
             return null;
@@ -278,9 +230,9 @@
     };
 
     $.fn.oembed.getOEmbedProvider = function (url) {
-        for (var i = 0; i < activeProviders.length; i++) {
-            if (activeProviders[i].matches(url))
-                return activeProviders[i];
+        for (var i = 0; i < this.providers.length; i++) {
+            if (this.providers[i].matches(url))
+                return this.providers[i];
         }
         return null;
     };
@@ -372,7 +324,7 @@
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]/.+"], "http://api.smugmug.com/services/oembed/"),
 		new $.fn.oembed.OEmbedProvider("twitpic", "photo", ["twitpic.com/.+"], "http://api.twitpic.com/2/media/show.jsonp?callback=?&id=$1",{
       templateRegex:/.*\/([^\/]+).*/,
-      templateData : function(data){
+      templateData : function(data){if(!data.user)return false;
           return  '<div id="content"><div id="view-photo-user"><div id="photo-user-avatar"><img src="'+data.user.avatar_url+'"></div><div id="photo-info"><h3><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h3><p><span id="photo-info-name">'+data.user.name+'</span> '+data.user.timestamp+'</p></div></div><div id="photo-wrap" style="margin: auto;width:600px;height:450px;">'
             +'<img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'"></div><div id="view-photo-caption">'+data.message+'</div></div>';
         },
@@ -383,22 +335,28 @@
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/ 
       , template : '<object width="355" height="300"><param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" /><param name="flashvars" value="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1" />'
 	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"></embed></object>'}),
-    new $.fn.oembed.OEmbedProvider("tumblr", "rich", ["tumblr.com/.+"], "http://$1.tumblr.com/api/read/json?callback=?&id=$2",{
-      templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
-      templateData : function(data){
+    new $.fn.oembed.OEmbedProvider("tumblr", "rich", ["tumblr.com/.+"], "http://$1.tumblr.com/api/read/json?callback=?&id=$2",{templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
+      templateData : function(data){if(!data.posts)return false;
           return  '<div id="content"><h3><a class="nav-link" href="'+data.posts[0]['url-with-slug']+'">'+data.posts[0]['regular-title']+'</a></h3>'+data.posts[0]['regular-body']+'</div>';
         },
       }),
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
-      templateData : function(data){
+      templateData : function(data){if(!data.parse)return false;
           return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+data.parse['text']+'</div>';
         },
       }),
-    new $.fn.oembed.OEmbedProvider("imdb", "rich", ["imdb.com/title/.+"], "http://www.imdbapi.com/?i=$1&callback=?",{
-      templateRegex:/.*\/title\/([^\/]+).*/,
-      templateData : function(data){
+    new $.fn.oembed.OEmbedProvider("imdb", "rich", ["imdb.com/title/.+"], "http://www.imdbapi.com/?i=$1&callback=?",{templateRegex:/.*\/title\/([^\/]+).*/,
+      templateData : function(data){if(!data.Title)return false;
           return  '<div id="content"><h3><a class="nav-link" href="http://imdb.com/title/'+data.ID+'/">'+data.Title+'</a> ('+data.Year+')</h3><p>Starring: '+data.Actors+'</p><div id="photo-wrap" style="margin: auto;width:600px;height:450px;"><img class="photo" id="photo-display" src="'+data.Poster+'" alt="'+data.Title+'"></div>  <div id="view-photo-caption">'+data.Plot+'</div></div>';
+        },
+      }),
+    new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
+    ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
+      templateData : function(data){ if(!data.data.html_url)return false;
+          return  '<div class="githubrepos"><ul class="repo-stats"><li>'+data.data.language+'</li><li class="watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">'+data.data.watchers+'</a></li>'
+      +'<li class="forks"><a title="Forks" href="'+data.data.html_url+'/network">'+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="body"><p class="description">'+data.data.description+'</p>'
+      +'<p class="updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
         },
       }),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, {templateRegex:/.*\/([^\/]+).*/ 
