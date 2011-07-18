@@ -11,58 +11,62 @@ Current 3rd party sources include:
 ---------------------------------
 ####Video
 
-* Youtube
-* Blip
-* Hulu
-* Vimeo
-* 5min
-* National film board of Canada
-* Qik
-* Dotsub
-* Clickthrough
-* Kino Map
-* Funny Or Die
-* Colledge Humour
-* Metacafe
-* embedr
+* Youtube - Embedded
+* Blip - oEmbed
+* Hulu - oEmbed
+* Vimeo - oEmbed
+* 5min - oEmbed
+* National film board of Canada - oEmbed
+* Qik - oEmbed
+* Dotsub - oEmbed
+* Clickthrough - oEmbed
+* Kino Map - oEmbed
+* Funny Or Die - Embedded
+* Colledge Humour - Embedded
+* Metacafe - Embedded
+* embedr - Embedded
 
 ####Audio 
 
-* Soundcloud
-* HuffDuffer
+* Soundcloud - oEmbed
+* HuffDuffer - oEmbed
 
 #### Photo
 
-* flickr
-* photobucket
-* instagram
-* yfrog
-* 23HQ
-* Smugmug
-* twitpic
+* flickr - oEmbed
+* photobucket - oEmbed
+* instagram - oEmbed
+* yfrog - oEmbed
+* 23HQ - oEmbed
+* Smugmug - oEmbed
+* twitpic - JSONP lookup
 
 ####Rich
 
-* Meetup
-* gigapans
-* Slideshare
-* ebay
-* scribd
-* screenr
-* tumblr
-* imdb - via imdbapi.com
-* wikipedia
-* github
+* Meetup - oEmbed
+* gigapans - Embedded
+* Slideshare - oEmbed
+* ebay - Embedded
+* scribd - Embedded
+* screenr - Embedded
+* tumblr- JSONP lookup
+* imdb - JSONP lookup via imdbapi.com
+* wikipedia- JSONP lookup
+* github- JSONP lookup
+* eventful (venues) - Embedded
 
 ---
 ####TODO:
 
 * Disqus
-* gravatar
-* stack overflow
-* eventful
+* gravatar - JSONP available
+* stack overflow - JSONP available
 * tal.ki - Uses a script embed - may not work
-* Amazon
-* iFixit
-* vis.ly
+* Amazon - Wants a key to do lookups
+* iFixit - Uses a script embed - may not work
+* vis.ly - Uses different URL to it's embed link - may not work
+* twitter - JSONP available
+* Rotten Tomatoes - JSONP available
+* Facebook - JSONP available e.g (https://graph.facebook.com/132326176778287/?callback=MyCallBack)
+* myspace - JSONP available e.g (http://api.myspace.com/opensearch/people?searchTerms=historionyx&callback=daldkl)
 * A lot more :) Feel free to submit

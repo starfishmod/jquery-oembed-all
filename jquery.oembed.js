@@ -335,6 +335,10 @@
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/ 
       , template : '<object width="355" height="300"><param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" /><param name="flashvars" value="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1" />'
 	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"></embed></object>'}),
+    new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],null,{templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/ 
+      , template : '<object type = "application/x-shockwave-flash" allowScriptAccess = "always" allowNetworking = "all" width = "450" height ="407" data = "http://static.eventful.com/store/flash/widgets/eventWidget.swf">'
+        +'<param name ="flashVars" value="&id=$2&interfaceFolder=eventView&theme=0&numberPerPage=5&displayTitle=1&location=0&venue=0&eventTitle=1&date=1&time=1&peopleCount=1&countDownClock=0&title=Event at $1">'
+        +'<param name="movie" value="http://static.eventful.com/store/flash/widgets/eventWidget.swf" /><param name="wmode" value="transparent" /></object>'}),
     new $.fn.oembed.OEmbedProvider("tumblr", "rich", ["tumblr.com/.+"], "http://$1.tumblr.com/api/read/json?callback=?&id=$2",{templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
       templateData : function(data){if(!data.posts)return false;
           return  '<div id="content"><h3><a class="nav-link" href="'+data.posts[0]['url-with-slug']+'">'+data.posts[0]['regular-title']+'</a></h3>'+data.posts[0]['regular-body']+'</div>';
@@ -343,7 +347,8 @@
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
       templateData : function(data){if(!data.parse)return false;
-          return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+data.parse['text']+'</div>';
+          var text = data.parse['text']['*'].replace('href="/wiki','href="http://en.wikipedia.org/wiki');
+          return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+text+'</div>';
         },
       }),
     new $.fn.oembed.OEmbedProvider("imdb", "rich", ["imdb.com/title/.+"], "http://www.imdbapi.com/?i=$1&callback=?",{templateRegex:/.*\/title\/([^\/]+).*/,
