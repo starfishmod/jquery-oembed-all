@@ -97,3 +97,40 @@ div.githubrepos ul.repo-stats li.watchers a {
 div.githubrepos ul.repo-stats li.forks a {
     background-image: url("http://github.com/images/modules/pagehead/repostat_forks.png");
 }
+
+
+.myspace1 {
+    border: medium none;
+    border-radius: 6px 6px 6px 6px;
+   padding:0px;
+    font: 13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;
+    width :500px;
+    
+}
+
+.myspace2 {
+    background-color: #282828;
+    font-size: 16pt;
+    font-weight : bold;
+    padding:4px;
+    border-radius: 6px 6px 0px 0px;
+}
+.myspace2 a {
+  color: #e8e8e8;
+  text-decoration:none;
+}
+
+.myspace2 a.MSIcon{
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGMAAAAVCAYAAABSQFBJAAABXUlEQVR42u2YYW3DMBBGDSEQAiEQAiEQDMEQwsAQDMEQDKEQAqEQbpfqtvNOl7iaNu+H70lfU/WrUumebEd1ADBjVsriELx6TMYUTDo7R9D3InWF3s9Vv/D9+PO7Hq8WzPmyA3NQNBIN/gpPgy3AZCcQ999NhpTxOzwxEyaIz6dKxCy67exHl9CSkWirelwMPVz0K2bSVgxvf4yJaMsIjqBhPUW/iB6UbSdrW9VLMlNsi2qcGU7wxhnwUGRscgUo50UwGfcySkPG/mYvB+/leWFPUn1lRGAyxssVaDI6yZArQciJDjEhfWTweaKzmYz+MjwomISOMhqPxtlk9JERlD4JGUH08+gSKF/D2CleGaav+vWmD5hJ6QPU8O8Vih9YwFLNIbs/Rq6MQ1ttA8tYoaKHjAOYeLn1tTEZP0f/l9Zk/O/KWD9zcegn6kdMEDK6wjKMFybDZHyTEcGQlA87nyMST1I0NAAAAABJRU5ErkJggg==") no-repeat scroll 0 0 transparent;
+  color: transparent;
+  
+}
+
+.myspaceBody{
+  background-color: #e8e8e8;
+  border-bottom: 4px solid #333333;
+  border-radius: 0px 0px 6px 6px;
+  
+}
+
+.myspaceBody div{ display:inline-block;vertical-align: top;}

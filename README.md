@@ -54,6 +54,7 @@ Current 3rd party sources include:
 * wikipedia- JSONP lookup
 * github- JSONP lookup
 * eventful (venues) - Embedded
+* myspace - JSONP available 
 
 ---
 ####TODO:
@@ -68,5 +69,5 @@ Current 3rd party sources include:
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
 * Facebook - JSONP available e.g (https://graph.facebook.com/132326176778287/?callback=MyCallBack)
-* myspace - JSONP available e.g (http://api.myspace.com/opensearch/people?searchTerms=historionyx&callback=daldkl)
+
 * A lot more :) Feel free to submit

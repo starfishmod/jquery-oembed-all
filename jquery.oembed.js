@@ -364,6 +364,12 @@
       +'<p class="updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
         },
       }),
+    new $.fn.oembed.OEmbedProvider("myspace", "rich", ["myspace.com/[-.\\w@]+"], "http://api.myspace.com/opensearch/people?searchTerms=$1&callback=?&searchBy=displayname&count=1"
+    ,{templateRegex:/.*\/([^\/]+).*/,
+      templateData : function(data){ if(!data.entries)return false;
+          return  '<div class="myspace1"><div class="myspace2"><a href="http://www.myspace.com/" class="MSIcon">Myspace&nbsp;&nbsp;&nbsp;</a> <a href="'+data.entries[0].profileUrl+'">'+data.entries[0].displayName+'</a></div><div class="myspaceBody"><div><img src="'+data.entries[0].thumbnailUrl+'" align="left"></div><div>Location  <strong>'+data.entries[0].location+'</strong><br/>Type:  <strong>'+data.entries[0].msUserType+'</strong><br/></div></div></div>';
+        },
+      }),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, {templateRegex:/.*\/([^\/]+).*/ 
       , template : '<iframe src="http://www.screenr.com/embed/$1" width="650" height="396" frameborder="0"></iframe>'}) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,{templateRegex:/.*\/(\d+)\/?.*/ 
