@@ -53,7 +53,7 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
-        embedMethod: "replace",  	// "auto", "append", "fill"		
+        embedMethod: 'auto',	// "auto", "append", "fill"		
         onProviderNotFound: function () { },
         beforeEmbed: function () { },
         afterEmbed: function () { },
@@ -188,15 +188,16 @@
                 container.html(oembedData.code);
                 break;
             case "append":
-                var oembedContainer = container.next();
-                if (oembedContainer == null || !oembedContainer.hasClass("oembed-container")) {
-                    oembedContainer = container
-                      .after('<div class="oembed-container"></div>')
-                      .next(".oembed-container");
-                    if (oembedData != null && oembedData.provider_name != null)
-                        oembedContainer.toggleClass("oembed-container-" + oembedData.provider_name);
-                }
-                oembedContainer.html(oembedData.code);
+                container.wrap('<div class="oembed-container"></div>');
+                var oembedContainer = container.parent();
+                $('<span class="oembedclosehide">&uarr;</span>').insertBefore(container).click(function(){
+                    var encodedString=encodeURIComponent($(this).text()); 
+                    $(this).html((encodedString=='%E2%86%91')?'&darr;':'&uarr;');
+                    $(this).parent().children().last().slideToggle();
+                  });
+                oembedContainer.append('<br/>');
+                oembedContainer.append(oembedData.code);
+                //oembedContainer.width($(oembedContainer).children().last().width());
                 break;
         }
     };
@@ -270,8 +271,6 @@
             }
             return false;
         };
-
-        
 
         function getUrlSchemes(urls) {
             if (isNullOrEmpty(urls))

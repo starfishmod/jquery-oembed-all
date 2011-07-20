@@ -52,9 +52,9 @@ Current 3rd party sources include:
 * tumblr- JSONP lookup
 * imdb - JSONP lookup via imdbapi.com
 * wikipedia- JSONP lookup
-* github- JSONP lookup
+* github- JSONP lookup (CSS) 
 * eventful (venues) - Embedded
-* myspace - JSONP available 
+* myspace - JSONP lookup (CSS) 
 
 ---
 ####TODO:
@@ -69,5 +69,6 @@ Current 3rd party sources include:
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
 * Facebook - JSONP available e.g (https://graph.facebook.com/132326176778287/?callback=MyCallBack)
+* last.fm - JSONP Available - requires API Key
 
 * A lot more :) Feel free to submit

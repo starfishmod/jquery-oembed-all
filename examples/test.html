@@ -18,7 +18,7 @@
 		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
 		$('#out').empty().html('<span>'+text+'</span>');
 		
-		$(".oembed").oembed(null, {embedMethod: "replace"});
+		$(".oembed").oembed();
 		
 	}); 
 		

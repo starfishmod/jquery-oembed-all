@@ -134,3 +134,15 @@ div.githubrepos ul.repo-stats li.forks a {
 }
 
 .myspaceBody div{ display:inline-block;vertical-align: top;}
+
+span.oembedclosehide{
+  background-color: #aaa;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-right: 3px;
+}
+
+div.oembed-container {
+ margin-top : 5px;
+ text-align: left;
+}
