@@ -1,5 +1,5 @@
 div.githubrepos  {
-    border: 1px solid #DDDDDD;
+    border: 1px solid #DDD;
     border-radius: 4px 4px 4px 4px;
     list-style-type: none;
     margin: 0 0 10px;
@@ -7,6 +7,7 @@ div.githubrepos  {
     font: 13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;
     background: url("http://github.com/images/icons/public.png") no-repeat scroll 6px 9px transparent;
     width : 452px;
+    background-color:#fff;
 }
 
 div.githubrepos .body {
@@ -14,7 +15,7 @@ div.githubrepos .body {
     background:  -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EFEFEF));;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    border-top: 1px solid #EEEEEE;
+    border-top: 1px solid #EEE;
     margin-left: -10px;
     margin-top: 8px;
     padding: 5px 10px;
@@ -29,13 +30,13 @@ div.githubrepos h3 {
 }
 
 div.githubrepos p.description {
-    color: #444444;
+    color: #444;
     font-size: 12px;
     margin: 0 0 3px;
 }
 
 div.githubrepos p.updated-at {
-    color: #888888;
+    color: #888;
     font-size: 11px;
     margin: 0;
 }
@@ -53,7 +54,7 @@ div.githubrepos ul.repo-stats {
 }
 div.githubrepos ul.repo-stats li {
     border: medium none;
-    color: #666666;
+    color: #666;
     display: inline-block;
     list-style-type: none;
     margin: 0 !important;
@@ -62,10 +63,10 @@ div.githubrepos ul.repo-stats li a {
     background-color: transparent;
     background-position: 5px -2px;
     border: medium none;
-    color: #666666 !important;
+    color: #666 !important;
     background-position: 5px -2px;
     background-repeat: no-repeat;
-    border-left: 1px solid #DDDDDD;
+    border-left: 1px solid #DDD;
     display: inline-block;
     height: 21px;
     line-height: 21px;
@@ -101,10 +102,10 @@ div.githubrepos ul.repo-stats li.forks a {
 
 .myspace1 {
     border: medium none;
-    border-radius: 6px 6px 6px 6px;
+    border-radius: 6px;
    padding:0px;
     font: 13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;
-    width :500px;
+    width : 500px;
     
 }
 
@@ -128,7 +129,7 @@ div.githubrepos ul.repo-stats li.forks a {
 
 .myspaceBody{
   background-color: #e8e8e8;
-  border-bottom: 4px solid #333333;
+  border-bottom: 4px solid #333;
   border-radius: 0px 0px 6px 6px;
   
 }

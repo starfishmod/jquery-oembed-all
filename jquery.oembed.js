@@ -190,7 +190,7 @@
             case "append":
                 container.wrap('<div class="oembed-container"></div>');
                 var oembedContainer = container.parent();
-                $('<span class="oembedclosehide">&uarr;</span>').insertBefore(container).click(function(){
+                $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function(){
                     var encodedString=encodeURIComponent($(this).text()); 
                     $(this).html((encodedString=='%E2%86%91')?'&darr;':'&uarr;');
                     $(this).parent().children().last().slideToggle();
