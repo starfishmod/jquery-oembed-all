@@ -54,6 +54,7 @@ Current 3rd party sources include:
 * github- JSONP lookup (CSS) 
 * eventful (venues) - Embedded
 * myspace - JSONP lookup (CSS) 
+* live Journal - JSONP Lookup
 
 ---
 ####TODO:

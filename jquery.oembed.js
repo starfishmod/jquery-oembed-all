@@ -357,7 +357,7 @@
       }),
     
     new $.fn.oembed.OEmbedProvider("livejournal", "rich", ["livejournal.com/"], "http://ljpic.seacrow.com/json/$2$4?jsonp=?"
-    ,{templateRegex:/(http:\/\/(((?!users).)+)\.livejournal\.com|users\.livejournal\.com\/([^\/]+)).*/,
+    ,{templateRegex:/(http:\/\/(((?!users).)+)\.livejournal\.com|.*users\.livejournal\.com\/([^\/]+)).*/,
       templateData : function(data){if(!data.username)return false;
           return  '<div id="content"><img src="'+data.image+'" align="left" style="margin-right: 1em;" /><span class="ljuser"><a href="http://'+data.username+'.livejournal.com/profile"><img src="http://www.livejournal.com/img/userinfo.gif" alt="[info]" width="17" height="17" /></a><a href="http://'+data.username+'.livejournal.com/">'+data.username+'</a></span><br />'+data.name+'</div>';
         },
