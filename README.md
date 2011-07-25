@@ -15,7 +15,6 @@ Current 3rd party sources include:
 * Blip - oEmbed
 * Hulu - oEmbed
 * Vimeo - oEmbed
-* 5min - oEmbed
 * National film board of Canada - oEmbed
 * Qik - oEmbed
 * Dotsub - oEmbed
@@ -70,5 +69,6 @@ Current 3rd party sources include:
 * Rotten Tomatoes - JSONP available
 * Facebook - JSONP available e.g (https://graph.facebook.com/132326176778287/?callback=MyCallBack)
 * last.fm - JSONP Available - requires API Key
+* 5min - oEmbed is XML only :(
 
 * A lot more :) Feel free to submit
