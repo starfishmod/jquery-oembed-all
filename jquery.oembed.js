@@ -355,6 +355,14 @@
           return  '<div id="content"><h3><a class="nav-link" href="http://imdb.com/title/'+data.ID+'/">'+data.Title+'</a> ('+data.Year+')</h3><p>Starring: '+data.Actors+'</p><div id="photo-wrap" style="margin: auto;width:600px;height:450px;"><img class="photo" id="photo-display" src="'+data.Poster+'" alt="'+data.Title+'"></div>  <div id="view-photo-caption">'+data.Plot+'</div></div>';
         },
       }),
+    
+    new $.fn.oembed.OEmbedProvider("livejournal", "rich", ["livejournal.com/"], "http://ljpic.seacrow.com/json/$2$4?jsonp=?"
+    ,{templateRegex:/(http:\/\/(((?!users).)+)\.livejournal\.com|users\.livejournal\.com\/([^\/]+)).*/,
+      templateData : function(data){if(!data.username)return false;
+          return  '<div id="content"><img src="'+data.image+'" align="left" style="margin-right: 1em;" /><span class="ljuser"><a href="http://'+data.username+'.livejournal.com/profile"><img src="http://www.livejournal.com/img/userinfo.gif" alt="[info]" width="17" height="17" /></a><a href="http://'+data.username+'.livejournal.com/">'+data.username+'</a></span><br />'+data.name+'</div>';
+        },
+      }),  
+     
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
       templateData : function(data){ if(!data.data.html_url)return false;
