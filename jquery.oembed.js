@@ -91,16 +91,14 @@
 
     function embedCode(container, externalUrl, embedProvider) {
       if(embedProvider.templateRegex){
-        
         if(embedProvider.apiendpoint){
           ajaxopts = $.extend({
-            url: externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
+            url:externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
             type: 'get',
             dataType: 'json',
             success:  function (data) {
               var oembedData = $.extend({}, data);
               oembedData.code = embedProvider.templateData(data);
-             
               settings.beforeEmbed.call(container, oembedData);
               settings.onEmbed.call(container, oembedData);
               settings.afterEmbed.call(container, oembedData);
@@ -110,7 +108,6 @@
           
           $.ajax( ajaxopts );
         }else{
-        
           var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
           settings.beforeEmbed.call(container, oembedData);
           settings.onEmbed.call(container, oembedData);
@@ -302,7 +299,11 @@
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
-    //new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], "http://api.5min.com/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20html%20from%20xml%20where%20url%3D%22http%3A%2F%2Fapi.5min.com%2Foembed.xml%3Furl%3D$1%22&format=json&callback=?",
+      {templateRegex:/(.*)/,
+      templateData : function(data){if(!data.query.results)return false;return  data.query.results.oembed.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1');},
+      }
+    ),
     new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"], "http://www.nfb.ca/remote/services/oembed/"),
     new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], "http://qik.com/api/oembed.json"),
     new $.fn.oembed.OEmbedProvider("revision3", "video", ["revision3\\.com"], "http://revision3.com/api/oembed/"),
