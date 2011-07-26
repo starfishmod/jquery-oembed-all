@@ -56,6 +56,7 @@ Current 3rd party sources include:
 * eventful (venues) - Embedded
 * myspace - JSONP lookup (CSS) 
 * live Journal - JSONP Lookup (CSS)
+* wordpress - oEmbed (wordpress.com, wp.me, blogs.cnn.com, techcrunch.com). I can add other wordpress sites as well.
 
 ---
 ####TODO:
