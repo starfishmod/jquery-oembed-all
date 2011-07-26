@@ -147,3 +147,13 @@ div.oembed-container {
  margin-top : 5px;
  text-align: left;
 }
+
+.ljuser {
+    font-weight: bold;
+}
+
+.ljuser img {
+    vertical-align: bottom;
+    border: 0;
+    padding-right: 1px;
+}
