@@ -25,6 +25,7 @@ Current 3rd party sources include:
 * Metacafe - Embedded
 * embedr - Embedded
 * 5min - oEmbed is XML only - using YQL to translate it
+* viddler - oEmbed is not JSONP enabled - using YQL to translate it
 
 ####Audio 
 

@@ -304,6 +304,11 @@
       templateData : function(data){if(!data.query.results)return false;return  data.query.results.oembed.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1');},
       }
     ),
+    new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Flab.viddler.com%2Fservices%2Foembed%2f%3Furl%3D$1%22%20and%20xpath%3D%22%2F%2F*%2Fobject%22&format=xml&callback=?",
+      {templateRegex:/(.*)/,
+      templateData : function(data){if(!data.results[0])return false;return  data.results[0];},
+      }
+    ),
     new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"], "http://www.nfb.ca/remote/services/oembed/"),
     new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], "http://qik.com/api/oembed.json"),
     new $.fn.oembed.OEmbedProvider("revision3", "video", ["revision3\\.com"], "http://revision3.com/api/oembed/"),
