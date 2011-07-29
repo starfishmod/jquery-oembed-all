@@ -59,13 +59,14 @@ Current 3rd party sources include:
 * live Journal - JSONP Lookup (CSS)
 * wordpress - oEmbed (wordpress.com, wp.me, blogs.cnn.com, techcrunch.com). I can add other wordpress sites as well.
 * circuitbee -Embedded
+* stack overflow - JSONP Lookup (CSS)
 
 ---
 ####TODO:
 
 * Disqus
 * gravatar - JSONP available
-* stack overflow - JSONP available
+
 * tal.ki - Uses a script embed - may not work
 * Amazon - Wants a key to do lookups
 * iFixit - Uses a script embed - may not work
