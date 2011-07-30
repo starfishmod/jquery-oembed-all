@@ -13,6 +13,7 @@
     $.fn.oembed = function (url, options, embedAction) {
 
         settings = $.extend(true, $.fn.oembed.defaults, options);
+        if($('#jqoembeddata').length==0)$('<span id="jqoembeddata"></span>').appendTo('body');
 
         return this.each(function () {
 
@@ -90,7 +91,12 @@
     };
 
     function embedCode(container, externalUrl, embedProvider) {
-      if(embedProvider.templateRegex){
+	  if($('#jqoembeddata').data(externalUrl)!=undefined){
+	     var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
+          settings.beforeEmbed.call(container, oembedData);
+          settings.onEmbed.call(container, oembedData);
+          settings.afterEmbed.call(container, oembedData);
+	  }else if(embedProvider.templateRegex){
         if(embedProvider.apiendpoint){
           ajaxopts = $.extend({
             url:externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
@@ -99,6 +105,7 @@
             success:  function (data) {
               var oembedData = $.extend({}, data);
               oembedData.code = embedProvider.templateData(data);
+              $('#jqoembeddata').data(externalUrl,oembedData.code);
               settings.beforeEmbed.call(container, oembedData);
               settings.onEmbed.call(container, oembedData);
               settings.afterEmbed.call(container, oembedData);
@@ -109,6 +116,7 @@
           $.ajax( ajaxopts );
         }else{
           var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
+          $('#jqoembeddata').data(externalUrl,oembedData.code);
           settings.beforeEmbed.call(container, oembedData);
           settings.onEmbed.call(container, oembedData);
           settings.afterEmbed.call(container, oembedData);
@@ -136,6 +144,7 @@
                 oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
                 break;
             }
+            $('#jqoembeddata').data(externalUrl,oembedData.code);
             settings.beforeEmbed.call(container, oembedData);
             settings.onEmbed.call(container, oembedData);
             settings.afterEmbed.call(container, oembedData);
