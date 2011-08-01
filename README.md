@@ -60,20 +60,19 @@ Current 3rd party sources include:
 * wordpress - oEmbed (wordpress.com, wp.me, blogs.cnn.com, techcrunch.com). I can add other wordpress sites as well.
 * circuitbee -Embedded
 * stack overflow - JSONP Lookup (CSS)
+* Facebook - JSONP Lookup (CSS)
 
 ---
 ####TODO:
 
 * Disqus
 * gravatar - JSONP available
-
 * tal.ki - Uses a script embed - may not work
 * Amazon - Wants a key to do lookups
 * iFixit - Uses a script embed - may not work
 * vis.ly - Uses different URL to it's embed link - may not work
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
-* Facebook - JSONP available e.g (https://graph.facebook.com/132326176778287/?callback=MyCallBack)
 * last.fm - JSONP Available - requires API Key
 * delicious
 

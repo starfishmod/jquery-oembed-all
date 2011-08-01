@@ -326,3 +326,29 @@ div.oembed-container {
     margin-top: 12px;
     width: 7px;
 }
+
+.facebook1 {
+    border: #1A3C6C solid 1px;
+    padding:0px;
+    font: 13.34px/1.4 verdana;
+    width : 500px;
+    
+}
+
+.facebook2 {
+    background-color: #627add;    
+}
+.facebook2 a {
+  color: #e8e8e8;
+  text-decoration:none;
+}
+
+
+
+.facebookBody{
+  background-color: #fff;
+  
+  
+}
+
+.facebookBody div{ display:inline-block;vertical-align: top;}
