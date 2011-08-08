@@ -41,6 +41,7 @@ Current 3rd party sources include:
 * 23HQ - oEmbed
 * Smugmug - oEmbed
 * twitpic - JSONP lookup
+* 500px.com - Embedded
 
 ####Rich
 

@@ -343,7 +343,9 @@
             +'<img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'"></div><div id="view-photo-caption">'+data.message+'</div></div>';
         },
       }),
-    
+    new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,{templateRegex:/.*photo\/([^\/]+).*/ 
+      , template : '<a href="http://500px.com/photo/$1"> <img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'}), 
+		
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/ 
