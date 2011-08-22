@@ -199,7 +199,7 @@
                 $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function(){
                     var encodedString=encodeURIComponent($(this).text()); 
                     $(this).html((encodedString=='%E2%86%91')?'&darr;':'&uarr;');
-                    $(this).parent().children().last().slideToggle();
+                    $(this).parent().children().last().toggle();
                   });
                 oembedContainer.append('<br/>');
                 oembedContainer.append(oembedData.code);
@@ -306,6 +306,11 @@
       , template : '<div style="width:425px;height:520px;"><object width="425" height="520"><param name="movie" value="http://embedr.com/swf/slider/$1/425/520/default/false/std"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent"><embed src="http://embedr.com/swf/slider/$1/425/520/default/false/std" type="application/x-shockwave-flash" allowFullScreen="true" width="425" height="520" wmode="transparent"></embed></object>'}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20FROM%20json%20where%20url%3D%22http%3A%2F%2Fwww.ustream.tv%2Foembed%3Fformat%3Djson%26url%3D$1%22%20and%20itemPath%3D%22json.html%22&format=json&callback=?",
+      {templateRegex:/(.*)/,
+      templateData : function(data){if(!data.query.results.html)return false;return  data.query.results.html;},
+      }
+    ),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
     new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20html%20from%20xml%20where%20url%3D%22http%3A%2F%2Fapi.5min.com%2Foembed.xml%3Furl%3D$1%22&format=json&callback=?",
@@ -344,7 +349,7 @@
         },
       }),
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,{templateRegex:/.*photo\/([^\/]+).*/ 
-      , template : '<a href="http://500px.com/photo/$1"> <img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'}), 
+      , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'}), 
 		
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),

@@ -25,6 +25,7 @@ Current 3rd party sources include:
 * Metacafe - Embedded
 * embedr - Embedded
 * 5min - oEmbed is XML only - using YQL to translate it
+* ustream.tv - oEmbed is not JSONP enabled - using YQL to translate it
 * viddler - oEmbed is not JSONP enabled - using YQL to translate it
 
 ####Audio 
@@ -76,5 +77,7 @@ Current 3rd party sources include:
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
 * delicious
+* linkedin
+* digg?
 
 * A lot more :) Feel free to submit
