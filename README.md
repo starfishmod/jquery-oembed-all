@@ -11,8 +11,8 @@ This project tries to use embedding techniques in the following order of prefere
 * embedding (IFRAME/Object) based on URL information - i.e. youtube
 * oEmbed - JSONP not Available - use YQL to correct - Ustream, viddler
 * JSONP Api lookups Source - With HTML and CSS built in this project - github, Myspace, Facebook
-* Screenscape to get embedding details - no examples yet
-* Screenscrape - pastie
+* YQL Screenscape to get embedding details - BandCamp
+* YQL Screenscrape - pastie
 
 
 Current 3rd party sources include:
@@ -40,6 +40,7 @@ Current 3rd party sources include:
 
 * Soundcloud - oEmbed
 * HuffDuffer - oEmbed
+* BandCamp - YQL and Embedded
 
 #### Photo
 

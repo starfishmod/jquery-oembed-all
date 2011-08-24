@@ -104,7 +104,7 @@
      }else if(embedProvider.yql){
       var urlq = embedProvider.yql.url?embedProvider.yql.url(externalUrl):externalUrl;
       var from = embedProvider.yql.from||'htmlstring'
-      var pathq = from!='htmlstring'?'itemPath':'xpath';
+      var pathq = /html/.test(from)?'xpath':'itemPath';
       var query = 'SELECT * FROM '+ from+ ' WHERE url="' +urlq+ '"'
           + "and " +pathq+ "='" +(embedProvider.yql.xpath||'/')+ "'";
       ajaxopts = $.extend({
@@ -356,6 +356,15 @@
     //Audio
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
+    new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
+      {yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]"
+          , from:'html'
+          , datareturn:function(results){
+              return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
+              }
+          }
+      }
+    ),
     
      //Photo
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
