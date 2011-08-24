@@ -6,6 +6,14 @@ This is a fork of the jquery-oembed located at http://code.google.com/p/jquery-o
 Instead of using oohembed or other such services it tries to embed the object natively without using a third-party server.
 This project will happily use native oembed services when it can, however it also use other types of embedding whenever oembed is not possible.
 
+This project tries to use embedding techniques in the following order of preference:
+* oEmbed - JSONP available - i.e. flickr, meetup etc
+* embedding (IFRAME/Object) based on URL information - i.e. youtube
+* oEmbed - JSONP not Available - use YQL to correct - Ustream, viddler
+* JSONP Api lookups Source - With HTML and CSS built in this project - github, Myspace, Facebook
+* Screenscape to get embedding details - no examples yet
+* Screenscrape - pastie
+
 
 Current 3rd party sources include:
 ---------------------------------
