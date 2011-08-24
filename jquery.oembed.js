@@ -382,6 +382,12 @@
       }),
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,{templateRegex:/.*photo\/([^\/]+).*/ 
       , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'}), 
+    new $.fn.oembed.OEmbedProvider("visual.ly", "rich", ["visual\\.ly/.+"], null,
+      {yql:{xpath:"//a[@id=\\'gc_article_graphic_image\\']/img"
+          , from:'htmlstring'
+          }
+      }
+    ),
 		
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),

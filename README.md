@@ -1,12 +1,13 @@
 Jquery-Oembed
 ============
 
-This is a fork of the jquery-oembed located at http://code.google.com/p/jquery-oembed/.
+This is a fork (with a lot of changes) of the jquery-oembed located at http://code.google.com/p/jquery-oembed/.
 
 Instead of using oohembed or other such services it tries to embed the object natively without having to use some kind of local server.
 This project will happily use native oembed services when it can, however it also use other types of embedding whenever oembed is not possible.
 
 This project tries to use embedding techniques in the following order of preference:
+
 * oEmbed - JSONP available - i.e. flickr, meetup etc
 * embedding (IFRAME/Object) based on URL information - i.e. youtube
 * oEmbed - JSONP not Available - use YQL to correct - Ustream, viddler
@@ -52,6 +53,7 @@ Current 3rd party sources include:
 * Smugmug - oEmbed
 * twitpic - JSONP lookup
 * 500px.com - Embedded
+* visual.ly - YQL Lookup
 
 ####Rich
 
@@ -83,7 +85,6 @@ Current 3rd party sources include:
 * tal.ki - Uses a script embed - may not work
 * Amazon - Wants a key to do lookups
 * iFixit - Uses a script embed - may not work
-* vis.ly - Uses different URL to it's embed link - may not work
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
