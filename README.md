@@ -63,6 +63,8 @@ Current 3rd party sources include:
 * circuitbee -Embedded
 * stack overflow - JSONP Lookup (CSS)
 * Facebook - JSONP Lookup (CSS)
+* Pastebin - Embedded
+* Pastie - YQL lookup
 
 ---
 ####TODO:
@@ -79,5 +81,7 @@ Current 3rd party sources include:
 * delicious
 * linkedin
 * digg?
+* justin.tv
+* 
 
 * A lot more :) Feel free to submit

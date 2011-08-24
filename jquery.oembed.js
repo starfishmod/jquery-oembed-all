@@ -89,26 +89,52 @@
 
         return url;
     };
+    
+    function success(oembedData,externalUrl,container){
+      $('#jqoembeddata').data(externalUrl,oembedData.code);
+      settings.beforeEmbed.call(container, oembedData);
+      settings.onEmbed.call(container, oembedData);
+      settings.afterEmbed.call(container, oembedData);
+    }
 
     function embedCode(container, externalUrl, embedProvider) {
-	  if($('#jqoembeddata').data(externalUrl)!=undefined){
+	   if($('#jqoembeddata').data(externalUrl)!=undefined){
 	     var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
-          settings.beforeEmbed.call(container, oembedData);
-          settings.onEmbed.call(container, oembedData);
-          settings.afterEmbed.call(container, oembedData);
-	  }else if(embedProvider.templateRegex){
+       success(oembedData, externalUrl,container);
+     }else if(embedProvider.yql){
+      var urlq = embedProvider.yql.url?embedProvider.yql.url(externalUrl):externalUrl;
+      var from = embedProvider.yql.from||'htmlstring'
+      var pathq = from!='htmlstring'?'itemPath':'xpath';
+      var query = 'SELECT * FROM '+ from+ ' WHERE url="' +urlq+ '"'
+          + "and " +pathq+ "='" +(embedProvider.yql.xpath||'/')+ "'";
+      ajaxopts = $.extend({
+          url:"http://query.yahooapis.com/v1/public/yql",
+          dataType: 'jsonp',
+          data: {
+               q: query,
+               format: "json",
+               env: 'store://datatables.org/alltableswithkeys',
+               callback: "?"
+           },
+          success:  function (data) {
+            var result = embedProvider.yql.datareturn?embedProvider.yql.datareturn(data.query.results): data.query.results.result;
+            var oembedData = $.extend({}, result);
+            oembedData.code = result;
+            success(oembedData, externalUrl,container);
+          },
+          error: settings.onError.call(container, externalUrl, embedProvider)
+        }, settings.ajaxOptions || { } );
+        
+        $.ajax( ajaxopts );
+	   }else if(embedProvider.templateRegex){
         if(embedProvider.apiendpoint){
           ajaxopts = $.extend({
             url:externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
-            type: 'get',
-            dataType: 'json',
+            dataType: 'jsonp',
             success:  function (data) {
               var oembedData = $.extend({}, data);
               oembedData.code = embedProvider.templateData(data);
-              $('#jqoembeddata').data(externalUrl,oembedData.code);
-              settings.beforeEmbed.call(container, oembedData);
-              settings.onEmbed.call(container, oembedData);
-              settings.afterEmbed.call(container, oembedData);
+              success(oembedData, externalUrl,container);
             },
             error: settings.onError.call(container, externalUrl, embedProvider)
           }, settings.ajaxOptions || { } );
@@ -116,10 +142,7 @@
           $.ajax( ajaxopts );
         }else{
           var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
-          $('#jqoembeddata').data(externalUrl,oembedData.code);
-          settings.beforeEmbed.call(container, oembedData);
-          settings.onEmbed.call(container, oembedData);
-          settings.afterEmbed.call(container, oembedData);
+          success(oembedData, externalUrl,container);
         }
         
       }else{
@@ -127,9 +150,7 @@
         var requestUrl = getRequestUrl(embedProvider, externalUrl), 		
         ajaxopts = $.extend({
           url: requestUrl,
-          type: 'get',
-          dataType: 'json',
-          // error: jsonp request doesnt' support error handling
+          dataType: 'jsonp',
           success:  function (data) {
             var oembedData = $.extend({}, data);
             switch (oembedData.type) {
@@ -144,10 +165,7 @@
                 oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
                 break;
             }
-            $('#jqoembeddata').data(externalUrl,oembedData.code);
-            settings.beforeEmbed.call(container, oembedData);
-            settings.onEmbed.call(container, oembedData);
-            settings.afterEmbed.call(container, oembedData);
+            success(oembedData, externalUrl,container);
           },
           error: settings.onError.call(container, externalUrl, embedProvider)
         }, settings.ajaxOptions || { } );
@@ -203,7 +221,6 @@
                   });
                 oembedContainer.append('<br/>');
                 oembedContainer.append(oembedData.code);
-                //oembedContainer.width($(oembedContainer).children().last().width());
                 break;
         }
     };
@@ -244,7 +261,7 @@
         return null;
     };
 
-    $.fn.oembed.OEmbedProvider = function (name, type, urlschemesarray, apiendpoint, extraSettings){//callbackparameter,format) {
+    $.fn.oembed.OEmbedProvider = function (name, type, urlschemesarray, apiendpoint, extraSettings){
         this.name = name;
         this.type = type; // "photo", "video", "link", "rich", null
         this.urlschemes = getUrlSchemes(urlschemesarray);
@@ -306,16 +323,22 @@
       , template : '<div style="width:425px;height:520px;"><object width="425" height="520"><param name="movie" value="http://embedr.com/swf/slider/$1/425/520/default/false/std"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent"><embed src="http://embedr.com/swf/slider/$1/425/520/default/false/std" type="application/x-shockwave-flash" allowFullScreen="true" width="425" height="520" wmode="transparent"></embed></object>'}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
-    new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20FROM%20json%20where%20url%3D%22http%3A%2F%2Fwww.ustream.tv%2Foembed%3Fformat%3Djson%26url%3D$1%22%20and%20itemPath%3D%22json.html%22&format=json&callback=?",
-      {templateRegex:/(.*)/,
-      templateData : function(data){if(!data.query.results.html)return false;return  data.query.results.html;},
+    new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], null,
+      {yql:{xpath:"json.html"
+          , from:'json'
+          , url: function(externalurl){return 'http://www.ustream.tv/oembed?format=json&url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
       }
     ),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
-    new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20html%20from%20xml%20where%20url%3D%22http%3A%2F%2Fapi.5min.com%2Foembed.xml%3Furl%3D$1%22&format=json&callback=?",
-      {templateRegex:/(.*)/,
-      templateData : function(data){if(!data.query.results)return false;return  data.query.results.oembed.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1');},
+    new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], null,
+      {yql:{xpath:"//oembed/html"
+          , from:'xml'
+          , url: function(externalurl){return 'http://api.5min.com/oembed.xml?url='+externalurl}
+          , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
+          }
       }
     ),
     new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Flab.viddler.com%2Fservices%2Foembed%2f%3Furl%3D$1%22%20and%20xpath%3D%22%2F%2F*%2Fobject%22&format=xml&callback=?",
@@ -386,6 +409,11 @@
       }),  
     new $.fn.oembed.OEmbedProvider("circuitbee", "rich", ["circuitbee\\.com/circuit/view/.+"],null,{templateRegex:/.*circuit\/view\/(\d+).*/ 
       , template : '<iframe width="500" height="350" frameborder="0" src="http://c.circuitbee.com/build/r/schematic-embed.html?id=$1"></iframe>'}),
+    new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],null,{templateRegex:/.*\/(\S{8}).*/ 
+      , template : '<iframe src="http://pastebin.com/embed_iframe.php?i=$1" style="border:none;width:100%"></iframe>'}),
+      
+    new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,
+      {yql:{xpath:'//pre[@class="textmate-source"]'}}),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
       templateData : function(data){ if(!data.data.html_url)return false;
