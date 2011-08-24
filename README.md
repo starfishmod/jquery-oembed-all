@@ -3,7 +3,7 @@ Jquery-Oembed
 
 This is a fork of the jquery-oembed located at http://code.google.com/p/jquery-oembed/.
 
-Instead of using oohembed or other such services it tries to embed the object natively without using a third-party server.
+Instead of using oohembed or other such services it tries to embed the object natively without having to use some kind of local server.
 This project will happily use native oembed services when it can, however it also use other types of embedding whenever oembed is not possible.
 
 This project tries to use embedding techniques in the following order of preference:
