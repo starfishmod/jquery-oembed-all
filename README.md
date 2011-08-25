@@ -42,6 +42,7 @@ Current 3rd party sources include:
 * Soundcloud - oEmbed
 * HuffDuffer - oEmbed
 * BandCamp - YQL and Embedded
+* podomatic - Embedded
 
 #### Photo
 
@@ -92,6 +93,14 @@ Current 3rd party sources include:
 * linkedin
 * digg?
 * justin.tv
-* 
+* Eventbrite
+* Lanyrd
+* github gist
+* pinboard.in
+* dailymotion.com
+* posterous.com
+* vodpod
+* plannary
+
 
 * A lot more :) Feel free to submit
