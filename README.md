@@ -77,6 +77,7 @@ Current 3rd party sources include:
 * Facebook - JSONP Lookup (CSS)
 * Pastebin - Embedded
 * Pastie - YQL lookup
+* kickstarter - Embedded
 
 ---
 ####TODO:
@@ -102,5 +103,4 @@ Current 3rd party sources include:
 * vodpod
 * plannary
 
-
-* A lot more :) Feel free to submit
+A lot more :) Feel free to submit

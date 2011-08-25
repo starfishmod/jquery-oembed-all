@@ -542,7 +542,13 @@
       embedtag : {tag: 'iframe', width:'100%',height: 600,
         src: "http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list",
         }      
-      }), 
+      }),
+    new $.fn.oembed.OEmbedProvider("kickstarter", "rich", ["kickstarter\\.com/projects/.+"],null,
+      {templateRegex:/([^\?]+).*/ ,
+      embedtag : {tag: 'iframe', width:'220',height: 380,
+        src: "$1/widget/card.html",
+        }      
+      }),
 		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
 
 	];
