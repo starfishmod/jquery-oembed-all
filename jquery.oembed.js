@@ -142,14 +142,22 @@
           $.ajax( ajaxopts );
         }else if(embedProvider.embedtag){
           var flashvars = embedProvider.embedtag.flashvars || '';
-          var code = $('<embed/>')
+          var tag = embedProvider.embedtag.tag || 'embed';
+          
+          var code = $('<'+tag+'/>')
               .attr('src',externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src))
               .attr('width',embedProvider.embedtag.width)
               .attr('height',embedProvider.embedtag.height)
               .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
-              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'true')
-              .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
-              .attr('flashvars',externalUrl.replace(embedProvider.templateRegex,flashvars))
+              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'true');
+          if(tag=='embed')
+              code
+                .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
+                .attr('flashvars',externalUrl.replace(embedProvider.templateRegex,flashvars));
+          if(tag=='iframe')
+              code
+                .attr('scrolling',embedProvider.embedtag.scrolling || "no")
+                .attr('frameborder',embedProvider.embedtag.frameborder || "0")
               ;
           
           var oembedData = {code: code};
@@ -214,8 +222,7 @@
             case "auto":
                 if (container.attr("href") != null) {
                     $.fn.oembed.insertCode(container, "append", oembedData);
-                }
-                else {
+                }else {
                     $.fn.oembed.insertCode(container, "replace", oembedData);
                 };
                 break;
@@ -323,8 +330,10 @@
     
     //Video
 		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,
-      {templateRegex:/.*v\=([\w-]+)&?.*/ 
-      , template : '<iframe width="425" height="349" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'
+      {templateRegex:/.*v\=([\w-]+)&?.*/
+      ,embedtag : {tag: 'iframe', width:'425',height: '349',
+        src: "http://www.youtube.com/embed/$1",
+        }
       }), 
 		new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,
       {templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
@@ -455,11 +464,16 @@
       }),  
     new $.fn.oembed.OEmbedProvider("circuitbee", "rich", ["circuitbee\\.com/circuit/view/.+"],null,
       {templateRegex:/.*circuit\/view\/(\d+).*/ 
-      , template : '<iframe width="500" height="350" frameborder="0" src="http://c.circuitbee.com/build/r/schematic-embed.html?id=$1"></iframe>'
+      ,embedtag : {tag: 'iframe', width:'500',height: '350',
+        src: "http://c.circuitbee.com/build/r/schematic-embed.html?id=$1",
+        }
       }),
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],null,
       {templateRegex:/.*\/(\S{8}).*/ 
-      , template : '<iframe src="http://pastebin.com/embed_iframe.php?i=$1" style="border:none;width:100%"></iframe>'
+      ,embedtag : {tag: 'iframe', width:'100%',height: 'auto',
+        src: "http://pastebin.com/embed_iframe.php?i=$1",
+        }
+      
       }),
     new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,
       {yql:{xpath:'//pre[@class="textmate-source"]'}
@@ -513,15 +527,21 @@
       , "http://public-api.wordpress.com/oembed/1.0/?for=jquery-oembed-all"),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, 
       {templateRegex:/.*\/([^\/]+).*/ 
-      , template : '<iframe src="http://www.screenr.com/embed/$1" width="650" height="396" frameborder="0"></iframe>'
+      ,embedtag : {tag: 'iframe', width:'650',height: 396,
+        src: "http://www.screenr.com/embed/$1",
+        }
       }) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,
-      {templateRegex:/.*\/(\d+)\/?.*/ 
-      , template : '<iframe src="http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html" frameborder="0" height="400" scrolling="no" width="100%"></iframe>'
+      {templateRegex:/.*\/(\d+)\/?.*/,
+      embedtag : {tag: 'iframe', width:'100%',height: 400,
+        src: "http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html",
+        }
       }), 
     new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null,
-      {templateRegex:/.*doc\/([^\/]+).*/ 
-      , template : '<iframe class="scribd_iframe_embed" src="http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list" data-auto-height="true" data-aspect-ratio="" scrolling="no" width="100%" height="600" frameborder="0"></iframe>'
+      {templateRegex:/.*doc\/([^\/]+).*/ ,
+      embedtag : {tag: 'iframe', width:'100%',height: 600,
+        src: "http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list",
+        }      
       }), 
 		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
 
