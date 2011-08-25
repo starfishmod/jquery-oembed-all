@@ -37,6 +37,7 @@ Current 3rd party sources include:
 * ustream.tv - oEmbed is not JSONP enabled - using YQL to translate it
 * viddler - oEmbed is not JSONP enabled - using YQL to translate it
 * twitvid - Embedded
+* bambuser - Embedded
 
 ####Audio 
 
@@ -54,8 +55,9 @@ Current 3rd party sources include:
 * 23HQ - oEmbed
 * Smugmug - oEmbed
 * twitpic - JSONP lookup
-* 500px.com - Embedded
+* 500px.com - Thumbnail view
 * visual.ly - YQL Lookup
+* img.ly - Thumbnail view
 
 ####Rich
 
