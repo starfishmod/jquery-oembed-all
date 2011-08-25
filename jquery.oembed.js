@@ -149,7 +149,7 @@
               .attr('width',embedProvider.embedtag.width)
               .attr('height',embedProvider.embedtag.height)
               .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
-              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'true');
+              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
           if(tag=='embed')
               code
                 .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
@@ -159,6 +159,7 @@
                 .attr('scrolling',embedProvider.embedtag.scrolling || "no")
                 .attr('frameborder',embedProvider.embedtag.frameborder || "0")
               ;
+          
           
           var oembedData = {code: code};
           success(oembedData, externalUrl,container);
@@ -340,6 +341,13 @@
       , embedtag : {width:512,height: 328,flashvars : "key=$1",
           src: "http://player.ordienetworks.com/flash/fodplayer.swf"}
       }), 
+		new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
+      {templateRegex:/.*justin\.tv\/(\w+).*/
+      , template : '<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_player_flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=$1" bgcolor="#000000">'
+                  +'<param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="allownetworking" value="all" /><param name="wmode" value="opaque">'
+                  +'<param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.justin.tv&channel=$1&auto_play=false&start_volume=25" /></object>'
+      
+      }), 
     new $.fn.oembed.OEmbedProvider("colledgehumour", "video", ["collegehumor\\.com/video/.+"],null,
     {templateRegex:/.*video\/([^\/]+).*/ 
       , embedtag : {width:600,height: 338,
@@ -349,6 +357,11 @@
       {templateRegex:/.*watch\/(\d+)\/(\w+)\/.*/ 
       , embedtag : {width:400,height: 345,
           src: "http://www.metacafe.com/fplayer/$1/$2.swf"}
+      }), 
+    new $.fn.oembed.OEmbedProvider("twitvid", "video", ["twitvid\\.com/.+"],null,
+      {templateRegex:/.*twitvid\.com\/(\w+).*/ 
+      , embedtag : {tag:'iframe',width:480,height: 360,
+          src: "http://www.twitvid.com/embed.php?guid=$1&autoplay=0"}
       }), 
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],null,
       {templateRegex:/.*playlist\/([^\/]+).*/
