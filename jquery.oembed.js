@@ -140,6 +140,20 @@
           }, settings.ajaxOptions || { } );
           
           $.ajax( ajaxopts );
+        }else if(embedProvider.embedtag){
+          var flashvars = embedProvider.embedtag.flashvars || '';
+          var code = $('<embed/>')
+              .attr('src',externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src))
+              .attr('width',embedProvider.embedtag.width)
+              .attr('height',embedProvider.embedtag.height)
+              .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
+              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'true')
+              .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
+              .attr('flashvars',externalUrl.replace(embedProvider.templateRegex,flashvars))
+              ;
+          
+          var oembedData = {code: code};
+          success(oembedData, externalUrl,container);
         }else{
           var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
           success(oembedData, externalUrl,container);
@@ -313,28 +327,29 @@
       , template : '<iframe width="425" height="349" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'
       }), 
 		new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,
-      {templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/ 
-      , template : '<object width="512" height="328" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="ordie_player_$1"><param name="movie" value="http://player.ordienetworks.com/flash/fodplayer.swf" /><param name="flashvars" value="key=$1" /><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always"></param>'
-          +'<embed width="512" height="328" flashvars="key=$1" allowfullscreen="true" allowscriptaccess="always" quality="high" src="http://player.ordienetworks.com/flash/fodplayer.swf" name="ordie_player_$1" type="application/x-shockwave-flash"></embed></object>'
+      {templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
+      , embedtag : {width:512,height: 328,flashvars : "key=$1",
+          src: "http://player.ordienetworks.com/flash/fodplayer.swf"}
       }), 
     new $.fn.oembed.OEmbedProvider("colledgehumour", "video", ["collegehumor\\.com/video/.+"],null,
     {templateRegex:/.*video\/([^\/]+).*/ 
-      , template : '<object id="ch6560683" type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1" width="600" height="338">'
-          +'<param name="allowfullscreen" value="true"/><param name="wmode" value="transparent"/><param name="allowScriptAccess" value="always"/><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1"/>'
-          +'<embed src="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1" type="application/x-shockwave-flash" wmode="transparent" width="600" height="338" allowScriptAccess="always"></embed></object>'}), 
+      , embedtag : {width:600,height: 338,
+          src: "http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1"}
+      }), 
     new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,
       {templateRegex:/.*watch\/(\d+)\/(\w+)\/.*/ 
-      , template : '<embed src="http://www.metacafe.com/fplayer/$1/$2.swf" width="400" height="345" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" allowFullScreen="true"> </embed>'
+      , embedtag : {width:400,height: 345,
+          src: "http://www.metacafe.com/fplayer/$1/$2.swf"}
       }), 
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],null,
-      {templateRegex:/.*playlist\/([^\/]+).*/ 
-      , template : '<div style="width:425px;height:520px;"><object width="425" height="520"><param name="movie" value="http://embedr.com/swf/slider/$1/425/520/default/false/std"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent"><embed src="http://embedr.com/swf/slider/$1/425/520/default/false/std" type="application/x-shockwave-flash" allowFullScreen="true" width="425" height="520" wmode="transparent"></embed></object>'
+      {templateRegex:/.*playlist\/([^\/]+).*/
+      , embedtag : {width:425,height: 520,
+          src: "http://embedr.com/swf/slider/$1/425/520/default/false/std"}
       }), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
     new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], null,
-      {yql:{xpath:"json.html"
-          , from:'json'
+      {yql:{xpath:"json.html", from:'json'
           , url: function(externalurl){return 'http://www.ustream.tv/oembed?format=json&url='+externalurl}
           , datareturn:function(results){return results.html || ''}
         }
@@ -342,8 +357,7 @@
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
     new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], null,
-      {yql:{xpath:"//oembed/html"
-          , from:'xml'
+      {yql:{xpath:"//oembed/html", from:'xml'
           , url: function(externalurl){return 'http://api.5min.com/oembed.xml?url='+externalurl}
           , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
           }
@@ -363,8 +377,7 @@
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
     new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
-      {yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]"
-          , from:'html'
+      {yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]", from:'html'
           , datareturn:function(results){
               return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
               }
@@ -372,12 +385,10 @@
       }),
     new $.fn.oembed.OEmbedProvider("podomatic", "audio", [".+\\.podomatic\\.com/"],null,
       {templateRegex:/http:\/\/([^\/]+).*/ 
-      , template : '<object width="480" height="360">'
-        +'<param name="movie" value="http://$1/swf/joe_multiplayer_v09.swf"></param>'
-        +'<param name="flashvars" value="minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360"></param>'
-        +'<param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param>'
-        +'<embed src="http://$1/swf/joe_multiplayer_v09.swf" flashvars="minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="360"></embed>'
-        +'</object>'
+      , embedtag : {width:480,height: 360,
+        src: "http://$1/swf/joe_multiplayer_v09.swf",
+        flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360",
+        }        
       }), 
     
      //Photo
@@ -405,9 +416,11 @@
 		//Rich
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,
-      {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/ 
-      , template : '<object width="355" height="300"><param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" /><param name="flashvars" value="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1" />'
-	    + '<embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" flashvars="base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"></embed></object>'
+      {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/,
+      embedtag : {width:355,height: 300,
+        src: "http://togo.ebay.com/togo/togo.swf?2008013100",
+        flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1",
+        } 
       }),
     new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],null,
       {templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/ 
