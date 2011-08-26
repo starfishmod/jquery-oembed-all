@@ -58,6 +58,7 @@ Current 3rd party sources include:
 * 500px.com - Thumbnail view
 * visual.ly - YQL Lookup
 * img.ly - Thumbnail view
+* imgur.com - Thubnail view
 
 ####Rich
 

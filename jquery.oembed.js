@@ -437,8 +437,12 @@
       , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],null,
-      {templateRegex:/.*ly\/([^\/]+).*/ 
+      {templateRegex:/.*com\/([^\/]+).*/ 
       , template : '<a href="http://img.ly/$1"><img src="http://img.ly/show/thumb/$1" alt="on img.ly" border="0" style="margin: 0 0 5px 0;"></a>'
+      }), 
+    new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],null,
+      {templateRegex:/.*gallery\/([^\/]+).*/ 
+      , template : '<a href="http://imgur.com/gallery/$1"><img src="http://imgur.com/$1l.jpg" alt="on imgur.com" border="0" style="margin: 0 0 5px 0;"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("visual.ly", "rich", ["visual\\.ly/.+"], null,
       {yql:{xpath:"//a[@id=\\'gc_article_graphic_image\\']/img", from:'htmlstring'}
