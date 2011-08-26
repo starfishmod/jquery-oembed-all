@@ -45,6 +45,7 @@ Current 3rd party sources include:
 * HuffDuffer - oEmbed
 * BandCamp - YQL and Embedded
 * podomatic - Embedded
+* rdio.com - oEmbed
 
 #### Photo
 
