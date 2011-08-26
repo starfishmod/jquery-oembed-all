@@ -83,6 +83,7 @@ Current 3rd party sources include:
 * Pastebin - Embedded
 * Pastie - YQL lookup
 * kickstarter - Embedded
+* issuu - YQL Embedded
 
 ---
 ####TODO:
