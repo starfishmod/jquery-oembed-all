@@ -336,6 +336,18 @@
         src: "http://www.youtube.com/embed/$1",
         }
       }), 
+		new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"],null,
+      {templateRegex:/.*com\/watch\/([\w-]+)\/([\w-]+).*/
+      ,embedtag : {tag: 'iframe', width:'320',height: '269',
+        src: "http://www.xtranormal.com/xtraplayr/$1/$2",
+        }
+      }), 
+		new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"],null,
+      {templateRegex:/.*com\/video\/([\w-]+)\/([\w-]+).*/
+      ,embedtag : { width:'512',height: '288',
+        src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2",
+        }
+      }), 
 		new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,
       {templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
       , embedtag : {width:512,height: 328,flashvars : "key=$1",
@@ -346,7 +358,6 @@
       , template : '<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_player_flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=$1" bgcolor="#000000">'
                   +'<param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="allownetworking" value="all" /><param name="wmode" value="opaque">'
                   +'<param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.justin.tv&channel=$1&auto_play=false&start_volume=25" /></object>'
-      
       }), 
     new $.fn.oembed.OEmbedProvider("colledgehumour", "video", ["collegehumor\\.com/video/.+"],null,
     {templateRegex:/.*video\/([^\/]+).*/ 

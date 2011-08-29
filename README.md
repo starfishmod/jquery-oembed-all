@@ -38,6 +38,8 @@ Current 3rd party sources include:
 * viddler - oEmbed is not JSONP enabled - using YQL to translate it
 * twitvid - Embedded
 * bambuser - Embedded
+* xtranormal - Embedded
+* Gametrailers - Embedded
 
 ####Audio 
 
