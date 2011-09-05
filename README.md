@@ -48,6 +48,7 @@ Current 3rd party sources include:
 * BandCamp - YQL and Embedded
 * podomatic - Embedded
 * rdio.com - oEmbed
+* hark.com - Embedded - not working?
 
 #### Photo
 
@@ -62,6 +63,7 @@ Current 3rd party sources include:
 * visual.ly - YQL Lookup
 * img.ly - Thumbnail view
 * imgur.com - Thubnail view
+* twitgoo.com - Thubnail view
 
 ####Rich
 
@@ -86,6 +88,7 @@ Current 3rd party sources include:
 * Pastie - YQL lookup
 * kickstarter - Embedded
 * issuu - YQL Embedded
+* reelapp.com - Embedded
 
 ---
 ####TODO:

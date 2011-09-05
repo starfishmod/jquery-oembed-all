@@ -425,8 +425,14 @@
     new $.fn.oembed.OEmbedProvider("podomatic", "audio", [".+\\.podomatic\\.com/"],null,
       {templateRegex:/http:\/\/([^\/]+).*/ 
       , embedtag : {width:480,height: 360,
-        src: "http://$1/swf/joe_multiplayer_v09.swf",
+        src: "http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1",
         flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360",
+        }        
+      }), 
+    new $.fn.oembed.OEmbedProvider("hark", "audio", ["hark\\.com/clips/.+"],null,
+      {templateRegex:/.*clips\/([^-]+).*/ 
+      , embedtag : {width:300 ,height: 28,
+        src: "http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1"
         }        
       }), 
     
@@ -451,6 +457,10 @@
     new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],null,
       {templateRegex:/.*com\/([^\/]+).*/ 
       , template : '<a href="http://img.ly/$1"><img src="http://img.ly/show/thumb/$1" alt="on img.ly" border="0" style="margin: 0 0 5px 0;"></a>'
+      }), 
+    new $.fn.oembed.OEmbedProvider("twitgoo.com", "photo", ["twitgoo\\.com/.+"],null,
+      {templateRegex:/.*com\/([^\/]+).*/ 
+      , template : '<a href="http://twitgoo.com/$1"><img src="http://twitgoo.com/show/thumb/$1" alt="on twitgoo.com" border="0" style="margin: 0 0 5px 0;"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],null,
       {templateRegex:/.*gallery\/([^\/]+).*/ 
@@ -504,6 +514,12 @@
       {templateRegex:/.*circuit\/view\/(\d+).*/ 
       ,embedtag : {tag: 'iframe', width:'500',height: '350',
         src: "http://c.circuitbee.com/build/r/schematic-embed.html?id=$1",
+        }
+      }),
+    new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],null,
+      {templateRegex:/.*com\/(\S{6}).*/ 
+      ,embedtag : {tag: 'iframe', width:'400',height: '338',
+        src: "http://www.reelapp.com/$1/embed",
         }
       }),
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],null,
