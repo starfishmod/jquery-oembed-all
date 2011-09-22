@@ -103,7 +103,7 @@
        success(oembedData, externalUrl,container);
      }else if(embedProvider.yql){
       var urlq = embedProvider.yql.url?embedProvider.yql.url(externalUrl):externalUrl;
-      var from = embedProvider.yql.from||'htmlstring'
+      var from = embedProvider.yql.from||'htmlstring';
       var pathq = /html/.test(from)?'xpath':'itemPath';
       var query = 'SELECT * FROM '+ from+ ' WHERE url="' +urlq+ '"'
           + "and " +pathq+ "='" +(embedProvider.yql.xpath||'/')+ "'";
@@ -569,7 +569,8 @@
                 +'</div><div class="status"><strong>'+q.answer_count+'</strong>answer</div></div><div class="views">'+q.view_count+' view(s)</div></div>'
                 +'<div class="summary"><h3><a class="question-hyperlink" href="http://stackoverflow.com/questions/'+q.question_id+'/">'+q.title+'</a></h3>'
                 +'<div class="excerpt">'+ body.substring(0,100)+'...</div><div class="tags">';
-          for(i in q.tags) out += '<a title="" class="post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>'
+          for(i in q.tags) 
+            out += '<a title="" class="post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>';
           out += '</div><div class="fr"><div class="user-info"><div class="user-gravatar32"><a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'
             +'<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/'+q.owner.email_hash+'?s=32&amp;d=identicon&amp;r=PG"></a></div><div class="user-details">'
             +'<a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'+q.owner.display_name+'</a><br><span title="reputation score" class="reputation-score">'
