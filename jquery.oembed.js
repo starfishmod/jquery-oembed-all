@@ -441,7 +441,7 @@
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
 		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed"),
-		new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"], "http://www.23hq.com/23/oembed"),
+		//new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"], "http://www.23hq.com/23/oembed"),
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]+/.+"], "http://api.smugmug.com/services/oembed/"),
 		new $.fn.oembed.OEmbedProvider("twitpic", "photo", ["twitpic.com/.+"], "http://api.twitpic.com/2/media/show.jsonp?callback=?&id=$1",
       { templateRegex:/.*\/([^\/]+).*/,
@@ -453,6 +453,10 @@
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,
       {templateRegex:/.*photo\/([^\/]+).*/ 
       , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'
+      }), 
+    new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],null,
+      {templateRegex:/(.*)/ 
+      , template : '<a href="$1"><img src="$1/thumb" alt="on img.ly" border="0" style="margin: 0 0 5px 0;"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],null,
       {templateRegex:/.*com\/([^\/]+).*/ 
