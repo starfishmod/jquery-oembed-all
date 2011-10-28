@@ -103,7 +103,7 @@
        success(oembedData, externalUrl,container);
      }else if(embedProvider.yql){
       var urlq = embedProvider.yql.url?embedProvider.yql.url(externalUrl):externalUrl;
-      var from = embedProvider.yql.from||'htmlstring'
+      var from = embedProvider.yql.from||'htmlstring';
       var pathq = /html/.test(from)?'xpath':'itemPath';
       var query = 'SELECT * FROM '+ from+ ' WHERE url="' +urlq+ '"'
           + "and " +pathq+ "='" +(embedProvider.yql.xpath||'/')+ "'";
@@ -443,9 +443,11 @@
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
-		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed"),
-		new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]/photo/.+"], "http://www.23hq.com/23/oembed"),
-		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]/.+"], "http://api.smugmug.com/services/oembed/"),
+		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], null,
+      {templateRegex:/(.*)/ 
+      , template : '<a href="$1"><img src="$1:small" alt="on yfrog" class="jqoaImg"></a>'
+      }), 
+		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]+/.+"], "http://api.smugmug.com/services/oembed/"),
 		new $.fn.oembed.OEmbedProvider("twitpic", "photo", ["twitpic.com/.+"], "http://api.twitpic.com/2/media/show.jsonp?callback=?&id=$1",
       { templateRegex:/.*\/([^\/]+).*/,
       templateData : function(data){if(!data.user)return false;
@@ -455,19 +457,23 @@
       }),
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,
       {templateRegex:/.*photo\/([^\/]+).*/ 
-      , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" width="280" height="280" alt="on 500px.com" border="0" style="margin: 0 0 5px 0;"></a>'
+      , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" alt="on 500px.com"  class="jqoaImg"></a>'
+      }), 
+    new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],null,
+      {templateRegex:/(.*)/ 
+      , template : '<a href="$1"><img src="$1/thumb" alt="on img.ly"  class="jqoaImg"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],null,
       {templateRegex:/.*com\/([^\/]+).*/ 
-      , template : '<a href="http://img.ly/$1"><img src="http://img.ly/show/thumb/$1" alt="on img.ly" border="0" style="margin: 0 0 5px 0;"></a>'
+      , template : '<a href="http://img.ly/$1"><img src="http://img.ly/show/thumb/$1" alt="on img.ly"  class="jqoaImg"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("twitgoo.com", "photo", ["twitgoo\\.com/.+"],null,
       {templateRegex:/.*com\/([^\/]+).*/ 
-      , template : '<a href="http://twitgoo.com/$1"><img src="http://twitgoo.com/show/thumb/$1" alt="on twitgoo.com" border="0" style="margin: 0 0 5px 0;"></a>'
+      , template : '<a href="http://twitgoo.com/$1"><img src="http://twitgoo.com/show/thumb/$1" alt="on twitgoo.com"  class="jqoaImg"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],null,
       {templateRegex:/.*gallery\/([^\/]+).*/ 
-      , template : '<a href="http://imgur.com/gallery/$1"><img src="http://imgur.com/$1l.jpg" alt="on imgur.com" border="0" style="margin: 0 0 5px 0;"></a>'
+      , template : '<a href="http://imgur.com/gallery/$1"><img src="http://imgur.com/$1l.jpg" alt="on imgur.com"  class="jqoaImg"></a>'
       }), 
     new $.fn.oembed.OEmbedProvider("visual.ly", "rich", ["visual\\.ly/.+"], null,
       {yql:{xpath:"//a[@id=\\'gc_article_graphic_image\\']/img", from:'htmlstring'}
@@ -572,7 +578,8 @@
                 +'</div><div class="status"><strong>'+q.answer_count+'</strong>answer</div></div><div class="views">'+q.view_count+' view(s)</div></div>'
                 +'<div class="summary"><h3><a class="question-hyperlink" href="http://stackoverflow.com/questions/'+q.question_id+'/">'+q.title+'</a></h3>'
                 +'<div class="excerpt">'+ body.substring(0,100)+'...</div><div class="tags">';
-          for(i in q.tags) out += '<a title="" class="post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>'
+          for(i in q.tags) 
+            out += '<a title="" class="post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>';
           out += '</div><div class="fr"><div class="user-info"><div class="user-gravatar32"><a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'
             +'<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/'+q.owner.email_hash+'?s=32&amp;d=identicon&amp;r=PG"></a></div><div class="user-details">'
             +'<a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'+q.owner.display_name+'</a><br><span title="reputation score" class="reputation-score">'
