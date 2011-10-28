@@ -128,6 +128,9 @@
         $.ajax( ajaxopts );
 	   }else if(embedProvider.templateRegex){
         if(embedProvider.apiendpoint){
+          //Add APIkey if true
+          if(embedProvider.apikey)
+            embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_',settings.apikeys[embedProvider.name]);
           ajaxopts = $.extend({
             url:externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
             dataType: 'jsonp',
@@ -610,7 +613,18 @@
               }
           }
       }),
-		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'})
+		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
+    
+    new $.fn.oembed.OEmbedProvider("etsy", "rich", ["etsy.com/listing/[\\d]+"], "http://openapi.etsy.com/v2/listings/$1.js?callback=?&api_key=_APIKEY_"
+    ,{apikey: true,
+      templateRegex:/.*listing\/([\d]+).*/,
+      templateData : function(data){ 
+          if(!data.results)return false;
+          var q = data.results[0];
+          var out = '<div class="etsyembed">kfksfkdhfsk</div>';
+          return out;
+        },
+      }),
 
 	];
 })(jQuery);
