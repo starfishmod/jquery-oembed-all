@@ -15,6 +15,20 @@ This project tries to use embedding techniques in the following order of prefere
 * YQL Screenscape to get embedding details - BandCamp
 * YQL Screenscrape - pastie
 
+to use...
+<a href="https://github.com/starfishmod/jquery-oembed-all" class="oembed">https://github.com/starfishmod/jquery-oembed-all</a>
+
+1. url 
+2. options
+
+$(".oembed").oembed(null,{
+    embedMethod: 'auto',	// "auto", "append", "fill"	
+    apikeys: {
+      
+      etsy : '<your etsy key>',
+    }
+});
+
 
 Current 3rd party sources include:
 ---------------------------------
@@ -89,6 +103,7 @@ Current 3rd party sources include:
 * kickstarter - Embedded
 * issuu - YQL Embedded
 * reelapp.com - Embedded
+* Etsy - JSONP/APIKey Lookup
 
 ---
 ####TODO:
@@ -113,5 +128,6 @@ Current 3rd party sources include:
 * posterous.com
 * vodpod
 * plannary
+* graphic.ly  - JSONP Available - requires API Key
 
 A lot more :) Feel free to submit

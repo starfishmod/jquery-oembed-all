@@ -627,8 +627,19 @@
       templateRegex:/.*listing\/([\d]+).*/,
       templateData : function(data){ 
           if(!data.results)return false;
-          var q = data.results[0];
-          var out = '<div class="etsyembed">kfksfkdhfsk</div>';
+          var q = data.results[0], ql;
+          var image = $.ajax("http://openapi.etsy.com/v2/listings/"+q.listing_id+"/images.js",{
+            async:false
+            ,cache:false
+            ,data : {api_key:settings.apikeys.etsy}
+            ,success:function(data){
+              if(!data.results)return false;
+              var q = data.results[0];
+              $('#etsy'+q.listing_id).prepend('<img align="left" src="'+q.url_75x75+'"/>');
+              }
+              ,dataType: 'jsonp'
+            });
+          var out = '<div class="etsyembed" id="etsy'+q.listing_id+'"><h3><a href="'+q.url+'">'+q.title+' '+q.price+q.currency_code+'</a></h3>'+data.results[0].description+'</div>';
           return out;
         },
       }),
