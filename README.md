@@ -16,11 +16,14 @@ This project tries to use embedding techniques in the following order of prefere
 * YQL Screenscrape - pastie
 
 to use...
+````
 <a href="https://github.com/starfishmod/jquery-oembed-all" class="oembed">https://github.com/starfishmod/jquery-oembed-all</a>
+````
 
 1. url 
 2. options
 
+````
 $(".oembed").oembed(null,{
     embedMethod: 'auto',	// "auto", "append", "fill"	
     apikeys: {
@@ -28,6 +31,7 @@ $(".oembed").oembed(null,{
       etsy : '<your etsy key>',
     }
 });
+````
 
 
 Current 3rd party sources include:
