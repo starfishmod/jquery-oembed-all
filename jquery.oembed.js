@@ -336,7 +336,7 @@
 		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,
       {templateRegex:/.*v\=([\w-]+)&?.*/
       ,embedtag : {tag: 'iframe', width:'425',height: '349',
-        src: "http://www.youtube.com/embed/$1",
+        src: "http://www.youtube.com/embed/$1?wmode=transparent",
         }
       }), 
 		new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"],null,
