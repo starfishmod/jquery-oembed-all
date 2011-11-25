@@ -147,10 +147,21 @@
           var flashvars = embedProvider.embedtag.flashvars || '';
           var tag = embedProvider.embedtag.tag || 'embed';
           
+          var src = externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src);
+          var params = "";
+          if(embedProvider.params) {
+            params = [];
+            for(param in embedProvider.params) {
+              params.push(param+"="+embedProvider.params[param]);
+            }
+            params = "&"+params.join("&");
+          }
+          src += params;
+          
           var code = $('<'+tag+'/>')
-              .attr('src',externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src))
-              .attr('width',embedProvider.embedtag.width)
-              .attr('height',embedProvider.embedtag.height)
+              .attr('src',src)
+              .attr('width',embedProvider.maxWidth || embedProvider.embedtag.width)
+              .attr('height',embedProvider.maxHeight || embedProvider.embedtag.height)
               .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
               .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
           if(tag=='embed')
