@@ -147,10 +147,21 @@
           var flashvars = embedProvider.embedtag.flashvars || '';
           var tag = embedProvider.embedtag.tag || 'embed';
           
+          var src = externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src);
+          var params = "";
+          if(embedProvider.params) {
+            params = [];
+            for(param in embedProvider.params) {
+              params.push(param+"="+embedProvider.params[param]);
+            }
+            params = "&"+params.join("&");
+          }
+          src += params;
+          
           var code = $('<'+tag+'/>')
-              .attr('src',externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src))
-              .attr('width',embedProvider.embedtag.width)
-              .attr('height',embedProvider.embedtag.height)
+              .attr('src',src)
+              .attr('width',embedProvider.maxWidth || embedProvider.embedtag.width)
+              .attr('height',embedProvider.maxHeight || embedProvider.embedtag.height)
               .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
               .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
           if(tag=='embed')
@@ -336,19 +347,19 @@
 		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,
       {templateRegex:/.*v\=([\w-]+)&?.*/
       ,embedtag : {tag: 'iframe', width:'425',height: '349',
-        src: "http://www.youtube.com/embed/$1?wmode=transparent",
+        src: "http://www.youtube.com/embed/$1?wmode=transparent"
         }
       }), 
 		new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"],null,
       {templateRegex:/.*com\/watch\/([\w-]+)\/([\w-]+).*/
       ,embedtag : {tag: 'iframe', width:'320',height: '269',
-        src: "http://www.xtranormal.com/xtraplayr/$1/$2",
+        src: "http://www.xtranormal.com/xtraplayr/$1/$2"
         }
       }), 
 		new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"],null,
       {templateRegex:/.*com\/video\/([\w-]+)\/([\w-]+).*/
       ,embedtag : { width:'512',height: '288',
-        src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2",
+        src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2"
         }
       }), 
 		new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,
@@ -405,7 +416,7 @@
       }),
     new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Flab.viddler.com%2Fservices%2Foembed%2f%3Furl%3D$1%22%20and%20xpath%3D%22%2F%2F*%2Fobject%22&format=xml&callback=?",
       {templateRegex:/(.*)/,
-      templateData : function(data){if(!data.results[0])return false;return  data.results[0];},
+      templateData : function(data){if(!data.results[0])return false;return  data.results[0];}
       }),
     new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"], "http://www.nfb.ca/remote/services/oembed/"),
     new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], "http://qik.com/api/oembed.json"),
@@ -429,7 +440,7 @@
       {templateRegex:/http:\/\/([^\/]+).*/ 
       , embedtag : {width:480,height: 360,
         src: "http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1",
-        flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360",
+        flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360"
         }        
       }), 
     new $.fn.oembed.OEmbedProvider("hark", "audio", ["hark\\.com/clips/.+"],null,
@@ -453,7 +464,7 @@
       templateData : function(data){if(!data.user)return false;
           return  '<div id="content"><div id="view-photo-user"><div id="photo-user-avatar"><img src="'+data.user.avatar_url+'"></div><div id="photo-info"><h3><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h3><p><span id="photo-info-name">'+data.user.name+'</span> '+data.user.timestamp+'</p></div></div><div id="photo-wrap" style="margin: auto;width:600px;height:450px;">'
             +'<img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'"></div><div id="view-photo-caption">'+data.message+'</div></div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,
       {templateRegex:/.*photo\/([^\/]+).*/ 
@@ -485,7 +496,7 @@
       {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/,
       embedtag : {width:355,height: 300,
         src: "http://togo.ebay.com/togo/togo.swf?2008013100",
-        flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1",
+        flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
         } 
       }),
     new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],null,
@@ -498,43 +509,43 @@
       {templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
       templateData : function(data){if(!data.posts)return false;
           return  '<div id="content"><h3><a class="nav-link" href="'+data.posts[0]['url-with-slug']+'">'+data.posts[0]['regular-title']+'</a></h3>'+data.posts[0]['regular-body']+'</div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
       templateData : function(data){if(!data.parse)return false;
           var text = data.parse['text']['*'].replace('href="/wiki','href="http://en.wikipedia.org/wiki');
           return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+text+'</div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("imdb", "rich", ["imdb.com/title/.+"], "http://www.imdbapi.com/?i=$1&callback=?",
       {templateRegex:/.*\/title\/([^\/]+).*/,
       templateData : function(data){if(!data.Title)return false;
           return  '<div id="content"><h3><a class="nav-link" href="http://imdb.com/title/'+data.ID+'/">'+data.Title+'</a> ('+data.Year+')</h3><p>Starring: '+data.Actors+'</p><div id="photo-wrap" style="margin: auto;width:600px;height:450px;"><img class="photo" id="photo-display" src="'+data.Poster+'" alt="'+data.Title+'"></div>  <div id="view-photo-caption">'+data.Plot+'</div></div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("livejournal", "rich", ["livejournal.com/"], "http://ljpic.seacrow.com/json/$2$4?jsonp=?"
     ,{templateRegex:/(http:\/\/(((?!users).)+)\.livejournal\.com|.*users\.livejournal\.com\/([^\/]+)).*/,
       templateData : function(data){if(!data.username)return false;
           return  '<div id="content"><img src="'+data.image+'" align="left" style="margin-right: 1em;" /><span class="ljuser"><a href="http://'+data.username+'.livejournal.com/profile"><img src="http://www.livejournal.com/img/userinfo.gif" alt="[info]" width="17" height="17" /></a><a href="http://'+data.username+'.livejournal.com/">'+data.username+'</a></span><br />'+data.name+'</div>';
-        },
+        }
       }),  
     new $.fn.oembed.OEmbedProvider("circuitbee", "rich", ["circuitbee\\.com/circuit/view/.+"],null,
       {templateRegex:/.*circuit\/view\/(\d+).*/ 
       ,embedtag : {tag: 'iframe', width:'500',height: '350',
-        src: "http://c.circuitbee.com/build/r/schematic-embed.html?id=$1",
+        src: "http://c.circuitbee.com/build/r/schematic-embed.html?id=$1"
         }
       }),
     new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],null,
       {templateRegex:/.*com\/(\S{6}).*/ 
       ,embedtag : {tag: 'iframe', width:'400',height: '338',
-        src: "http://www.reelapp.com/$1/embed",
+        src: "http://www.reelapp.com/$1/embed"
         }
       }),
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],null,
       {templateRegex:/.*\/(\S{8}).*/ 
       ,embedtag : {tag: 'iframe', width:'100%',height: 'auto',
-        src: "http://pastebin.com/embed_iframe.php?i=$1",
+        src: "http://pastebin.com/embed_iframe.php?i=$1"
         }
       
       }),
@@ -547,13 +558,13 @@
           return  '<div class="githubrepos"><ul class="repo-stats"><li>'+data.data.language+'</li><li class="watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">'+data.data.watchers+'</a></li>'
             +'<li class="forks"><a title="Forks" href="'+data.data.html_url+'/network">'+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="body"><p class="description">'+data.data.description+'</p>'
             +'<p class="updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("myspace", "rich", ["myspace.com/[-.\\w@]+"], "http://api.myspace.com/opensearch/people?searchTerms=$1&callback=?&searchBy=displayname&count=1"
     ,{templateRegex:/.*\/([^\/]+).*/,
       templateData : function(data){ if(!data.entries)return false;
           return  '<div class="myspace1"><div class="myspace2"><a href="http://www.myspace.com/" class="MSIcon">Myspace&nbsp;&nbsp;&nbsp;</a> <a href="'+data.entries[0].profileUrl+'">'+data.entries[0].displayName+'</a></div><div class="myspaceBody"><div><img src="'+data.entries[0].thumbnailUrl+'" align="left"></div><div>Location  <strong>'+data.entries[0].location+'</strong><br/>Type:  <strong>'+data.entries[0].msUserType+'</strong><br/></div></div></div>';
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
@@ -565,7 +576,7 @@
           if(data.gender) out += 'Gender  <strong>'+data.gender+'</strong><br/>';
           out += '</div></div></div>';
           return out;
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("stackoverflow", "rich", ["stackoverflow.com/questions/[\\d]+"], "http://api.stackoverflow.com/1.1/questions/$1?body=true&jsonp=?"
     ,{templateRegex:/.*questions\/([\d]+).*/,
@@ -585,32 +596,32 @@
             +'<a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'+q.owner.display_name+'</a><br><span title="reputation score" class="reputation-score">'
             +q.owner.reputation+'</span></div></div></div></div></div>';
             return out;
-        },
+        }
       }),
     new $.fn.oembed.OEmbedProvider("wordpress", "rich", ["wordpress\\.com/.+","blogs\\.cnn\\.com/.+","techcrunch\\.com/.+","wp\\.me/.+"]
       , "http://public-api.wordpress.com/oembed/1.0/?for=jquery-oembed-all"),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, 
       {templateRegex:/.*\/([^\/]+).*/ 
       ,embedtag : {tag: 'iframe', width:'650',height: 396,
-        src: "http://www.screenr.com/embed/$1",
+        src: "http://www.screenr.com/embed/$1"
         }
       }) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,
       {templateRegex:/.*\/(\d+)\/?.*/,
       embedtag : {tag: 'iframe', width:'100%',height: 400,
-        src: "http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html",
+        src: "http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html"
         }
       }), 
     new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null,
       {templateRegex:/.*doc\/([^\/]+).*/ ,
       embedtag : {tag: 'iframe', width:'100%',height: 600,
-        src: "http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list",
+        src: "http://www.scribd.com/embeds/$1/content?start_page=1&view_mode=list"
         }      
       }),
     new $.fn.oembed.OEmbedProvider("kickstarter", "rich", ["kickstarter\\.com/projects/.+"],null,
       {templateRegex:/([^\?]+).*/ ,
       embedtag : {tag: 'iframe', width:'220',height: 380,
-        src: "$1/widget/card.html",
+        src: "$1/widget/card.html"
         }      
       }),
     new $.fn.oembed.OEmbedProvider("issuu", "rich", ["issuu\\.com/[-.\\w@]+/docs/.+"], null,
@@ -641,7 +652,7 @@
             });
           var out = '<div class="etsyembed" id="etsy'+q.listing_id+'"><h3><a href="'+q.url+'">'+q.title+' '+q.price+q.currency_code+'</a></h3>'+data.results[0].description+'</div>';
           return out;
-        },
+        }
       }),
 
 	];
