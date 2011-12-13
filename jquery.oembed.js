@@ -344,8 +344,8 @@
     $.fn.oembed.providers = [
     
     //Video
-		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,
-      {templateRegex:/.*v\=([\w-]+)&?.*/
+		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"],null,
+      {templateRegex:/.*(?:v\=|be\/)([\w-]+)&?.*/
       ,embedtag : {tag: 'iframe', width:'425',height: '349',
         src: "http://www.youtube.com/embed/$1?wmode=transparent"
         }
