@@ -653,7 +653,7 @@
           var out = '<div class="etsyembed" id="etsy'+q.listing_id+'"><h3><a href="'+q.url+'">'+q.title+' '+q.price+q.currency_code+'</a></h3>'+data.results[0].description+'</div>';
           return out;
         }
-      }),
+      })
 
 	];
 })(jQuery);
