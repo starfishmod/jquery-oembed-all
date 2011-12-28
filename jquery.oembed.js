@@ -439,7 +439,7 @@
             xpath: "//meta[contains(@content, \\'EmbeddedPlayer\\')]",
             from: 'html',
             datareturn: function(results) {
-                return results.meta ? '<iframe width="400" height="100" src="' + results.meta.content + '" allowtransparency="true" frameborder="0"></iframe>' : false;
+                return results.meta ? '<embed type="application/x-shockwave-flash" allowfullscreen="true" menu="false" src="' + results.meta.content + '" allowtransparency="true" width="400" height="100" frameborder="0"></embed>' : false;
             }
         }
     }), new $.fn.oembed.OEmbedProvider("podomatic", "audio", [".+\\.podomatic\\.com/"], null, {
