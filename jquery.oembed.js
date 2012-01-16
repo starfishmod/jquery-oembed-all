@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * jquery oembed plugin
  *
  * Copyright (c) 2009 Richard Chamorro
@@ -8,18 +8,17 @@
  * Forked by Andrew Mee to Provide a slightly diffent kind of embedding 
  * experience
  */
- 
-(function ($) {
-    $.fn.oembed = function (url, options, embedAction) {
+(function($) {
+    $.fn.oembed = function(url, options, embedAction) {
 
         settings = $.extend(true, $.fn.oembed.defaults, options);
-        if($('#jqoembeddata').length==0)$('<span id="jqoembeddata"></span>').appendTo('body');
+        if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
-        return this.each(function () {
+        return this.each(function() {
 
             var container = $(this),
-              resourceURL = (url != null) ? url : container.attr("href"),
-              provider;
+                resourceURL = (url !== null) ? url : container.attr("href"),
+                provider;
 
             if (embedAction) {
                 settings.onEmbed = embedAction;
@@ -29,10 +28,10 @@
                 };
             }
 
-            if (resourceURL != null) {
+            if (resourceURL !== null) {
                 provider = $.fn.oembed.getOEmbedProvider(resourceURL);
 
-                if (provider != null) {
+                if (provider !== null) {
                     provider.params = getNormalizedParams(settings[provider.name]) || {};
                     provider.maxWidth = settings.maxWidth;
                     provider.maxHeight = settings.maxHeight;
@@ -48,7 +47,7 @@
 
     };
 
-    var settings, activeProviders = [];
+    var settings;
 
     // Plugin defaults
     $.fn.oembed.defaults = {
@@ -64,73 +63,68 @@
     };
 
     /* Private functions */
-    function rand(length,current){
+    function rand(length,current){ //Found on http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
      current = current ? current : '';
      return length ? rand( --length , "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".charAt( Math.floor( Math.random() * 60 ) ) + current ) : current;
     }
     
     function getRequestUrl(provider, externalUrl) {
-        var url = provider.apiendpoint, qs = "",  i;
-        url += (url.indexOf("?") <= 0)?"?":"&";
+        var url = provider.apiendpoint,
+            qs = "",
+            i;
+        url += (url.indexOf("?") <= 0) ? "?" : "&";
 
-        if (provider.maxWidth != null && provider.params["maxwidth"] == null)
-            provider.params["maxwidth"] = provider.maxWidth;
+        if (provider.maxWidth !== null && provider.params.maxwidth === null) provider.params.maxwidth = provider.maxWidth;
 
-        if (provider.maxHeight != null && provider.params["maxheight"] == null)
-            provider.params["maxheight"] = provider.maxHeight;
+        if (provider.maxHeight !== null && provider.params.maxheight === null) provider.params.maxheight = provider.maxHeight;
 
         for (i in provider.params) {
             // We don't want them to jack everything up by changing the callback parameter
-            if (i == provider.callbackparameter)
-                continue;
+            if (i == provider.callbackparameter) continue;
 
             // allows the options to be set to null, don't send null values to the server as parameters
-            if (provider.params[i] != null)
-                qs += "&" + escape(i) + "=" + provider.params[i];
+            if (provider.params[i] !== null) qs += "&" + escape(i) + "=" + provider.params[i];
         }
 
-        url += "format="+provider.format+"&url=" + escape(externalUrl) +
-					qs +"&" + provider.callbackparameter + "=?";
+        url += "format=" + provider.format + "&url=" + escape(externalUrl) + qs + "&" + provider.callbackparameter + "=?";
 
         return url;
     };
-    
-    function success(oembedData,externalUrl,container){
-      $('#jqoembeddata').data(externalUrl,oembedData.code);
-      settings.beforeEmbed.call(container, oembedData);
-      settings.onEmbed.call(container, oembedData);
-      settings.afterEmbed.call(container, oembedData);
+    function success(oembedData, externalUrl, container) {
+        $('#jqoembeddata').data(externalUrl, oembedData.code);
+        settings.beforeEmbed.call(container, oembedData);
+        settings.onEmbed.call(container, oembedData);
+        settings.afterEmbed.call(container, oembedData);
     }
 
     function embedCode(container, externalUrl, embedProvider) {
-	   if($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
+	 if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
 	     var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
        success(oembedData, externalUrl,container);
-     }else if(embedProvider.yql){
-      var urlq = embedProvider.yql.url?embedProvider.yql.url(externalUrl):externalUrl;
-      var from = embedProvider.yql.from||'htmlstring';
-      var pathq = /html/.test(from)?'xpath':'itemPath';
-      var query = 'SELECT * FROM '+ from+ ' WHERE url="' +urlq+ '"'
-          + "and " +pathq+ "='" +(embedProvider.yql.xpath||'/')+ "'";
-      ajaxopts = $.extend({
-          url:"http://query.yahooapis.com/v1/public/yql",
-          dataType: 'jsonp',
-          data: {
-               q: query,
-               format: "json",
-               env: 'store://datatables.org/alltableswithkeys',
-               callback: "?"
-           },
-          success:  function (data) {
-            var result = embedProvider.yql.datareturn?embedProvider.yql.datareturn(data.query.results): data.query.results.result;
-            var oembedData = $.extend({}, result);
-            oembedData.code = result;
-            success(oembedData, externalUrl,container);
-          },
-          error: settings.onError.call(container, externalUrl, embedProvider)
-        }, settings.ajaxOptions || { } );
+     }else if (embedProvider.yql) {
+            var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
+            var from = embedProvider.yql.from || 'htmlstring';
+            var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
+            var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + "and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
+            ajaxopts = $.extend({
+                url: "http://query.yahooapis.com/v1/public/yql",
+                dataType: 'jsonp',
+                data: {
+                    q: query,
+                    format: "json",
+                    env: 'store://datatables.org/alltableswithkeys',
+                    callback: "?"
+                },
+                success: function(data) {
+                    var result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
+                    var oembedData = $.extend({}, result);
+                    oembedData.code = result;
+                    success(oembedData, externalUrl, container);
+                },
+                error: settings.onError.call(container, externalUrl, embedProvider)
+            }, settings.ajaxOptions || {});
         
-        $.ajax( ajaxopts );
+            $.ajax(ajaxopts);
 	   }else if(embedProvider.templateRegex){
         if(embedProvider.apiendpoint){
           //Add APIkey if true
@@ -207,130 +201,115 @@
     };
 
     function getNormalizedParams(params) {
-        if (params == null)
-            return null;
+        if (params === null) return null;
         var key, normalizedParams = {};
         for (key in params) {
-            if (key != null)
-                normalizedParams[key.toLowerCase()] = params[key];
+            if (key !== null) normalizedParams[key.toLowerCase()] = params[key];
         }
         return normalizedParams;
     }
 
     function isNullOrEmpty(object) {
-        if (typeof object == "undefined" || object == null || ($.isArray(object) && object.length == 0))
-            return true;
+        if (typeof object == "undefined" || object === null || ($.isArray(object) && object.length === 0)) return true;
         return false;
     }
 
     /* Public functions */
-    $.fn.oembed.insertCode = function (container, embedMethod, oembedData) {
-        if (oembedData == null)
-            return;
+    $.fn.oembed.insertCode = function(container, embedMethod, oembedData) {
+        if (oembedData === null) return;
 
         switch (embedMethod) {
-            case "auto":
-                if (container.attr("href") != null) {
-                    $.fn.oembed.insertCode(container, "append", oembedData);
-                }else {
-                    $.fn.oembed.insertCode(container, "replace", oembedData);
-                };
-                break;
-            case "replace":
-                container.replaceWith(oembedData.code);
-                break;
-            case "fill":
-                container.html(oembedData.code);
-                break;
-            case "append":
-                container.wrap('<div class="oembed-container"></div>');
-                var oembedContainer = container.parent();
-                $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function(){
-                    var encodedString=encodeURIComponent($(this).text()); 
-                    $(this).html((encodedString=='%E2%86%91')?'&darr;':'&uarr;');
-                    $(this).parent().children().last().toggle();
-                  });
-                oembedContainer.append('<br/>');
-                oembedContainer.append(oembedData.code);
-                break;
+        case "auto":
+            if (container.attr("href") !== null) {
+                $.fn.oembed.insertCode(container, "append", oembedData);
+            }
+            else {
+                $.fn.oembed.insertCode(container, "replace", oembedData);
+            }
+            break;
+        case "replace":
+            container.replaceWith(oembedData.code);
+            break;
+        case "fill":
+            container.html(oembedData.code);
+            break;
+        case "append":
+            container.wrap('<div class="oembed-container"></div>');
+            var oembedContainer = container.parent();
+            $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function() {
+                var encodedString = encodeURIComponent($(this).text());
+                $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
+                $(this).parent().children().last().toggle();
+            });
+            oembedContainer.append('<br/>');
+            oembedContainer.append(oembedData.code);
+            break;
         }
     };
 
-    $.fn.oembed.getPhotoCode = function (url, oembedData) {
+    $.fn.oembed.getPhotoCode = function(url, oembedData) {
         var code, alt = oembedData.title ? oembedData.title : '';
         alt += oembedData.author_name ? ' - ' + oembedData.author_name : '';
         alt += oembedData.provider_name ? ' - ' + oembedData.provider_name : '';
         code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
-        if (oembedData.html)
-            code += "<div>" + oembedData.html + "</div>";
+        if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
         return code;
     };
 
-    $.fn.oembed.getRichCode = function (url, oembedData) {
+    $.fn.oembed.getRichCode = function(url, oembedData) {
         var code = oembedData.html;
         return code;
     };
 
-    $.fn.oembed.getGenericCode = function (url, oembedData) {
-        var title = (oembedData.title != null) ? oembedData.title : url,
-			code = '<a href="' + url + '">' + title + '</a>';
-        if (oembedData.html)
-            code += "<div>" + oembedData.html + "</div>";
+    $.fn.oembed.getGenericCode = function(url, oembedData) {
+        var title = (oembedData.title !== null) ? oembedData.title : url,
+            code = '<a href="' + url + '">' + title + '</a>';
+        if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
         return code;
     };
 
-    $.fn.oembed.isProviderAvailable = function (url) {
+    $.fn.oembed.isProviderAvailable = function(url) {
         var provider = getOEmbedProvider(url);
-        return (provider != null);
+        return (provider !== null);
     };
 
-    $.fn.oembed.getOEmbedProvider = function (url) {
+    $.fn.oembed.getOEmbedProvider = function(url) {
         for (var i = 0; i < this.providers.length; i++) {
-            if (this.providers[i].matches(url))
-                return this.providers[i];
+            if (this.providers[i].matches(url)) return this.providers[i];
         }
         return null;
     };
 
-    $.fn.oembed.OEmbedProvider = function (name, type, urlschemesarray, apiendpoint, extraSettings){
+    $.fn.oembed.OEmbedProvider = function(name, type, urlschemesarray, apiendpoint, extraSettings) {
         this.name = name;
         this.type = type; // "photo", "video", "link", "rich", null
         this.urlschemes = getUrlSchemes(urlschemesarray);
-        this.apiendpoint = apiendpoint ;
+        this.apiendpoint = apiendpoint;
         this.maxWidth = 500;
         this.maxHeight = 400;
-        
-        this.fromJSON = function (json) {
+        this.fromJSON = function(json) {
             for (property in json) {
-                if (property != "urlschemes")
-                    this[property] = json[property];
-                else
-                    this[property] = getUrlSchemes(json[property]);
+                if (property != "urlschemes") this[property] = json[property];
+                else this[property] = getUrlSchemes(json[property]);
             }
             return true;
         };
-        
-        if(!isNullOrEmpty(extraSettings))this.fromJSON(extraSettings);
-        
+        if (!isNullOrEmpty(extraSettings)) this.fromJSON(extraSettings);
         this.format = this.format || 'json';
-        this.callbackparameter = this.callbackparameter ||  "callback";
-        
+        this.callbackparameter = this.callbackparameter || "callback";
         var i, property, regExp;
 
-        this.matches = function (externalUrl) {
+        this.matches = function(externalUrl) {
             for (i = 0; i < this.urlschemes.length; i++) {
                 regExp = new RegExp(this.urlschemes[i], "i");
-                if (externalUrl.match(regExp) != null)
-                    return true;
+                if (externalUrl.match(regExp) !== null) return true;
             }
             return false;
         };
 
         function getUrlSchemes(urls) {
-            if (isNullOrEmpty(urls))
-                return ["."];
-            if ($.isArray(urls))
-                return urls;
+            if (isNullOrEmpty(urls)) return ["."];
+            if ($.isArray(urls)) return urls;
             return urls.split(";");
         }
     };
@@ -339,30 +318,38 @@
     $.fn.oembed.providers = [
     
     //Video
-		new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?"],null,
-      {templateRegex:/.*v\=([\w-]+)&?.*/
-      ,embedtag : {tag: 'iframe', width:'425',height: '349',
-        src: "http://www.youtube.com/embed/$1?wmode=transparent",
+    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], null, {
+        templateRegex: /.*(?:v\=|be\/)([\w\-]+)&?.*/,
+        embedtag: {
+            tag: 'iframe',
+            width: '425',
+            height: '349',
+            src: "http://www.youtube.com/embed/$1?wmode=transparent"
         }
-      }), 
-		new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"],null,
-      {templateRegex:/.*com\/watch\/([\w-]+)\/([\w-]+).*/
-      ,embedtag : {tag: 'iframe', width:'320',height: '269',
-        src: "http://www.xtranormal.com/xtraplayr/$1/$2",
+    }), new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"], null, {
+        templateRegex: /.*com\/watch\/([\w\-]+)\/([\w\-]+).*/,
+        embedtag: {
+            tag: 'iframe',
+            width: '320',
+            height: '269',
+            src: "http://www.xtranormal.com/xtraplayr/$1/$2"
         }
-      }), 
-		new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"],null,
-      {templateRegex:/.*com\/video\/([\w-]+)\/([\w-]+).*/
-      ,embedtag : { width:'512',height: '288',
-        src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2",
+    }), new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"], null, {
+        templateRegex: /.*com\/video\/([\w\-]+)\/([\w\-]+).*/,
+        embedtag: {
+            width: '512',
+            height: '288',
+            src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2"
         }
-      }), 
-		new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,
-      {templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
-      , embedtag : {width:512,height: 328,flashvars : "key=$1",
-          src: "http://player.ordienetworks.com/flash/fodplayer.swf"}
-      }), 
-		new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
+    }), new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,{
+	templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
+      , embedtag : {
+			width:512,
+			height: 328,
+			flashvars : "key=$1",
+          	src: "http://player.ordienetworks.com/flash/fodplayer.swf"
+		}
+      }), new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
       {templateRegex:/.*justin\.tv\/(\w+).*/
       , template : '<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_player_flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=$1" bgcolor="#000000">'
                   +'<param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="allownetworking" value="all" /><param name="wmode" value="opaque">'
@@ -652,15 +639,12 @@
               }
               ,dataType: 'jsonp'
             });
-          var out = '<div class="etsyembed" id="etsy'+q.listing_id+'"><h3><a href="'+q.url+'">'+q.title+' '+q.price+q.currency_code+'</a></h3>'+data.results[0].description+'</div>';
-          return out;
-        },
-      }),
-      
-      
-      
+            var out = '<div class="etsyembed" id="etsy' + q.listing_id + '"><h3><a href="' + q.url + '">' + q.title + ' ' + q.price + q.currency_code + '</a></h3>' + data.results[0].description + '</div>';
+            return out;
+        }
+    })
 
-	];
+    ];
 })(jQuery);
 
 //This is needed for gravatar :(
