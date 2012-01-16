@@ -125,24 +125,24 @@
             }, settings.ajaxOptions || {});
         
             $.ajax(ajaxopts);
-	   }else if(embedProvider.templateRegex){
-        if(embedProvider.apiendpoint){
-          //Add APIkey if true
-          if(embedProvider.apikey)
-            embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_',settings.apikeys[embedProvider.name]);
-          ajaxopts = $.extend({
-            url:externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint),
-            dataType: 'jsonp',
-            success:  function (data) {
-              var oembedData = $.extend({}, data);
-              oembedData.code = embedProvider.templateData(data);
-              success(oembedData, externalUrl,container);
-            },
-            error: settings.onError.call(container, externalUrl, embedProvider)
-          }, settings.ajaxOptions || { } );
+        }else if (embedProvider.templateRegex) {
+            if (embedProvider.apiendpoint) {
+                //Add APIkey if true
+                if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
+                ajaxopts = $.extend({
+                    url: externalUrl.replace(embedProvider.templateRegex, embedProvider.apiendpoint),
+                    dataType: 'jsonp',
+                    success: function(data) {
+                        var oembedData = $.extend({}, data);
+                        oembedData.code = embedProvider.templateData(data);
+                        success(oembedData, externalUrl, container);
+                    },
+                    error: settings.onError.call(container, externalUrl, embedProvider)
+                }, settings.ajaxOptions || {});
           
           $.ajax( ajaxopts );
-        }else if(embedProvider.embedtag){
+        }
+		else if(embedProvider.embedtag){
           var flashvars = embedProvider.embedtag.flashvars || '';
           var tag = embedProvider.embedtag.tag || 'embed';
           var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src)+'&jqoemcache='+rand(5);
@@ -170,26 +170,6 @@
           var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
           success(oembedData, externalUrl,container);
         }
-        
-      }else{
-
-        var requestUrl = getRequestUrl(embedProvider, externalUrl), 		
-        ajaxopts = $.extend({
-          url: requestUrl,
-          dataType: 'jsonp',
-          success:  function (data) {
-            var oembedData = $.extend({}, data);
-            switch (oembedData.type) {
-              case "photo":
-                oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
-                break;
-              case "video":
-              case "rich":
-                oembedData.code = $.fn.oembed.getRichCode(externalUrl, oembedData);
-                break;
-              default:
-                oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
-                break;
             }
             success(oembedData, externalUrl,container);
           },
@@ -620,7 +600,8 @@
               }
           }
       }),
-		new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
+
+	new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
     
     new $.fn.oembed.OEmbedProvider("etsy", "rich", ["etsy.com/listing/[\\d]+"], "http://openapi.etsy.com/v2/listings/$1.js?callback=?&api_key=_APIKEY_"
     ,{apikey: true,
