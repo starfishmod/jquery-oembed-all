@@ -22,8 +22,9 @@
 
             if (embedAction) {
                 settings.onEmbed = embedAction;
-            } else {
-                settings.onEmbed = function (oembedData) {
+            }
+            else {
+                settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
                 };
             }
@@ -36,7 +37,8 @@
                     provider.maxWidth = settings.maxWidth;
                     provider.maxHeight = settings.maxHeight;
                     embedCode(container, resourceURL, provider);
-                } else {
+                }
+                else {
                     settings.onProviderNotFound.call(container, resourceURL);
                 }
             }
@@ -53,11 +55,12 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
-        embedMethod: 'auto',	// "auto", "append", "fill"		
-        onProviderNotFound: function () { },
-        beforeEmbed: function () { },
-        afterEmbed: function () { },
-        onEmbed: function () { },
+        embedMethod: 'auto',
+        // "auto", "append", "fill"		
+        onProviderNotFound: function() {},
+        beforeEmbed: function() {},
+        afterEmbed: function() {},
+        onEmbed: function() {},
         onError: function() {},
         ajaxOptions: {}
     };
@@ -89,7 +92,7 @@
         url += "format=" + provider.format + "&url=" + escape(externalUrl) + qs + "&" + provider.callbackparameter + "=?";
 
         return url;
-    };
+    }
     function success(oembedData, externalUrl, container) {
         $('#jqoembeddata').data(externalUrl, oembedData.code);
         settings.beforeEmbed.call(container, oembedData);
@@ -99,9 +102,12 @@
 
     function embedCode(container, externalUrl, embedProvider) {
 	 if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
-	     var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
-       success(oembedData, externalUrl,container);
-     }else if (embedProvider.yql) {
+	    var oembedData = {
+                code: $('#jqoembeddata').data(externalUrl)
+            };
+            success(oembedData, externalUrl, container);
+        }
+        else if (embedProvider.yql) {
             var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
             var from = embedProvider.yql.from || 'htmlstring';
             var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
@@ -125,7 +131,8 @@
             }, settings.ajaxOptions || {});
         
             $.ajax(ajaxopts);
-        }else if (embedProvider.templateRegex) {
+        }
+        else if (embedProvider.templateRegex) {
             if (embedProvider.apiendpoint) {
                 //Add APIkey if true
                 if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
@@ -321,15 +328,15 @@
             height: '288',
             src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2"
         }
-    }), new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"],null,{
-	templateRegex:/.*videos\/([^\/]+)\/([^\/]+)?/
-      , embedtag : {
-			width:512,
-			height: 328,
-			flashvars : "key=$1",
-          	src: "http://player.ordienetworks.com/flash/fodplayer.swf"
-		}
-      }), new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
+    }), new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"], null, {
+        templateRegex: /.*videos\/([^\/]+)\/([^\/]+)?/,
+        embedtag: {
+            width: 512,
+            height: 328,
+            flashvars: "key=$1",
+            src: "http://player.ordienetworks.com/flash/fodplayer.swf"
+        }
+    }), new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
       {templateRegex:/.*justin\.tv\/(\w+).*/
       , template : '<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_player_flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=$1" bgcolor="#000000">'
                   +'<param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="allownetworking" value="all" /><param name="wmode" value="opaque">'
@@ -339,8 +346,7 @@
     {templateRegex:/.*video\/([^\/]+).*/ 
       , embedtag : {width:600,height: 338,
           src: "http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1"}
-      }), 
-    new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,
+    }), new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,
       {templateRegex:/.*watch\/(\d+)\/(\w+)\/.*/ 
       , embedtag : {width:400,height: 345,
           src: "http://www.metacafe.com/fplayer/$1/$2.swf"}
