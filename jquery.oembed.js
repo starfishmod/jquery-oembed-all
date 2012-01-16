@@ -64,6 +64,11 @@
     };
 
     /* Private functions */
+    function rand(length,current){
+     current = current ? current : '';
+     return length ? rand( --length , "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".charAt( Math.floor( Math.random() * 60 ) ) + current ) : current;
+    }
+    
     function getRequestUrl(provider, externalUrl) {
         var url = provider.apiendpoint, qs = "",  i;
         url += (url.indexOf("?") <= 0)?"?":"&";
@@ -98,7 +103,7 @@
     }
 
     function embedCode(container, externalUrl, embedProvider) {
-	   if($('#jqoembeddata').data(externalUrl)!=undefined){
+	   if($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
 	     var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
        success(oembedData, externalUrl,container);
      }else if(embedProvider.yql){
@@ -146,9 +151,10 @@
         }else if(embedProvider.embedtag){
           var flashvars = embedProvider.embedtag.flashvars || '';
           var tag = embedProvider.embedtag.tag || 'embed';
+          var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src)+'&jqoemcache='+rand(5);
           
           var code = $('<'+tag+'/>')
-              .attr('src',externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src))
+              .attr('src',src)
               .attr('width',embedProvider.embedtag.width)
               .attr('height',embedProvider.embedtag.height)
               .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
