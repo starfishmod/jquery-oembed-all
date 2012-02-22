@@ -17,7 +17,7 @@
         return this.each(function() {
 
             var container = $(this),
-                resourceURL = (url !== null) ? url : container.attr("href"),
+                resourceURL = url || container.attr("href"),
                 provider;
 
             if (embedAction) {
