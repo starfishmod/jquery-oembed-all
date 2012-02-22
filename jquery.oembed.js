@@ -101,90 +101,103 @@
     }
 
     function embedCode(container, externalUrl, embedProvider) {
-	 if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
-	    var oembedData = {
-                code: $('#jqoembeddata').data(externalUrl)
-            };
+      if ($('#jqoembeddata').data(externalUrl)!=undefined && embedProvider.embedtag.tag!='iframe'){
+        var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
+        success(oembedData, externalUrl, container);
+      }else if (embedProvider.yql) {
+        var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
+        var from = embedProvider.yql.from || 'htmlstring';
+        var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
+        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + "and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
+        ajaxopts = $.extend({
+          url: "http://query.yahooapis.com/v1/public/yql",
+          dataType: 'jsonp',
+          data: {
+            q: query,
+            format: "json",
+            env: 'store://datatables.org/alltableswithkeys',
+            callback: "?"
+          },
+          success: function(data) {
+            var result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
+            var oembedData = $.extend({}, result);
+            oembedData.code = result;
             success(oembedData, externalUrl, container);
+          },
+          error: settings.onError.call(container, externalUrl, embedProvider)
+        }, settings.ajaxOptions || {});
+        
+        $.ajax(ajaxopts);
+      }else if (embedProvider.templateRegex) {
+        if (embedProvider.apiendpoint) {
+          //Add APIkey if true
+          if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
+          ajaxopts = $.extend({
+            url: externalUrl.replace(embedProvider.templateRegex, embedProvider.apiendpoint),
+            dataType: 'jsonp',
+            success: function(data) {
+              var oembedData = $.extend({}, data);
+              oembedData.code = embedProvider.templateData(data);
+              success(oembedData, externalUrl, container);
+            },
+            error: settings.onError.call(container, externalUrl, embedProvider)
+            }, settings.ajaxOptions || {});
+            
+          $.ajax( ajaxopts );
+        }else if(embedProvider.embedtag){
+          var flashvars = embedProvider.embedtag.flashvars || '';
+          var tag = embedProvider.embedtag.tag || 'embed';
+          var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src)+'&jqoemcache='+rand(5);
+           
+          var code = $('<'+tag+'/>')
+            .attr('src',src)
+            .attr('width',embedProvider.embedtag.width)
+            .attr('height',embedProvider.embedtag.height)
+            .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
+            .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
+          if(tag=='embed')
+            code
+              .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
+              .attr('flashvars',externalUrl.replace(embedProvider.templateRegex,flashvars));
+          if(tag=='iframe')
+            code
+              .attr('scrolling',embedProvider.embedtag.scrolling || "no")
+              .attr('frameborder',embedProvider.embedtag.frameborder || "0");
+            
+            
+          var oembedData = {code: code};
+          success(oembedData, externalUrl,container);
+        }else{
+            var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
+            success(oembedData, externalUrl,container);
         }
-        else if (embedProvider.yql) {
-            var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
-            var from = embedProvider.yql.from || 'htmlstring';
-            var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
-            var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + "and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
+      } else {
+
+        var requestUrl = getRequestUrl(embedProvider, externalUrl),
             ajaxopts = $.extend({
-                url: "http://query.yahooapis.com/v1/public/yql",
+                url: requestUrl,
                 dataType: 'jsonp',
-                data: {
-                    q: query,
-                    format: "json",
-                    env: 'store://datatables.org/alltableswithkeys',
-                    callback: "?"
-                },
                 success: function(data) {
-                    var result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
-                    var oembedData = $.extend({}, result);
-                    oembedData.code = result;
+                    var oembedData = $.extend({}, data);
+                    switch (oembedData.type) {
+                    case "photo":
+                        oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
+                        break;
+                    case "video":
+                    case "rich":
+                        oembedData.code = $.fn.oembed.getRichCode(externalUrl, oembedData);
+                        break;
+                    default:
+                        oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
+                        break;
+                    }
                     success(oembedData, externalUrl, container);
                 },
                 error: settings.onError.call(container, externalUrl, embedProvider)
             }, settings.ajaxOptions || {});
-        
-            $.ajax(ajaxopts);
-        }
-        else if (embedProvider.templateRegex) {
-            if (embedProvider.apiendpoint) {
-                //Add APIkey if true
-                if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
-                ajaxopts = $.extend({
-                    url: externalUrl.replace(embedProvider.templateRegex, embedProvider.apiendpoint),
-                    dataType: 'jsonp',
-                    success: function(data) {
-                        var oembedData = $.extend({}, data);
-                        oembedData.code = embedProvider.templateData(data);
-                        success(oembedData, externalUrl, container);
-                    },
-                    error: settings.onError.call(container, externalUrl, embedProvider)
-                }, settings.ajaxOptions || {});
-          
-          $.ajax( ajaxopts );
-        }
-		else if(embedProvider.embedtag){
-          var flashvars = embedProvider.embedtag.flashvars || '';
-          var tag = embedProvider.embedtag.tag || 'embed';
-          var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src)+'&jqoemcache='+rand(5);
-          
-          var code = $('<'+tag+'/>')
-              .attr('src',src)
-              .attr('width',embedProvider.embedtag.width)
-              .attr('height',embedProvider.embedtag.height)
-              .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
-              .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
-          if(tag=='embed')
-              code
-                .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
-                .attr('flashvars',externalUrl.replace(embedProvider.templateRegex,flashvars));
-          if(tag=='iframe')
-              code
-                .attr('scrolling',embedProvider.embedtag.scrolling || "no")
-                .attr('frameborder',embedProvider.embedtag.frameborder || "0")
-              ;
-          
-          
-          var oembedData = {code: code};
-          success(oembedData, externalUrl,container);
-        }else{
-          var oembedData = {code: externalUrl.replace(embedProvider.templateRegex,embedProvider.template)};
-          success(oembedData, externalUrl,container);
-        }
-            }
-            success(oembedData, externalUrl,container);
-          },
-          error: settings.onError.call(container, externalUrl, embedProvider)
-        }, settings.ajaxOptions || { } );
-        
-        $.ajax( ajaxopts );  
-      }      
+
+        $.ajax(ajaxopts);
+      }
     };
 
     function getNormalizedParams(params) {
