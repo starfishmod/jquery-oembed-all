@@ -474,7 +474,7 @@
 		new $.fn.oembed.OEmbedProvider("gravtar", "photo", ["mailto:.+"],null,
       {templateRegex:/mailto:([^\/]+).*/ 
       , template : function(wm,email){
-        return '<img src="http://gravatar.com/'+email.md5()+'" alt="on Gravtar" class="jqoaImg">';
+        return '<img src="http://gravatar.com/avatar/'+email.md5()+'.jpg" alt="on Gravtar" class="jqoaImg">';
         }
       }),
       
