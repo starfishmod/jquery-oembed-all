@@ -80,8 +80,9 @@ Current 3rd party sources include:
 * 500px.com - Thumbnail view
 * visual.ly - YQL Lookup
 * img.ly - Thumbnail view
-* imgur.com - Thubnail view
-* twitgoo.com - Thubnail view
+* imgur.com - Thumbnail view
+* twitgoo.com - Thumbnail view
+* gravatar - Thumbnail view when using mailto:email@address.com
 
 ####Rich
 
@@ -108,14 +109,13 @@ Current 3rd party sources include:
 * issuu - YQL Embedded
 * reelapp.com - Embedded
 * Etsy - JSONP/APIKey Lookup
+* Amazon -Requires Affiliate code
 
 ---
 ####TODO:
 
 * Disqus
-* gravatar - JSONP available
 * tal.ki - Uses a script embed - may not work
-* Amazon - Wants a key to do lookups
 * iFixit - Uses a script embed - may not work
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
