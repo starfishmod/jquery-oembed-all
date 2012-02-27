@@ -297,6 +297,7 @@
         if (!isNullOrEmpty(extraSettings)) this.fromJSON(extraSettings);
         this.format = this.format || 'json';
         this.callbackparameter = this.callbackparameter || "callback";
+        this.embedtag = this.embedtag || {tag:""};
         var i, property, regExp;
 
         this.matches = function(externalUrl) {
