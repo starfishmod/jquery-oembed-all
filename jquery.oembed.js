@@ -144,7 +144,7 @@
             }, settings.ajaxOptions || {});
             
           $.ajax( ajaxopts );
-        }else if(embedProvider.embedtag){
+        }else if(embedProvider.embedtag.tag!==''){
           var flashvars = embedProvider.embedtag.flashvars || '';
           var tag = embedProvider.embedtag.tag || 'embed';
           var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.embedtag.src)+'&jqoemcache='+rand(5);

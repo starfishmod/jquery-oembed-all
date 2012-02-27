@@ -16,6 +16,7 @@
 		var text = $('#info').val();
 		text = $('<span>'+text+'</span>').text(); //strip html
 		text = text.replace(/(\s|>|^)(https?:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
+		text = text.replace(/(\s|>|^)(mailto:[^\s<]*)/igm,'$1<div><a href="$2" class="oembed">$2</a></div>');
 		$('#out').empty().html('<span>'+text+'</span>');
 		
 		$(".oembed").oembed(null,{
