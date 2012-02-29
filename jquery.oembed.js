@@ -542,6 +542,13 @@
         src: "http://www.reelapp.com/$1/embed"
         }
       }),
+    new $.fn.oembed.OEmbedProvider("linkedin", "rich", ["linkedin.com/pub/.+"],null,
+      {templateRegex:/(.*)/ 
+      ,embedtag : {tag: 'iframe', width:'368px',height: 'auto',
+        src: "https://www.linkedin.com/cws/member/public_profile?public_profile_url=$1&format=inline&isFramed=true"
+        }
+      
+      }),
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],null,
       {templateRegex:/.*\/(\S{8}).*/ 
       ,embedtag : {tag: 'iframe', width:'100%',height: 'auto',

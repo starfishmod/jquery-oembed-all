@@ -111,6 +111,7 @@ Current 3rd party sources include:
 * reelapp.com - Embedded
 * Etsy - JSONP/APIKey Lookup
 * Amazon - Embedded - Requires Affiliate code
+* linkedin - Embedded IFRAME - found a link that works :)
 
 ---
 ####TODO:
@@ -122,7 +123,6 @@ Current 3rd party sources include:
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
 * delicious
-* linkedin - Uses a script embed - may not work
 * digg?
 * justin.tv
 * Eventbrite
