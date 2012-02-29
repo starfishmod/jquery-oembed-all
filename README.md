@@ -83,6 +83,7 @@ Current 3rd party sources include:
 * imgur.com - Thumbnail view
 * twitgoo.com - Thumbnail view
 * gravatar - Thumbnail view when using mailto:email@address.com
+* pintrest - YQL - Embedded view of a sort.
 
 ####Rich
 
@@ -109,7 +110,7 @@ Current 3rd party sources include:
 * issuu - YQL Embedded
 * reelapp.com - Embedded
 * Etsy - JSONP/APIKey Lookup
-* Amazon -Requires Affiliate code
+* Amazon - Embedded - Requires Affiliate code
 
 ---
 ####TODO:
@@ -127,7 +128,6 @@ Current 3rd party sources include:
 * Eventbrite
 * Lanyrd
 * github gist
-* pinboard.in
 * dailymotion.com
 * posterous.com
 * vodpod

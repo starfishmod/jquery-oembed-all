@@ -108,7 +108,7 @@
         var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var from = embedProvider.yql.from || 'htmlstring';
         var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
-        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + "and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
+        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
         ajaxopts = $.extend({
           url: "http://query.yahooapis.com/v1/public/yql",
           dataType: 'jsonp',
@@ -478,6 +478,15 @@
       , template : function(wm,email){
         return '<img src="http://gravatar.com/avatar/'+email.md5()+'.jpg" alt="on Gravtar" class="jqoaImg">';
         }
+      }),
+      new $.fn.oembed.OEmbedProvider("pintrest", "photo", ["pinterest.com/pin/.+"], null,
+      {yql:{xpath:'//script[contains(.,"embed_code_html_1")]', from: 'html'
+          , datareturn:function(results){
+              if(!results.script) return false;
+              return results.script.content.replace(/[\s\S]*embed_code_html_1 = "([\s\S]*)width='";[\s\S]*embed_code_html_2 = "([\s\S]*)<\/div>";[\s\S]*/,'$1$2</div>');
+             
+              }
+          }
       }),
       
       
