@@ -646,7 +646,17 @@
         }      
       }),
 
-	new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
+    new $.fn.oembed.OEmbedProvider("slideshare", "rich", ["slideshare\.net"], "http://www.slideshare.net/api/oembed/2",{format:'jsonp'}),
+    
+    new $.fn.oembed.OEmbedProvider("lanyard", "rich", ["lanyrd.com/\\d+/.+"], null,
+      {yql:{xpath:'(//div[@class="primary"])[1]', from: 'htmlstring'
+          , datareturn:function(results){
+              if(!results.result) return false;
+              return '<div class="lanyard">'+results.result+'</div>';
+             
+              }
+          }
+      }),
     
     new $.fn.oembed.OEmbedProvider("etsy", "rich", ["etsy.com/listing/[\\d]+"], "http://openapi.etsy.com/v2/listings/$1.js?callback=?&api_key=_APIKEY_"
     ,{apikey: true,

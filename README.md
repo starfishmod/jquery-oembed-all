@@ -112,12 +112,11 @@ Current 3rd party sources include:
 * Etsy - JSONP/APIKey Lookup
 * Amazon - Embedded - Requires Affiliate code
 * linkedin - Embedded IFRAME - found a link that works :)
+* Lanyrd - YQL (CSS)
 
 ---
 ####TODO:
 
-* Disqus
-* tal.ki - Uses a script embed - may not work
 * iFixit - Uses a script embed - may not work
 * twitter - JSONP available
 * Rotten Tomatoes - JSONP available
@@ -126,7 +125,6 @@ Current 3rd party sources include:
 * digg?
 * justin.tv
 * Eventbrite
-* Lanyrd
 * github gist
 * dailymotion.com
 * posterous.com
