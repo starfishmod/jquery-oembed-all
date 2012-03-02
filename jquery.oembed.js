@@ -76,6 +76,7 @@
             qs = "",
             i;
         url += (url.indexOf("?") <= 0) ? "?" : "&";
+        url = url.replace('#','%23');
 
         if (provider.maxWidth !== null && provider.params.maxwidth === null) provider.params.maxwidth = provider.maxWidth;
 
@@ -491,6 +492,8 @@
       
       
 		//Rich
+    new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
+    
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,
       {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/,

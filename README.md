@@ -113,12 +113,12 @@ Current 3rd party sources include:
 * Amazon - Embedded - Requires Affiliate code
 * linkedin - Embedded IFRAME - found a link that works :)
 * Lanyrd - YQL (CSS)
+* twitter - Oembed - status only - but that is ok I think
 
 ---
 ####TODO:
 
 * iFixit - Uses a script embed - may not work
-* twitter - JSONP available
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
 * delicious
