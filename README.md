@@ -143,6 +143,7 @@ Current 3rd party sources include:
 * plannary
 * graphic.ly  - JSONP Available - requires API Key
 * picasa
+* http://www.deviantart.com/developers/oembed
 
 
 

@@ -184,6 +184,7 @@
                 success: function(data) {
                     var oembedData = $.extend({}, data);
                     switch (oembedData.type) {
+                    case "file": //Deviant Art has this
                     case "photo":
                         oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
                         break;
@@ -466,6 +467,7 @@
       }), 
     
      //Photo
+		new $.fn.oembed.OEmbedProvider("deviantart", "photo", ["deviantart.com/.+","fav.me/.+","deviantart.com/.+"], "http://backend.deviantart.com/oembed",{format:'jsonp'}),
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
