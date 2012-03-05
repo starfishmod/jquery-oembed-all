@@ -125,6 +125,7 @@ Current 3rd party sources include:
 * Lanyrd - YQL (CSS)
 * twitter - Oembed - status only - but that is ok I think
 * github gist - oembed
+* speakerdeck - yql oembed
 
 ---
 ####TODO:
@@ -140,5 +141,6 @@ Current 3rd party sources include:
 * plannary
 * graphic.ly  - JSONP Available - requires API Key
 * picasa
+
 
 A lot more :) Feel free to submit

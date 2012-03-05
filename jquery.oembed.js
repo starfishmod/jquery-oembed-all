@@ -527,6 +527,12 @@
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],null,
+    {yql:{xpath:"json.html", from:'json'
+          , url: function(externalurl){return 'http://speakerdeck.com/oembed.json?url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
+    }), 
     
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,
