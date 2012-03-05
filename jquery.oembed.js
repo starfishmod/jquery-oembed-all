@@ -463,7 +463,11 @@
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],null,
       {templateRegex:/.*photo\/([^\/]+).*/ 
       , template : '<a href="http://500px.com/photo/$1"><img src="http://photos.500px.com/$1/3" alt="on 500px.com"  class="jqoaImg"></a>'
-      }), 
+      }),
+    new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],null,
+      {templateRegex:/.*circuit\/([^\/]+).*/ 
+      , template : '<a href="https://www.circuitlab.com/circuit/$1"><img src="https://www.circuitlab.com/circuit/$1/screenshot/540x405/" alt="on circuitlab"  class="jqoaImg"></a>'
+      }),
     new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],null,
       {templateRegex:/(.*)/ 
       , template : '<a href="$1"><img src="$1/thumb" alt="on img.ly"  class="jqoaImg"></a>'

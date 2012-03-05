@@ -85,6 +85,7 @@ Current 3rd party sources include:
 * twitgoo.com - Thumbnail view
 * gravatar - Thumbnail view when using mailto:email@address.com
 * pintrest - YQL - Embedded view of a sort.
+* circuitlab - image view
 
 ####Rich
 
