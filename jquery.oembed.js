@@ -595,6 +595,7 @@
     new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,
       {yql:{xpath:'//pre[@class="textmate-source"]'}
       }),
+    new $.fn.oembed.OEmbedProvider("github", "rich", ["gist.github.com/.+"], "https://github.com/api/oembed"),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
       templateData : function(data){ if(!data.data.html_url)return false;

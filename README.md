@@ -123,6 +123,7 @@ Current 3rd party sources include:
 * linkedin - Embedded IFRAME - found a link that works :)
 * Lanyrd - YQL (CSS)
 * twitter - Oembed - status only - but that is ok I think
+* github gist - oembed
 
 ---
 ####TODO:
@@ -133,7 +134,6 @@ Current 3rd party sources include:
 * delicious
 * digg?
 * Eventbrite
-* github gist
 * posterous.com
 * vodpod
 * plannary
