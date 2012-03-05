@@ -90,7 +90,8 @@
             if (provider.params[i] !== null) qs += "&" + escape(i) + "=" + provider.params[i];
         }
 
-        url += "format=" + provider.format + "&url=" + escape(externalUrl) + qs + "&" + provider.callbackparameter + "=?";
+        url += "format=" + provider.format + "&url=" + escape(externalUrl) + qs;
+        if(provider.dataType!='json') url += "&" + provider.callbackparameter + "=?";
 
         return url;
     }
@@ -179,7 +180,7 @@
         var requestUrl = getRequestUrl(embedProvider, externalUrl),
             ajaxopts = $.extend({
                 url: requestUrl,
-                dataType: 'jsonp',
+                dataType: embedProvider.dataType || 'jsonp',
                 success: function(data) {
                     var oembedData = $.extend({}, data);
                     switch (oembedData.type) {
@@ -377,7 +378,14 @@
       {templateRegex:/.*twitvid\.com\/(\w+).*/ 
       , embedtag : {tag:'iframe',width:480,height: 360,
           src: "http://www.twitvid.com/embed.php?guid=$1&autoplay=0"}
+      }),
+      
+    new $.fn.oembed.OEmbedProvider("vzaar", "video", ["vzaar\\.com/videos/.+","vzaar.tv/.+"],null,
+      {templateRegex:/.*\/(\d+).*/ 
+      , embedtag : {tag:'iframe',width:576,height: 324,
+          src: "http://view.vzaar.com/$1/player?"}
       }), 
+      
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],null,
       {templateRegex:/.*playlist\/([^\/]+).*/
       , embedtag : {width:425,height: 520,
@@ -411,6 +419,7 @@
     new $.fn.oembed.OEmbedProvider("Kinomap", "video", ["kinomap\\.com/.+"], "http://www.kinomap.com/oembed"),
     
     //Audio
+    new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], "http://official.fm/services/oembed",{dataType:'json'}),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),

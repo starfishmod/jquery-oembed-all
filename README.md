@@ -58,6 +58,7 @@ Current 3rd party sources include:
 * bambuser - Embedded
 * xtranormal - Embedded
 * Gametrailers - Embedded
+* Vzarr - Embedded
 
 ####Audio 
 
@@ -131,5 +132,6 @@ Current 3rd party sources include:
 * vodpod
 * plannary
 * graphic.ly  - JSONP Available - requires API Key
+* picasa
 
 A lot more :) Feel free to submit
