@@ -59,6 +59,7 @@ Current 3rd party sources include:
 * xtranormal - Embedded
 * Gametrailers - Embedded
 * Vzarr - Embedded
+* VHX - oembed
 
 ####Audio 
 
