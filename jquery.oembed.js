@@ -527,6 +527,13 @@
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],null,
+    {yql:{xpath:"json.html", from:'json'
+          , url: function(externalurl){return 'http://www.dipity.com/oembed/timeline/?url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
+    }),
     new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],null,
     {yql:{xpath:"json.html", from:'json'
           , url: function(externalurl){return 'http://speakerdeck.com/oembed.json?url='+externalurl}

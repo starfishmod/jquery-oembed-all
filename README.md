@@ -126,6 +126,8 @@ Current 3rd party sources include:
 * twitter - Oembed - status only - but that is ok I think
 * github gist - oembed
 * speakerdeck - yql oembed
+* dipity - yql oembed
+* dailymile - oembed
 
 ---
 ####TODO:
@@ -141,6 +143,7 @@ Current 3rd party sources include:
 * plannary
 * graphic.ly  - JSONP Available - requires API Key
 * picasa
+
 
 
 A lot more :) Feel free to submit
