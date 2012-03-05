@@ -68,6 +68,8 @@ Current 3rd party sources include:
 * podomatic - Embedded
 * rdio.com - oEmbed
 * hark.com - Embedded - not working?
+* chirb.it - YQL and oembed
+* official.fm - YQL and oembed
 
 #### Photo
 

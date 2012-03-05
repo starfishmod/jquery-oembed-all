@@ -419,7 +419,18 @@
     new $.fn.oembed.OEmbedProvider("Kinomap", "video", ["kinomap\\.com/.+"], "http://www.kinomap.com/oembed"),
     
     //Audio
-    new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], "http://official.fm/services/oembed",{dataType:'json'}),
+    new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], null,
+    {yql:{xpath:"json.html", from:'json'
+          , url: function(externalurl){return 'http://official.fm/services/oembed?format=json&url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
+    }),//not working - no jsonp
+    new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], null,
+    {yql:{xpath:"json.html", from:'json'
+          , url: function(externalurl){return 'http://chirb.it/oembed.json?url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
+    }),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
