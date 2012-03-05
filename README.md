@@ -62,6 +62,7 @@ Current 3rd party sources include:
 * VHX - oembed
 * bambuser - oembed
 * dailymotion.com - oembed
+* animoto - oembed
 * justin.tv - YQL JSON
 
 ####Audio 
