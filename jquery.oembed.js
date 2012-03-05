@@ -354,12 +354,7 @@
             flashvars: "key=$1",
             src: "http://player.ordienetworks.com/flash/fodplayer.swf"
         }
-    }), new $.fn.oembed.OEmbedProvider("justintv", "video", ["justin\\.tv/.+"],null,
-      {templateRegex:/.*justin\.tv\/(\w+).*/
-      , template : '<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_player_flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=$1" bgcolor="#000000">'
-                  +'<param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="allownetworking" value="all" /><param name="wmode" value="opaque">'
-                  +'<param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.justin.tv&channel=$1&auto_play=false&start_volume=25" /></object>'
-      }), 
+    }), 
     new $.fn.oembed.OEmbedProvider("colledgehumour", "video", ["collegehumor\\.com/video/.+"],null,
     {templateRegex:/.*video\/([^\/]+).*/ 
       , embedtag : {width:600,height: 338,
@@ -418,6 +413,13 @@
     new $.fn.oembed.OEmbedProvider("clickthrough", "video", ["clikthrough\\.com/theater/video/\\d+"], "http://clikthrough.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("Kinomap", "video", ["kinomap\\.com/.+"], "http://www.kinomap.com/oembed"),
     new $.fn.oembed.OEmbedProvider("VHX", "video", ["vhx.tv/.+"], "http://vhx.tv/services/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("bambuser", "video", ["bambuser.com/.+"], "http://api.bambuser.com/oembed/iframe.json"),
+    new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+","twitch.tv/.+"], null,
+      {yql:{xpath:"json.html", from:'json'
+            , url: function(externalurl){return 'http://api.justin.tv/api/embed/from_url.json?url='+externalurl}
+            , datareturn:function(results){return results.html || ''}
+          }
+      }),
     
     //Audio
     new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], null,
@@ -425,7 +427,7 @@
           , url: function(externalurl){return 'http://official.fm/services/oembed?format=json&url='+externalurl}
           , datareturn:function(results){return results.html || ''}
         }
-    }),//not working - no jsonp
+    }),
     new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], null,
     {yql:{xpath:"json.html", from:'json'
           , url: function(externalurl){return 'http://chirb.it/oembed.json?url='+externalurl}
@@ -433,6 +435,12 @@
         }
     }),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"],null,
+    {yql:{xpath:"json.html", from:'json'
+          , url: function(externalurl){return 'http://www.mixcloud.com/oembed/?url='+externalurl}
+          , datareturn:function(results){return results.html || ''}
+        }
+    }),
     new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
     new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,

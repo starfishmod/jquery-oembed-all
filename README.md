@@ -60,6 +60,9 @@ Current 3rd party sources include:
 * Gametrailers - Embedded
 * Vzarr - Embedded
 * VHX - oembed
+* bambuser - oembed
+* dailymotion.com - oembed
+* justin.tv - YQL JSON
 
 ####Audio 
 
@@ -71,6 +74,7 @@ Current 3rd party sources include:
 * hark.com - Embedded - not working?
 * chirb.it - YQL and oembed
 * official.fm - YQL and oembed
+* mixcloud - YQL and oembed
 
 #### Photo
 
@@ -128,10 +132,8 @@ Current 3rd party sources include:
 * last.fm - JSONP Available - requires API Key
 * delicious
 * digg?
-* justin.tv
 * Eventbrite
 * github gist
-* dailymotion.com
 * posterous.com
 * vodpod
 * plannary
