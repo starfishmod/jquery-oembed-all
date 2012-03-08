@@ -78,9 +78,13 @@
         url += (url.indexOf("?") <= 0) ? "?" : "&";
         url = url.replace('#','%23');
 
-        if (provider.maxWidth !== null && provider.params.maxwidth === null) provider.params.maxwidth = provider.maxWidth;
+        if (provider.maxWidth !== null && (typeof provider.params.maxwidth === 'undefined' || provider.params.maxwidth === null)) {
+            provider.params.maxwidth = provider.maxWidth;
+        }
 
-        if (provider.maxHeight !== null && provider.params.maxheight === null) provider.params.maxheight = provider.maxHeight;
+        if (provider.maxHeight !== null && (typeof provider.params.maxheight === 'undefined' || provider.params.maxheight === null)) {
+            provider.params.maxheight = provider.maxHeight;
+        }
 
         for (i in provider.params) {
             // We don't want them to jack everything up by changing the callback parameter
