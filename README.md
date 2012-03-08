@@ -27,7 +27,6 @@ to use...
 $(".oembed").oembed(null,{
     embedMethod: 'auto',	// "auto", "append", "fill"	
     apikeys: {
-      
       etsy : '<your etsy key>',
     }
 });
@@ -76,6 +75,7 @@ Current 3rd party sources include:
 * chirb.it - YQL and oembed
 * official.fm - YQL and oembed
 * mixcloud - YQL and oembed
+* shoudio - oembed
 
 #### Photo
 
@@ -143,10 +143,61 @@ Current 3rd party sources include:
 * posterous.com
 * vodpod
 * plannary
-* graphic.ly  - JSONP Available - requires API Key
+* graphic.ly  - http://oembed.graphicly.com/
 * picasa
+* propic - http://www.propic.com/oembed/ - xml
+* vodpod - http://vodpod.com/sharebutton
+* http://skitch.com/oembed/
+* http://docs.minoto-video.com/api/oembed.html
+* http://oembed.urtak.com/
+* https://cacoo.com/api_oembed
+* http://www.scoreexchange.com/scores/78287.html
+* http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
+* http://media.soundslides.com/embedtool/
+* http://pdfobject.com/generator.php
+* http://simpleviewer.net/simpleviewer/support/embedding.html
+* http://www.qwiki.com/api
+* http://tinychat.com/embedmaker.html
+* http://blog.tourwrist.com/?p=271
+* http://prezi.com/learn/embedding/
+* http://www.userplane.com/docs/embed
+* http://www.surveygizmo.com/
+* http://www.livestream.com/
+* http://www.scivee.tv/
+* http://www.jotform.com/
+* http://www.lomography.com/
+* http://help.creator.zoho.com/Embed-Form-View-in-Website.html
+* http://popplet.com/
+* http://www.wiziq.com/
+* http://www.4shared.com/
+
+http://prezi.com/7h_fejfars_2/presupuesto-2012-opinion-educacion-2020/
+<embed id="preziEmbed_7h_fejfars_2" name="preziEmbed_7h_fejfars_2" 
+	src="http://prezi.com/bin/preziloader.swf" type="application/x-shockwave-flash" 
+	allowfullscreen="true" allowscriptaccess="always" width="550" height="400" 
+	bgcolor="#ffffff" 
+	flashvars="prezi_id=7h_fejfars_2&amp;lock_to_path=0&amp;color=ffffff&amp;autoplay=no&amp;autohide_ctrls=0">
+</embed>
+
+http://www.livestream.com/daytraderrockstar
+<iframe width="560" height="340" src="http://cdn.livestream.com/embed/daytraderrockstar?layout=4&amp;height=340&amp;width=560&amp;autoplay=false" style="border:0;outline:0" frameborder="0" scrolling="no"></iframe><div style="font-size: 11px;padding-top:10px;text-align:center;width:560px"><a href="http://www.livestream.com/daytraderrockstar?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Watch daytraderrockstar">daytraderrockstar</a> on livestream.com. <a href="http://www.livestream.com/?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Broadcast Live Free">Broadcast Live Free</a></div>
+
+http://www.scivee.tv/node/39803
+<embed src="http://www.scivee.tv/flash/embedCast.swf" allowfullscreen="true" wmode="transparent" allowscriptaccess="always" width="480" height="400" flashvars="id=39803&type=3"></embed>
 
 
+http://popplet.com/app/#/334
+<embed src="http://popplet.com/app/Popplet_Alpha.swf?page_id=334&em=1" height="460" width="460" allowfullscreen="false" allowscriptaccess="always" type="application/x-shockwave-flash"></embed>
 
+http://www.regards.com/EGM.cfm/15112
+<embed src='http://www.regards.com//images/romance/love_undersheets_sr.swf' pluginspage='http://www.macromedia.com/shockwave/download/' type='application/x-shockwave-flash' width='525' height='325'></embed>
+
+
+http://www.authorstream.com/Presentation/pahuja-66674-introduce-yourself-education-ppt-powerpoint/
+<embed src="http://www.authorstream.com/player.swf?fb=0&nb=1&pl=as&ap=0&c=#dfdfdf&p=pahuja-66674-introduce-yourself-education-ppt-powerpoint" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="354"></embed>
+
+
+http://www.google.com/calendar/embed?src=en.australian%23holiday%40group.v.calendar.google.com&ctz=Australia/Brisbane 
+<iframe src="https://www.google.com/calendar/b/0/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.australian%23holiday%40group.v.calendar.google.com&amp;color=%230F4B38&amp;ctz=Australia%2FBrisbane" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 A lot more :) Feel free to submit
