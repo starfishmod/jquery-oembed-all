@@ -584,6 +584,12 @@
         src: "http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1"} 
       }), //Not perhaps Working -due to popplet
     
+    new $.fn.oembed.OEmbedProvider("pearltrees", "rich", ["pearltrees.com/.*"],null,
+      {templateRegex:/.*N-f=1_(\d+).*N-p=(\d+).*/, //N-f=1_3201432&N-fa=3114380&N-p=23874509&N-play=0&N-s=1_3201432&N-u=1_335577
+      embedtag : {width:460,height: 460,
+        src: "http://cdn.pearltrees.com/s/embed/getApp?",
+         flashvars : "lang=en_US&amp;embedId=pt-embed-$1-693&amp;treeId=$1&amp;pearlId=$2&amp;treeTitle=Diagrams%2FVisualization&amp;site=www.pearltrees.com%2FF"} 
+      }),
     
     new $.fn.oembed.OEmbedProvider("prezi", "rich", ["prezi.com/.*"],null,
       {templateRegex:/.*com\/([^\/]+)\/.*/,
