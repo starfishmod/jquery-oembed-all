@@ -64,6 +64,7 @@ Current 3rd party sources include:
 * animoto - oembed
 * justin.tv - YQL JSON
 * livestream - embedded
+* scivee - embedded
 
 ####Audio 
 
@@ -132,6 +133,7 @@ Current 3rd party sources include:
 * deviantart - oembed
 * mobypictures - oembed
 * prezi - embedded
+* popplet - embedded
 
 ---
 ####TODO:
@@ -163,7 +165,6 @@ Current 3rd party sources include:
 * http://blog.tourwrist.com/?p=271
 * http://www.userplane.com/docs/embed
 * http://www.surveygizmo.com/
-* http://www.scivee.tv/
 * http://www.jotform.com/
 * http://www.lomography.com/
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
@@ -171,13 +172,6 @@ Current 3rd party sources include:
 * http://www.wiziq.com/
 * http://www.4shared.com/
 
-
-http://www.scivee.tv/node/39803
-<embed src="http://www.scivee.tv/flash/embedCast.swf" allowfullscreen="true" wmode="transparent" allowscriptaccess="always" width="480" height="400" flashvars="id=39803&type=3"></embed>
-
-
-http://popplet.com/app/#/334
-<embed src="http://popplet.com/app/Popplet_Alpha.swf?page_id=334&em=1" height="460" width="460" allowfullscreen="false" allowscriptaccess="always" type="application/x-shockwave-flash"></embed>
 
 http://www.regards.com/EGM.cfm/15112
 <embed src='http://www.regards.com//images/romance/love_undersheets_sr.swf' pluginspage='http://www.macromedia.com/shockwave/download/' type='application/x-shockwave-flash' width='525' height='325'></embed>

@@ -344,7 +344,14 @@
             height: '269',
             src: "http://www.xtranormal.com/xtraplayr/$1/$2"
         }
-    }), new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"], null, {
+    }), 
+    new $.fn.oembed.OEmbedProvider("scivee", "video", ["scivee.tv/node/.+"], null, {
+        templateRegex: /.*tv\/node\/(.+)/,
+        embedtag: {width: '480',height: '400',
+          src: "http://www.scivee.tv/flash/embedCast.swf?",flashvars:"id=$1&type=3"}
+        }),
+        
+    new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"], null, {
         templateRegex: /.*com\/video\/([\w\-]+)\/([\w\-]+).*/,
         embedtag: {
             width: '512',
@@ -548,7 +555,14 @@
           , url: function(externalurl){return 'http://speakerdeck.com/oembed.json?url='+externalurl}
           , datareturn:function(results){return results.html || ''}
         }
-    }), 
+    }),
+    
+    
+    new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],null,
+      {templateRegex:/.*#\/([^\/]+).*/,
+      embedtag : {width:460,height: 460,
+        src: "http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1"} 
+      }), //Not Working -due to popplet
     
     
     new $.fn.oembed.OEmbedProvider("prezi", "rich", ["prezi.com/.*"],null,
