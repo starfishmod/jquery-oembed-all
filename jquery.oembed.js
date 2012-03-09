@@ -328,15 +328,15 @@
     $.fn.oembed.providers = [
     
     //Video
+    new $.fn.oembed.OEmbedProvider("livestream", "video", ["livestream\\.com/.+"], null, {
+        templateRegex: /.*com\/(.*)/,
+        embedtag: {tag: 'iframe', width: '560', height: '340', src: "http://cdn.livestream.com/embed/$1?layout=4&amp;height=340&amp;width=560&amp;autoplay=false" }
+    }),
     new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], null, {
         templateRegex: /.*(?:v\=|be\/)([\w\-]+)&?.*/,
-        embedtag: {
-            tag: 'iframe',
-            width: '425',
-            height: '349',
-            src: "http://www.youtube.com/embed/$1?wmode=transparent"
-        }
-    }), new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"], null, {
+        embedtag: {tag: 'iframe', width: '425', height: '349', src: "http://www.youtube.com/embed/$1?wmode=transparent" }
+    }), 
+    new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"], null, {
         templateRegex: /.*com\/watch\/([\w\-]+)\/([\w\-]+).*/,
         embedtag: {
             tag: 'iframe',
@@ -549,6 +549,15 @@
           , datareturn:function(results){return results.html || ''}
         }
     }), 
+    
+    
+    new $.fn.oembed.OEmbedProvider("prezi", "rich", ["prezi.com/.*"],null,
+      {templateRegex:/.*com\/([^\/]+)\/.*/,
+      embedtag : {width:550,height: 400,
+        src: "http://prezi.com/bin/preziloader.swf?",
+        flashvars : "prezi_id=$1&amp;lock_to_path=0&amp;color=ffffff&amp;autoplay=no&amp;autohide_ctrls=0"
+        } 
+      }),
     
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],null,

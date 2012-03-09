@@ -63,6 +63,7 @@ Current 3rd party sources include:
 * dailymotion.com - oembed
 * animoto - oembed
 * justin.tv - YQL JSON
+* livestream - embedded
 
 ####Audio 
 
@@ -130,6 +131,7 @@ Current 3rd party sources include:
 * dailymile - oembed
 * deviantart - oembed
 * mobypictures - oembed
+* prezi - embedded
 
 ---
 ####TODO:
@@ -159,10 +161,8 @@ Current 3rd party sources include:
 * http://www.qwiki.com/api
 * http://tinychat.com/embedmaker.html
 * http://blog.tourwrist.com/?p=271
-* http://prezi.com/learn/embedding/
 * http://www.userplane.com/docs/embed
 * http://www.surveygizmo.com/
-* http://www.livestream.com/
 * http://www.scivee.tv/
 * http://www.jotform.com/
 * http://www.lomography.com/
@@ -171,16 +171,6 @@ Current 3rd party sources include:
 * http://www.wiziq.com/
 * http://www.4shared.com/
 
-http://prezi.com/7h_fejfars_2/presupuesto-2012-opinion-educacion-2020/
-<embed id="preziEmbed_7h_fejfars_2" name="preziEmbed_7h_fejfars_2" 
-	src="http://prezi.com/bin/preziloader.swf" type="application/x-shockwave-flash" 
-	allowfullscreen="true" allowscriptaccess="always" width="550" height="400" 
-	bgcolor="#ffffff" 
-	flashvars="prezi_id=7h_fejfars_2&amp;lock_to_path=0&amp;color=ffffff&amp;autoplay=no&amp;autohide_ctrls=0">
-</embed>
-
-http://www.livestream.com/daytraderrockstar
-<iframe width="560" height="340" src="http://cdn.livestream.com/embed/daytraderrockstar?layout=4&amp;height=340&amp;width=560&amp;autoplay=false" style="border:0;outline:0" frameborder="0" scrolling="no"></iframe><div style="font-size: 11px;padding-top:10px;text-align:center;width:560px"><a href="http://www.livestream.com/daytraderrockstar?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Watch daytraderrockstar">daytraderrockstar</a> on livestream.com. <a href="http://www.livestream.com/?utm_source=lsplayer&amp;utm_medium=embed&amp;utm_campaign=footerlinks" title="Broadcast Live Free">Broadcast Live Free</a></div>
 
 http://www.scivee.tv/node/39803
 <embed src="http://www.scivee.tv/flash/embedCast.swf" allowfullscreen="true" wmode="transparent" allowscriptaccess="always" width="480" height="400" flashvars="id=39803&type=3"></embed>
