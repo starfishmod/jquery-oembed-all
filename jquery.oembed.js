@@ -296,6 +296,25 @@
         this.apiendpoint = apiendpoint;
         this.maxWidth = 500;
         this.maxHeight = 400;
+        
+        if(extraSettings && extraSettings.useYQL){
+          
+          if(extraSettings.useYQL=='xml'){
+            extraSettings.yql = {xpath:"//oembed/html", from:'xml'
+            , apiendpoint: this.apiendpoint
+            , url: function(externalurl){return this.apiendpoint+'?format=xml&url='+externalurl}
+            , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
+            };
+          }else{
+            extraSettings.yql = {xpath:"json.html", from:'json'
+              , apiendpoint: this.apiendpoint
+              , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
+              , datareturn:function(results){return results.html || ''}
+            };
+          }
+          this.apiendpoint = null;
+        }
+        
         this.fromJSON = function(json) {
             for (property in json) {
                 if (property != "urlschemes") this[property] = json[property];
@@ -306,6 +325,9 @@
         if (!isNullOrEmpty(extraSettings)) this.fromJSON(extraSettings);
         this.format = this.format || 'json';
         this.callbackparameter = this.callbackparameter || "callback";
+        
+        
+        
         this.embedtag = this.embedtag || {tag:""};
         var i, property, regExp;
 
@@ -347,18 +369,14 @@
     }), 
     new $.fn.oembed.OEmbedProvider("scivee", "video", ["scivee.tv/node/.+"], null, {
         templateRegex: /.*tv\/node\/(.+)/,
-        embedtag: {width: '480',height: '400',
-          src: "http://www.scivee.tv/flash/embedCast.swf?",flashvars:"id=$1&type=3"}
+        embedtag: {width: '480',height: '400',src: "http://www.scivee.tv/flash/embedCast.swf?",flashvars:"id=$1&type=3"}
         }),
         
     new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"], null, {
         templateRegex: /.*com\/video\/([\w\-]+)\/([\w\-]+).*/,
-        embedtag: {
-            width: '512',
-            height: '288',
-            src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2"
-        }
-    }), new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"], null, {
+        embedtag: {width: '512',height: '288',src: "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2"}
+    }), 
+    new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"], null, {
         templateRegex: /.*videos\/([^\/]+)\/([^\/]+)?/,
         embedtag: {
             width: 512,
@@ -369,92 +387,54 @@
     }), 
     new $.fn.oembed.OEmbedProvider("colledgehumour", "video", ["collegehumor\\.com/video/.+"],null,
     {templateRegex:/.*video\/([^\/]+).*/ 
-      , embedtag : {width:600,height: 338,
-          src: "http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1"}
-    }), new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,
+      , embedtag : {width:600,height: 338,src: "http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&use_node_id=true&fullscreen=1"}
+    }), 
+    new $.fn.oembed.OEmbedProvider("metacafe", "video", ["metacafe\\.com/watch/.+"],null,
       {templateRegex:/.*watch\/(\d+)\/(\w+)\/.*/ 
-      , embedtag : {width:400,height: 345,
-          src: "http://www.metacafe.com/fplayer/$1/$2.swf"}
+      , embedtag : {width:400,height: 345,src: "http://www.metacafe.com/fplayer/$1/$2.swf"}
       }), 
     new $.fn.oembed.OEmbedProvider("bambuser", "video", ["bambuser\\.com\/channel\/.*\/broadcast\/.*"],null,
       {templateRegex:/.*bambuser\.com\/channel\/.*\/broadcast\/(\w+).*/ 
-      , embedtag : {width:512,height: 339,
-          src: "http://static.bambuser.com/r/player.swf?vid=$1"}
+      , embedtag : {width:512,height: 339,src: "http://static.bambuser.com/r/player.swf?vid=$1"}
       }), 
     new $.fn.oembed.OEmbedProvider("twitvid", "video", ["twitvid\\.com/.+"],null,
       {templateRegex:/.*twitvid\.com\/(\w+).*/ 
-      , embedtag : {tag:'iframe',width:480,height: 360,
-          src: "http://www.twitvid.com/embed.php?guid=$1&autoplay=0"}
+      , embedtag : {tag:'iframe',width:480,height: 360,src: "http://www.twitvid.com/embed.php?guid=$1&autoplay=0"}
       }),
       
     new $.fn.oembed.OEmbedProvider("vzaar", "video", ["vzaar\\.com/videos/.+","vzaar.tv/.+"],null,
       {templateRegex:/.*\/(\d+).*/ 
-      , embedtag : {tag:'iframe',width:576,height: 324,
-          src: "http://view.vzaar.com/$1/player?"}
+      , embedtag : {tag:'iframe',width:576,height: 324,src: "http://view.vzaar.com/$1/player?"}
       }), 
       
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],null,
       {templateRegex:/.*playlist\/([^\/]+).*/
-      , embedtag : {width:425,height: 520,
-          src: "http://embedr.com/swf/slider/$1/425/520/default/false/std"}
+      , embedtag : {width:425,height: 520,src: "http://embedr.com/swf/slider/$1/425/520/default/false/std"}
       }), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
     new $.fn.oembed.OEmbedProvider("animoto", "video", ["animoto.com/play/.+"], "http://animoto.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("hulu", "video", ["hulu\\.com/watch/.*"], "http://www.hulu.com/api/oembed.json"),
-    new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], null,
-      {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://www.ustream.tv/oembed?format=json&url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-      }),
+    new $.fn.oembed.OEmbedProvider("ustream", "video", ["ustream\\.tv/recorded/.*"], "http://www.ustream.tv/oembed",{useYQL:'json'}),
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
-    new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], null,
-      {yql:{xpath:"//oembed/html", from:'xml'
-          , url: function(externalurl){return 'http://api.5min.com/oembed.xml?url='+externalurl}
-          , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
-          }
-      }),
-    new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Flab.viddler.com%2Fservices%2Foembed%2f%3Furl%3D$1%22%20and%20xpath%3D%22%2F%2F*%2Fobject%22&format=xml&callback=?",
-      {templateRegex:/(.*)/,
-      templateData : function(data){if(!data.results[0])return false;return  data.results[0];}
-      }),
-    new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"], "http://www.nfb.ca/remote/services/oembed/"),
-    new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], "http://qik.com/api/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], 'http://api.5min.com/oembed.xml',{useYQL:'xml'}),
+    new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://lab.viddler.com/services/oembed/",{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"],'http://www.nfb.ca/remote/services/oembed/',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], 'http://qik.com/api/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("revision3", "video", ["revision3\\.com"], "http://revision3.com/api/oembed/"),
-    new $.fn.oembed.OEmbedProvider("dotsub", "video", ["dotsub\\.com/view/.+"], "http://dotsub.com/services/oembed"),
-    new $.fn.oembed.OEmbedProvider("clickthrough", "video", ["clikthrough\\.com/theater/video/\\d+"], "http://clikthrough.com/services/oembed"),
+    new $.fn.oembed.OEmbedProvider("dotsub", "video", ["dotsub\\.com/view/.+"], "http://dotsub.com/services/oembed",{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("clikthrough", "video", ["clikthrough\\.com/theater/video/\\d+"], "http://clikthrough.com/services/oembed"),
     new $.fn.oembed.OEmbedProvider("Kinomap", "video", ["kinomap\\.com/.+"], "http://www.kinomap.com/oembed"),
     new $.fn.oembed.OEmbedProvider("VHX", "video", ["vhx.tv/.+"], "http://vhx.tv/services/oembed.json"),
     new $.fn.oembed.OEmbedProvider("bambuser", "video", ["bambuser.com/.+"], "http://api.bambuser.com/oembed/iframe.json"),
-    new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+","twitch.tv/.+"], null,
-      {yql:{xpath:"json.html", from:'json'
-            , url: function(externalurl){return 'http://api.justin.tv/api/embed/from_url.json?url='+externalurl}
-            , datareturn:function(results){return results.html || ''}
-          }
-      }),
+    new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+"], 'http://api.justin.tv/api/embed/from_url.json',{useYQL:'json'}),
     
     //Audio
-    new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], null,
-    {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://official.fm/services/oembed?format=json&url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-    }),
-    new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], null,
-    {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://chirb.it/oembed.json?url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-    }),
+    new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], 'http://official.fm/services/oembed',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], 'http://chirb.it/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
     new $.fn.oembed.OEmbedProvider("shoudio", "rich", ["shoudio.com/.+","shoud.io/.+"], "http://shoudio.com/api/oembed"),
-    new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"],null,
-    {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://www.mixcloud.com/oembed/?url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-    }),
+    new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"],'http://www.mixcloud.com/oembed/',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+"], "http://soundcloud.com/oembed",{format:'js'}),
     new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
@@ -495,7 +475,7 @@
         }
     }),
 		new $.fn.oembed.OEmbedProvider("mobypicture", "photo", ["mobypicture.com/user/.+/view/.+","moby.to/.+"], "http://api.mobypicture.com/oEmbed"),
-		//new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed"), //XML
+		new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed",{useYQL:'xml'}),
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
@@ -559,18 +539,8 @@
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
     new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"),
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
-    new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],null,
-    {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://www.dipity.com/oembed/timeline/?url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-    }),
-    new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],null,
-    {yql:{xpath:"json.html", from:'json'
-          , url: function(externalurl){return 'http://speakerdeck.com/oembed.json?url='+externalurl}
-          , datareturn:function(results){return results.html || ''}
-        }
-    }),
+    new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],'http://www.dipity.com/oembed/timeline/',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],'http://speakerdeck.com/oembed.json',{useYQL:'json'}),
     
     new $.fn.oembed.OEmbedProvider("authorstream", "rich", ["authorstream.com/Presentation/.*"],null,
       {templateRegex:/.*Presentation\/([^\/]+).*/,
@@ -651,9 +621,7 @@
       }),
     new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],null,
       {templateRegex:/.*com\/(\S{6}).*/ 
-      ,embedtag : {tag: 'iframe', width:'400',height: '338',
-        src: "http://www.reelapp.com/$1/embed"
-        }
+      ,embedtag : {tag: 'iframe', width:'400',height: '338',src: "http://www.reelapp.com/$1/embed"}
       }),
     new $.fn.oembed.OEmbedProvider("linkedin", "rich", ["linkedin.com/pub/.+"],null,
       {templateRegex:/(.*)/ 
@@ -723,15 +691,11 @@
       , "http://public-api.wordpress.com/oembed/1.0/?for=jquery-oembed-all"),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], null, 
       {templateRegex:/.*\/([^\/]+).*/ 
-      ,embedtag : {tag: 'iframe', width:'650',height: 396,
-        src: "http://www.screenr.com/embed/$1"
-        }
+      ,embedtag : {tag: 'iframe', width:'650',height: 396,src: "http://www.screenr.com/embed/$1"}
       }) ,
 		new $.fn.oembed.OEmbedProvider("gigpans", "rich", ["gigapan\\.org/[-.\\w@]+/\\d+"],null,
       {templateRegex:/.*\/(\d+)\/?.*/,
-      embedtag : {tag: 'iframe', width:'100%',height: 400,
-        src: "http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html"
-        }
+      embedtag : {tag: 'iframe', width:'100%',height: 400,src: "http://gigapan.org/gigapans/$1/options/nosnapshots/iframe/flash.html"}
       }), 
     new $.fn.oembed.OEmbedProvider("scribd", "rich", ["scribd\\.com/.+"],null,
       {templateRegex:/.*doc\/([^\/]+).*/ ,
@@ -741,9 +705,7 @@
       }),
     new $.fn.oembed.OEmbedProvider("kickstarter", "rich", ["kickstarter\\.com/projects/.+"],null,
       {templateRegex:/([^\?]+).*/ ,
-      embedtag : {tag: 'iframe', width:'220',height: 380,
-        src: "$1/widget/card.html"
-        }      
+      embedtag : {tag: 'iframe', width:'220',height: 380,src: "$1/widget/card.html"}      
       }),
     new $.fn.oembed.OEmbedProvider("issuu", "rich", ["issuu\\.com/[-.\\w@]+/docs/.+"], null,
       {yql:{xpath:"//meta[contains(@content,\\'IssuuViewer.swf\\')]", from:'html'

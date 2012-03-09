@@ -38,14 +38,23 @@ Current 3rd party sources include:
 ####Video
 
 * Youtube - Embedded
+  http://www.youtube.com/watch?v=oHg5SJYRHA0
 * Blip - oEmbed
+  http://blip.tv/linuxconfau/lightning-talks-incl-html5-media-accessibility-update-4870511
 * Hulu - oEmbed
+  http://www.hulu.com/watch/337246/e-news-now-steven-tyler-picks-next-idol-winner
 * Vimeo - oEmbed
+  http://vimeo.com/36549221
 * National film board of Canada - oEmbed
+  http://www.nfb.ca/film/turning_tides/
 * Qik - oEmbed
+  http://qik.com/video/1331325
 * Dotsub - oEmbed
-* Clickthrough - oEmbed
+  http://dotsub.com/view/6a7db231-4d64-407d-8026-a845eaf6c4a9
+* Clikthrough - oEmbed
+  http://www.clikthrough.com/theater/video/7
 * Kino Map - oEmbed
+  
 * Funny Or Die - Embedded
 * Colledge Humour - Embedded
 * Metacafe - Embedded
