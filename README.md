@@ -96,6 +96,7 @@ Current 3rd party sources include:
 * gravatar - Thumbnail view when using mailto:email@address.com
 * pintrest - YQL - Embedded view of a sort.
 * circuitlab - image view
+* skitch - YQL oembed
 
 ####Rich
 
@@ -135,6 +136,8 @@ Current 3rd party sources include:
 * prezi - embedded
 * popplet - embedded
 * authorstream - embedded
+* googlecalendar - Iframe
+* cacoo - oembed
 
 ---
 ####TODO:
@@ -152,10 +155,8 @@ Current 3rd party sources include:
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
 * vodpod - http://vodpod.com/sharebutton
-* http://skitch.com/oembed/
 * http://docs.minoto-video.com/api/oembed.html
 * http://oembed.urtak.com/
-* https://cacoo.com/api_oembed
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://media.soundslides.com/embedtool/
@@ -172,7 +173,8 @@ Current 3rd party sources include:
 * http://www.wiziq.com/
 * http://www.4shared.com/
 
-http://www.google.com/calendar/embed?src=en.australian%23holiday%40group.v.calendar.google.com&ctz=Australia/Brisbane 
-<iframe src="https://www.google.com/calendar/b/0/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.australian%23holiday%40group.v.calendar.google.com&amp;color=%230F4B38&amp;ctz=Australia%2FBrisbane" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+http://www.pearltrees.com/#/N-f=1_3201432&N-fa=3114380&N-p=23874509&N-play=0&N-s=1_3201432&N-u=1_335577
+<object width="400" height="320" id="pt-embed-3201432-693-object" type="application/x-shockwave-flash" data="http://cdn.pearltrees.com/s/embed/getApp"><param name="flashvars" value="lang=en_US&amp;embedId=pt-embed-3201432-693&amp;treeId=3201432&amp;pearlId=23874509&amp;treeTitle=Diagrams%2FVisualization&amp;site=www.pearltrees.com%2F" /><param name="movie" value="http://cdn.pearltrees.com/s/embed/getApp" /><param name="wmode" value="opaque" /><param name="allowscriptaccess" value="always" /><a href="http://www.pearltrees.com/djager/diagrams-visualization/id3201432" alt="Diagrams/Visualization" style="text-decoration:underline;"><span style="font-size:14pt;color:black;font-weight:bold">Diagrams/Visualization</span><span style="font-size:10pt;color:#999999;font-weight:normal"> in Drawing/Diagrams / Online tools /  (djager)</span></a></object>
 
 A lot more :) Feel free to submit

@@ -480,6 +480,20 @@
     
      //Photo
 		new $.fn.oembed.OEmbedProvider("deviantart", "photo", ["deviantart.com/.+","fav.me/.+","deviantart.com/.+"], "http://backend.deviantart.com/oembed",{format:'jsonp'}),
+		new $.fn.oembed.OEmbedProvider("skitch", "photo", ["skitch.com/.+"], null,
+    {yql:{xpath:"json", from:'json'
+          , url: function(externalurl){return 'http://skitch.com/oembed/?format=json&url='+externalurl}
+          , datareturn:function(data){
+            var oembedData = data.json;
+             var code, alt = oembedData.title ? oembedData.title : '';
+              alt += oembedData.author_name ? ' - ' + oembedData.author_name : '';
+              alt += oembedData.provider_name ? ' - ' + oembedData.provider_name : '';
+              code = '<div><a href="' + oembedData.url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
+              if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
+              return code;
+            }
+        }
+    }),
 		new $.fn.oembed.OEmbedProvider("mobypicture", "photo", ["mobypicture.com/user/.+/view/.+","moby.to/.+"], "http://api.mobypicture.com/oEmbed"),
 		//new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed"), //XML
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
@@ -543,6 +557,7 @@
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
+    new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"),
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
     new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],null,
     {yql:{xpath:"json.html", from:'json'
@@ -622,6 +637,11 @@
       ,embedtag : {tag: 'iframe', width:'500',height: '350',
         src: "http://c.circuitbee.com/build/r/schematic-embed.html?id=$1"
         }
+      }),
+      
+    new $.fn.oembed.OEmbedProvider("googlecalendar", "rich", ["http://www.google.com/calendar/embed?.+"],null,
+      {templateRegex:/(.*)/ 
+      ,embedtag : {tag: 'iframe', width:'800',height: '600', src: "$1"}
       }),
     new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],null,
       {templateRegex:/.*com\/(\S{6}).*/ 
