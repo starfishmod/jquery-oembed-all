@@ -134,6 +134,7 @@ Current 3rd party sources include:
 * mobypictures - oembed
 * prezi - embedded
 * popplet - embedded
+* authorstream - embedded
 
 ---
 ####TODO:
@@ -168,18 +169,8 @@ Current 3rd party sources include:
 * http://www.jotform.com/
 * http://www.lomography.com/
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
-* http://popplet.com/
 * http://www.wiziq.com/
 * http://www.4shared.com/
-
-
-http://www.regards.com/EGM.cfm/15112
-<embed src='http://www.regards.com//images/romance/love_undersheets_sr.swf' pluginspage='http://www.macromedia.com/shockwave/download/' type='application/x-shockwave-flash' width='525' height='325'></embed>
-
-
-http://www.authorstream.com/Presentation/pahuja-66674-introduce-yourself-education-ppt-powerpoint/
-<embed src="http://www.authorstream.com/player.swf?fb=0&nb=1&pl=as&ap=0&c=#dfdfdf&p=pahuja-66674-introduce-yourself-education-ppt-powerpoint" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="354"></embed>
-
 
 http://www.google.com/calendar/embed?src=en.australian%23holiday%40group.v.calendar.google.com&ctz=Australia/Brisbane 
 <iframe src="https://www.google.com/calendar/b/0/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.australian%23holiday%40group.v.calendar.google.com&amp;color=%230F4B38&amp;ctz=Australia%2FBrisbane" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>

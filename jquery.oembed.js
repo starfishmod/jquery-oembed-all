@@ -557,12 +557,17 @@
         }
     }),
     
+    new $.fn.oembed.OEmbedProvider("authorstream", "rich", ["authorstream.com/Presentation/.*"],null,
+      {templateRegex:/.*Presentation\/([^\/]+).*/,
+      embedtag : {width:425,height: 354,
+        src: "http://www.authorstream.com/player.swf?fb=0&nb=1&pl=as&ap=0&c=#dfdfdf&p=$1"} 
+      }),
     
     new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],null,
       {templateRegex:/.*#\/([^\/]+).*/,
       embedtag : {width:460,height: 460,
         src: "http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1"} 
-      }), //Not Working -due to popplet
+      }), //Not perhaps Working -due to popplet
     
     
     new $.fn.oembed.OEmbedProvider("prezi", "rich", ["prezi.com/.*"],null,
