@@ -37,22 +37,38 @@ Current 3rd party sources include:
 ---------------------------------
 ####Video
 
-* Youtube - Embedded
+* Youtube - oembed - YQL
+  http://www.youtube.com/watch?v=oHg5SJYRHA0
 * Blip - oEmbed
+  http://blip.tv/linuxconfau/lightning-talks-incl-html5-media-accessibility-update-4870511
 * Hulu - oEmbed
+  http://www.hulu.com/watch/337246/e-news-now-steven-tyler-picks-next-idol-winner
 * Vimeo - oEmbed
+  http://vimeo.com/36549221
 * National film board of Canada - oEmbed
+  http://www.nfb.ca/film/turning_tides/
 * Qik - oEmbed
+  http://qik.com/video/1331325
 * Dotsub - oEmbed
-* Clickthrough - oEmbed
+  http://dotsub.com/view/6a7db231-4d64-407d-8026-a845eaf6c4a9
+* Clikthrough - oEmbed
+  http://www.clikthrough.com/theater/video/7
 * Kino Map - oEmbed
+  http://www.kinomap.com/#!kms-f2xsjx
 * Funny Or Die - Embedded
-* Colledge Humour - Embedded
+  http://www.funnyordie.com/videos/0d46e70a1a/yo-no-se-performed-by-will-ferrell?playlist=featured_videos
+* College Humour - Embedded
+  http://www.collegehumor.com/video/6736895/the-fresh-prince-of-downton-abbey
 * Metacafe - Embedded
+  http://www.metacafe.com/watch/8202430/airmail_trailer/
 * embedr - Embedded
+  http://embedr.com/playlist/my-video-playlist_25683
 * 5min - oEmbed is XML only - using YQL to translate it
+  http://www.5min.com/Video/iPad-to-Embrace-New-Name-517297508
 * ustream.tv - oEmbed is not JSONP enabled - using YQL to translate it
+  http://www.ustream.tv/recorded/20144582
 * viddler - oEmbed is not JSONP enabled - using YQL to translate it
+  http://www.viddler.com/v/4a7e233c - reponse is broken need to investigate
 * twitvid - Embedded
 * bambuser - Embedded
 * xtranormal - Embedded
@@ -96,7 +112,10 @@ Current 3rd party sources include:
 * gravatar - Thumbnail view when using mailto:email@address.com
 * pintrest - YQL - Embedded view of a sort.
 * circuitlab - image view
+  https://www.circuitlab.com/circuit/z242cn/555-timer-as-pulse-width-modulation-pwm-generator/
 * skitch - YQL oembed
+* graphic.ly  - oembed
+  http://graphicly.com/eldritch/eldritch/2  - currenly broken due to bad iframe code returned.
 
 ####Rich
 
@@ -139,6 +158,8 @@ Current 3rd party sources include:
 * googlecalendar - Iframe
 * cacoo - oembed
 * pearltrees - embedded
+* urtak - oembed - is broken in iframe return atm -seems to be an embed.ly issue??
+  https://urtak.com/u/6588
 
 ---
 ####TODO:
@@ -152,12 +173,10 @@ Current 3rd party sources include:
 * posterous.com
 * vodpod
 * plannary
-* graphic.ly  - http://oembed.graphicly.com/
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
 * vodpod - http://vodpod.com/sharebutton
 * http://docs.minoto-video.com/api/oembed.html
-* http://oembed.urtak.com/
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://media.soundslides.com/embedtool/
