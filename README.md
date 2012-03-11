@@ -8,12 +8,12 @@ This project will happily use native oembed services when it can, however it als
 
 This project tries to use embedding techniques in the following order of preference:
 
-* oEmbed - JSONP available - i.e. flickr, meetup etc
-* embedding (IFRAME/Object) based on URL information - i.e. youtube
-* oEmbed - JSONP not Available - use YQL to correct - Ustream, viddler
-* JSONP Api lookups Source - With HTML and CSS built in this project - github, Myspace, Facebook
-* YQL Screenscape to get embedding details - BandCamp
-* YQL Screenscrape - pastie
+* oEmbed - JSONP available - e.g.  flickr, meetup etc
+* embedding (IFRAME/Object) based on URL information - e.g.  youtube
+* oEmbed - JSONP not Available - use YQL to correct - e.g. Ustream, viddler
+* JSONP Api lookups Source - With HTML and CSS built in this project - e.g. github, Myspace, Facebook
+* YQL Screenscape to get embedding details - e.g. BandCamp
+* YQL Screenscrape - e.g. pastie
 
 to use...
 ````
