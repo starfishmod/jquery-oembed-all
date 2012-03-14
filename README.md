@@ -81,6 +81,8 @@ Current 3rd party sources include:
 * justin.tv - YQL JSON
 * livestream - embedded
 * scivee - embedded
+* veoh - embedded
+  http://www.veoh.com/watch/v21193116NBT83Enw?h1=Lady+GaGa+and+Kanye+West+Invest+in+Turntable.FM!+-+Diggnation
 
 ####Audio 
 
@@ -166,7 +168,7 @@ Current 3rd party sources include:
 ---
 ####TODO:
 
-* iFixit - Uses a script embed - may not work
+* iFixit - Uses a script oembed - may not work
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
 * delicious
@@ -194,6 +196,7 @@ Current 3rd party sources include:
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
 * http://www.wiziq.com/
 * http://www.4shared.com/
+* fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
 
 
 Plus a lot more :) Feel free to submit
