@@ -120,6 +120,8 @@ Current 3rd party sources include:
 * skitch - YQL oembed
 * graphic.ly  - oembed
   http://graphicly.com/eldritch/eldritch/2  - currenly broken due to bad iframe code returned.
+* dribble - jsonp lookup
+  http://dribbble.com/shots/464661-Rebounding-Station-Shot
 
 ####Rich
 
@@ -197,6 +199,5 @@ Current 3rd party sources include:
 * http://www.wiziq.com/
 * http://www.4shared.com/
 * fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
-
 
 Plus a lot more :) Feel free to submit

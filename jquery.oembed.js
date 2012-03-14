@@ -451,6 +451,12 @@
             +'<img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'"></div><div id="view-photo-caption">'+data.message+'</div></div>';
         }
       }),
+    new $.fn.oembed.OEmbedProvider("dribbble", "photo", ["dribbble.com/shots/.+"], "http://api.dribbble.com/shots/$1?callback=?",
+      { templateRegex:/.*shots\/([\d]+).*/,
+      templateData : function(data){if(!data.image_teaser_url)return false;
+          return  '<img class="photo" id="photo-display" src="'+data.image_teaser_url+'"/>';
+        }
+      }),
     new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],"http://photos.500px.com/$1/3?",
       {templateRegex:/.*photo\/([^\/]+).*/ , embedtag : {tag:'img'}}),
     new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/?",
