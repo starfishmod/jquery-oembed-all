@@ -94,6 +94,8 @@ Current 3rd party sources include:
 * official.fm - YQL and oembed
 * mixcloud - YQL and oembed
 * shoudio - oembed
+* audioboo.fm - embed 
+  http://audioboo.fm/boos/710079-geofencing-and-the-future
 
 #### Photo
 

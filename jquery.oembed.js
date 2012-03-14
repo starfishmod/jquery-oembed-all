@@ -401,6 +401,8 @@
     new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+"], 'http://api.justin.tv/api/embed/from_url.json',{useYQL:'json'}),
     
     //Audio
+    new $.fn.oembed.OEmbedProvider("audioboo", "rich", ["audioboo.fm/boos/.+"],"$1/embed?",
+      {templateRegex:/(.*)/, embedtag : {tag:'iframe',width:400,height: 145 }}), 
     new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], 'http://official.fm/services/oembed',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], 'http://chirb.it/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
