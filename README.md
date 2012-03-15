@@ -83,6 +83,8 @@ Current 3rd party sources include:
 * scivee - embedded
 * veoh - embedded
   http://www.veoh.com/watch/v21193116NBT83Enw?h1=Lady+GaGa+and+Kanye+West+Invest+in+Turntable.FM!+-+Diggnation
+* minoto-video
+  http://embed.minoto-video.com/90/ZfMaq5kow9ki
 
 ####Audio 
 
@@ -182,7 +184,6 @@ Current 3rd party sources include:
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
 * vodpod - http://vodpod.com/sharebutton
-* http://docs.minoto-video.com/api/oembed.html
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://media.soundslides.com/embedtool/
