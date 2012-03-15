@@ -83,7 +83,7 @@ Current 3rd party sources include:
 * scivee - embedded
 * veoh - embedded
   http://www.veoh.com/watch/v21193116NBT83Enw?h1=Lady+GaGa+and+Kanye+West+Invest+in+Turntable.FM!+-+Diggnation
-* minoto-video
+* minoto-video - oembed using YQL
   http://embed.minoto-video.com/90/ZfMaq5kow9ki
 
 ####Audio 
@@ -168,7 +168,9 @@ Current 3rd party sources include:
 * pearltrees - embedded
 * urtak - oembed - is broken in iframe return atm -seems to be an embed.ly issue??
   https://urtak.com/u/6588
-
+* jotform - embedded
+  http://form.jotform.co/form/20740907897868
+  
 ---
 ####TODO:
 
@@ -194,11 +196,12 @@ Current 3rd party sources include:
 * http://blog.tourwrist.com/?p=271
 * http://www.userplane.com/docs/embed
 * http://www.surveygizmo.com/
-* http://www.jotform.com/
 * http://www.lomography.com/
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
 * http://www.wiziq.com/
 * http://www.4shared.com/
 * fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
+
+
 
 Plus a lot more :) Feel free to submit

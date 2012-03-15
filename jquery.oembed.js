@@ -560,9 +560,14 @@
       ,embedtag : {tag: 'iframe', width:'500',height: '350'}
       }),
       
-    new $.fn.oembed.OEmbedProvider("googlecalendar", "rich", ["http://www.google.com/calendar/embed?.+"],"$1",
+    new $.fn.oembed.OEmbedProvider("googlecalendar", "rich", ["www.google.com/calendar/embed?.+"],"$1",
       {templateRegex:/(.*)/ 
       ,embedtag : {tag: 'iframe', width:'800',height: '600' }
+      }),
+      
+    new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1",
+      {templateRegex:/(.*)/ 
+      ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
       }),
     new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],"http://www.reelapp.com/$1/embed",
       {templateRegex:/.*com\/(\S{6}).*/ 
