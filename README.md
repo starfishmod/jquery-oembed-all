@@ -85,6 +85,8 @@ Current 3rd party sources include:
   http://www.veoh.com/watch/v21193116NBT83Enw?h1=Lady+GaGa+and+Kanye+West+Invest+in+Turntable.FM!+-+Diggnation
 * minoto-video - oembed using YQL
   http://embed.minoto-video.com/90/ZfMaq5kow9ki
+* TrailerAddict - Embeded YQL
+  http://www.traileraddict.com/trailer/abraham-lincoln-vampire-hunter/trailer-b
 
 ####Audio 
 
@@ -209,7 +211,7 @@ Current 3rd party sources include:
 * Ars Technica
 * XKCD
 * TwitLonger
-* TrailerAddict
+
 * TED
 * Spotify
 * Rap Genius
@@ -220,5 +222,7 @@ Current 3rd party sources include:
 * CloudApp
 * Beer Advocate
 * AsciiArtFarts
+
+
 
 Plus a lot more :) Feel free to submit

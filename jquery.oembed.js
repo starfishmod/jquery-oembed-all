@@ -361,7 +361,6 @@
         templateRegex: /.*tv\/node\/(.+)/,embedtag: {width: '480',height: '400',flashvars:"id=$1&type=3"}}),
     new $.fn.oembed.OEmbedProvider("veoh", "video", ["veoh.com/watch/.+"], "http://www.veoh.com/swf/webplayer/WebPlayer.swf?version=AFrontend.5.7.0.1337&permalinkId=$1&player=videodetailsembedded&videoAutoPlay=0&id=anonymous", {
         templateRegex: /.*watch\/([^\?]+).*/,embedtag: {width: '410',height: '341'}}),
-        
     new $.fn.oembed.OEmbedProvider("gametrailers", "video", ["gametrailers\\.com/video/.+"], "http://media.mtvnservices.com/mgid:moses:video:gametrailers.com:$2", {
         templateRegex: /.*com\/video\/([\w\-]+)\/([\w\-]+).*/,embedtag: {width: '512',height: '288' }}), 
     new $.fn.oembed.OEmbedProvider("funnyordie", "video", ["funnyordie\\.com/videos/.+"], "http://player.ordienetworks.com/flash/fodplayer.swf?", {
@@ -402,6 +401,14 @@
     new $.fn.oembed.OEmbedProvider("VHX", "video", ["vhx.tv/.+"], "http://vhx.tv/services/oembed.json"),
     new $.fn.oembed.OEmbedProvider("bambuser", "video", ["bambuser.com/.+"], "http://api.bambuser.com/oembed/iframe.json"),
     new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+"], 'http://api.justin.tv/api/embed/from_url.json',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("traileraddict", "rich", ["traileraddict.com/trailer/.+"], null,
+      {yql:{xpath:"//meta[@property=\"og:video\"]", from:'html'
+          , datareturn:function(results){
+              return results.meta ?'<embed type="application/x-shockwave-flash" allowfullscreen="true" menu="false" src="'+results.meta.content+'" allowtransparency="true" frameborder="0" width="360" height="247"></embed>':false;
+              }
+          }
+          
+      }),
     
     //Audio
     new $.fn.oembed.OEmbedProvider("audioboo", "rich", ["audioboo.fm/boos/.+"],"$1/embed?",
@@ -421,8 +428,7 @@
           }
       }),
     new $.fn.oembed.OEmbedProvider("podomatic", "audio", [".+\\.podomatic\\.com/"],"http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1",
-      {templateRegex:/http:\/\/([^\/]+).*/ 
-      , embedtag : {width:480,height: 360,
+      {templateRegex:/http:\/\/([^\/]+).*/ , embedtag : {width:480,height: 360,
         flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360"
         }        
       }), 
@@ -479,12 +485,11 @@
         return '<img src="http://gravatar.com/avatar/'+email.md5()+'.jpg" alt="on Gravtar" class="jqoaImg">';
         }
       }),
-      new $.fn.oembed.OEmbedProvider("pintrest", "photo", ["pinterest.com/pin/.+"], null,
+    new $.fn.oembed.OEmbedProvider("pintrest", "photo", ["pinterest.com/pin/.+"], null,
       {yql:{xpath:'//script[contains(.,"embed_code_html_1")]', from: 'html'
           , datareturn:function(results){
               if(!results.script) return false;
               return results.script.content.replace(/[\s\S]*embed_code_html_1 = "([\s\S]*)width='";[\s\S]*embed_code_html_2 = "([\s\S]*)<\/div>";[\s\S]*/,'$1$2</div>');
-             
               }
           }
       }),
@@ -505,22 +510,19 @@
       {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), //Not perhaps Working -due to popplet
     
     new $.fn.oembed.OEmbedProvider("pearltrees", "rich", ["pearltrees.com/.*"],"http://cdn.pearltrees.com/s/embed/getApp?",
-      {templateRegex:/.*N-f=1_(\d+).*N-p=(\d+).*/, //N-f=1_3201432&N-fa=3114380&N-p=23874509&N-play=0&N-s=1_3201432&N-u=1_335577
-      embedtag : {width:460,height: 460,
-         flashvars : "lang=en_US&amp;embedId=pt-embed-$1-693&amp;treeId=$1&amp;pearlId=$2&amp;treeTitle=Diagrams%2FVisualization&amp;site=www.pearltrees.com%2FF"} 
+      {templateRegex:/.*N-f=1_(\d+).*N-p=(\d+).*/, embedtag : {width:460,height: 460,
+        flashvars : "lang=en_US&amp;embedId=pt-embed-$1-693&amp;treeId=$1&amp;pearlId=$2&amp;treeTitle=Diagrams%2FVisualization&amp;site=www.pearltrees.com%2FF"} 
       }),
     
     new $.fn.oembed.OEmbedProvider("prezi", "rich", ["prezi.com/.*"],"http://prezi.com/bin/preziloader.swf?",
-      {templateRegex:/.*com\/([^\/]+)\/.*/,
-      embedtag : {width:550,height: 400,
+      {templateRegex:/.*com\/([^\/]+)\/.*/,embedtag : {width:550,height: 400,
         flashvars : "prezi_id=$1&amp;lock_to_path=0&amp;color=ffffff&amp;autoplay=no&amp;autohide_ctrls=0"
         } 
       }),
     
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
     new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
-      {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/,
-      embedtag : {width:355,height: 300,
+      {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
         flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
         } 
       }),
@@ -556,34 +558,26 @@
         }
       }),  
     new $.fn.oembed.OEmbedProvider("circuitbee", "rich", ["circuitbee\\.com/circuit/view/.+"],"http://c.circuitbee.com/build/r/schematic-embed.html?id=$1",
-      {templateRegex:/.*circuit\/view\/(\d+).*/ 
-      ,embedtag : {tag: 'iframe', width:'500',height: '350'}
+      {templateRegex:/.*circuit\/view\/(\d+).*/ ,embedtag : {tag: 'iframe', width:'500',height: '350'}
       }),
       
     new $.fn.oembed.OEmbedProvider("googlecalendar", "rich", ["www.google.com/calendar/embed?.+"],"$1",
-      {templateRegex:/(.*)/ 
-      ,embedtag : {tag: 'iframe', width:'800',height: '600' }
+      {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'800',height: '600' }
       }),
       
     new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1?",
-      {templateRegex:/(.*)/ 
-      ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
+      {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
       }),
     new $.fn.oembed.OEmbedProvider("reelapp", "rich", ["reelapp\\.com/.+"],"http://www.reelapp.com/$1/embed",
-      {templateRegex:/.*com\/(\S{6}).*/ 
-      ,embedtag : {tag: 'iframe', width:'400',height: '338'}
+      {templateRegex:/.*com\/(\S{6}).*/ ,embedtag : {tag: 'iframe', width:'400',height: '338'}
       }),
     new $.fn.oembed.OEmbedProvider("linkedin", "rich", ["linkedin.com/pub/.+"],"https://www.linkedin.com/cws/member/public_profile?public_profile_url=$1&format=inline&isFramed=true",
-      {templateRegex:/(.*)/ 
-      ,embedtag : {tag: 'iframe', width:'368px',height: 'auto'}
+      {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'368px',height: 'auto'}
       }),
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],"http://pastebin.com/embed_iframe.php?i=$1",
-      {templateRegex:/.*\/(\S{8}).*/ 
-      ,embedtag : {tag: 'iframe', width:'100%',height: 'auto'}
+      {templateRegex:/.*\/(\S{8}).*/ ,embedtag : {tag: 'iframe', width:'100%',height: 'auto'}
       }),
-    new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,
-      {yql:{xpath:'//pre[@class="textmate-source"]'}
-      }),
+    new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,{yql:{xpath:'//pre[@class="textmate-source"]'}}),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["gist.github.com/.+"], "https://github.com/api/oembed"),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
@@ -631,8 +625,7 @@
             return out;
         }
       }),
-    new $.fn.oembed.OEmbedProvider("wordpress", "rich", ["wordpress\\.com/.+","blogs\\.cnn\\.com/.+","techcrunch\\.com/.+","wp\\.me/.+"]
-      , "http://public-api.wordpress.com/oembed/1.0/?for=jquery-oembed-all"),
+    new $.fn.oembed.OEmbedProvider("wordpress", "rich", ["wordpress\\.com/.+","blogs\\.cnn\\.com/.+","techcrunch\\.com/.+","wp\\.me/.+"], "http://public-api.wordpress.com/oembed/1.0/?for=jquery-oembed-all"),
     new $.fn.oembed.OEmbedProvider("screenr", "rich", ["screenr\.com"], "http://www.screenr.com/embed/$1", 
       {templateRegex:/.*\/([^\/]+).*/ 
       ,embedtag : {tag: 'iframe', width:'650',height: 396}
@@ -671,8 +664,7 @@
           }
       }),
     new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
-    ,{apikey: true,
-      templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
+    ,{apikey: true,templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
        embedtag : {tag: 'iframe', width:'120px',height: '240px'}      
       }),
 
@@ -683,7 +675,6 @@
           , datareturn:function(results){
               if(!results.result) return false;
               return '<div class="lanyard">'+results.result+'</div>';
-             
               }
           }
       }),
