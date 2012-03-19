@@ -683,6 +683,13 @@
             }
           }
       }),
+    new $.fn.oembed.OEmbedProvider("cuusoo", "rich", ["lego.cuusoo.com/ideas/.+"], null,
+      {yql:{xpath:"//meta", from:'html'
+          , datareturn:function(results){
+              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
+            }
+          }
+      }),
     new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
     ,{apikey: true,templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
        embedtag : {tag: 'iframe', width:'120px',height: '240px'}      

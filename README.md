@@ -129,6 +129,10 @@ Current 3rd party sources include:
   http://dribbble.com/shots/464661-Rebounding-Station-Shot
 * Lockerz - YQL lookup
   http://lockerz.com/d/5504214
+* AsciiArtFarts - YQL Lookup
+  http://www.asciiartfarts.com/20111016.html
+* lego cusoo - YQL Lookup
+  http://lego.cuusoo.com/ideas/view/96
 
 ####Rich
 
@@ -180,12 +184,11 @@ Current 3rd party sources include:
   http://www.urbandictionary.com/define.php?term=qwerty%20nosedive&defid=6423917
 * Ars Technica - YQL Lookup
   http://arstechnica.com/tech-policy/news/2012/03/op-ed-imminent-six-strikes-copyright-alert-system-needs-antitrust-scrutiny.ars
-* AsciiArtFarts - YQL Lookup
-  http://www.asciiartfarts.com/20111016.html
+
 ---
 ####TODO:
 
-* iFixit - Uses a script oembed - may not work
+* iFixit - Uses a script oembed - does not work
 * Rotten Tomatoes - JSONP available
 * last.fm - JSONP Available - requires API Key
 * delicious
@@ -217,11 +220,7 @@ Current 3rd party sources include:
 * TwitLonger
 * TED
 * Spotify
-* Path??
-* Imgur & Imgur Gallery
-* Giant Bomb
-* CloudApp
-* Beer Advocate
+* Path
 
 
 Plus a lot more :) Feel free to submit
