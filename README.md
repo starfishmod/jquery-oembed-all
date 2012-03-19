@@ -91,6 +91,7 @@ Current 3rd party sources include:
 * Soundcloud - oEmbed
 * HuffDuffer - oEmbed
 * BandCamp - YQL and Embedded
+  http://clearsoulforces.bandcamp.com/album/detroit-revolution-s - Seems to be broken
 * podomatic - Embedded
 * rdio.com - oEmbed
 * hark.com - Embedded - not working?
@@ -148,6 +149,7 @@ Current 3rd party sources include:
 * Pastie - YQL lookup
 * kickstarter - Embedded
 * issuu - YQL Embedded
+  http://issuu.com/2bemag/docs/issue__20
 * reelapp.com - Embedded
 * Etsy - JSONP/APIKey Lookup
 * Amazon - Embedded - Requires Affiliate code
@@ -170,6 +172,8 @@ Current 3rd party sources include:
   https://urtak.com/u/6588
 * jotform - embedded
   http://form.jotform.co/form/20740907897868
+* Urban Dictionary - YQL lookup
+  http://www.urbandictionary.com/define.php?term=qwerty%20nosedive&defid=6423917
   
 ---
 ####TODO:
@@ -188,7 +192,6 @@ Current 3rd party sources include:
 * vodpod - http://vodpod.com/sharebutton
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
-* http://media.soundslides.com/embedtool/
 * http://pdfobject.com/generator.php
 * http://simpleviewer.net/simpleviewer/support/embedding.html
 * http://www.qwiki.com/api
@@ -201,7 +204,21 @@ Current 3rd party sources include:
 * http://www.wiziq.com/
 * http://www.4shared.com/
 * fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
-
-
+* http://cubbi.es/oembed ?Not sure how this one works
+* Apple trailers
+* Ars Technica
+* XKCD
+* TwitLonger
+* TrailerAddict
+* TED
+* Spotify
+* Rap Genius
+* Path??
+* Lockerz
+* Imgur & Imgur Gallery
+* Giant Bomb
+* CloudApp
+* Beer Advocate
+* AsciiArtFarts
 
 Plus a lot more :) Feel free to submit

@@ -114,7 +114,7 @@
         var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var from = embedProvider.yql.from || 'htmlstring';
         var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
-        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "'";
+        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "' and compat='html5'";
         ajaxopts = $.extend({
           url: "http://query.yahooapis.com/v1/public/yql",
           dataType: 'jsonp',
@@ -565,7 +565,7 @@
       ,embedtag : {tag: 'iframe', width:'800',height: '600' }
       }),
       
-    new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1",
+    new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1?",
       {templateRegex:/(.*)/ 
       ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
       }),
@@ -650,10 +650,24 @@
       embedtag : {tag: 'iframe', width:'220',height: 380}      
       }),
     new $.fn.oembed.OEmbedProvider("issuu", "rich", ["issuu\\.com/[-.\\w@]+/docs/.+"], null,
-      {yql:{xpath:"//meta[contains(@content,\\'IssuuViewer.swf\\')]", from:'html'
+      {yql:{xpath:"//meta[@property=\"og:video\"]", from:'html'
           , datareturn:function(results){
               return results.meta ?'<embed type="application/x-shockwave-flash" allowfullscreen="true" menu="false" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></embed>':false;
               }
+          }
+          
+      }),
+    new $.fn.oembed.OEmbedProvider("urbandictionary", "rich", ["urbandictionary.com/define.+"], null,
+      {yql:{xpath:"//meta", from:'html'
+          , datareturn:function(results){
+              var data={};
+              for(var i=0, l=results.meta.length; i<l; i++){
+                var name = results.meta[i].name||results.meta[i].property||null;
+                if(name==null)continue;
+                data[name]=results.meta[i].content;
+              }
+              return '<p><b>'+data['og:title']+':</b>'+data['og:description']+'</p>';
+            }
           }
       }),
     new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
