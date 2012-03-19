@@ -176,6 +176,8 @@ Current 3rd party sources include:
   http://form.jotform.co/form/20740907897868
 * Urban Dictionary - YQL lookup
   http://www.urbandictionary.com/define.php?term=qwerty%20nosedive&defid=6423917
+* Ars Technica - YQL Lookup
+  http://arstechnica.com/tech-policy/news/2012/03/op-ed-imminent-six-strikes-copyright-alert-system-needs-antitrust-scrutiny.ars
   
 ---
 ####TODO:
@@ -208,10 +210,8 @@ Current 3rd party sources include:
 * fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
 * http://cubbi.es/oembed ?Not sure how this one works
 * Apple trailers
-* Ars Technica
 * XKCD
 * TwitLonger
-
 * TED
 * Spotify
 * Rap Genius
