@@ -126,7 +126,18 @@
             callback: "?"
           },
           success: function(data) {
-            var result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
+            var result;
+            if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta'){
+                var meta={};
+                for(var i=0, l=data.query.results.meta.length; i<l; i++){
+                  var name = data.query.results.meta[i].name||data.query.results.meta[i].property||null;
+                  if(name==null)continue;
+                  meta[name]=data.query.results.meta[i].content;
+                }
+                result = embedProvider.yql.datareturn(meta);
+            }else{
+              result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
+            }
             var oembedData = $.extend({}, result);
             oembedData.code = result;
             success(oembedData, externalUrl, container);
@@ -654,26 +665,21 @@
     new $.fn.oembed.OEmbedProvider("urbandictionary", "rich", ["urbandictionary.com/define.+"], null,
       {yql:{xpath:"//meta", from:'html'
           , datareturn:function(results){
-              var data={};
-              for(var i=0, l=results.meta.length; i<l; i++){
-                var name = results.meta[i].name||results.meta[i].property||null;
-                if(name==null)continue;
-                data[name]=results.meta[i].content;
-              }
-              return '<p><b>'+data['og:title']+':</b>'+data['og:description']+'</p>';
+              return '<p><b>'+results['og:title']+':</b>'+results['og:description']+'</p>';
+            }
+          }
+      }),
+    new $.fn.oembed.OEmbedProvider("lockerz", "rich", ["lockerz.com/d/.+"], null,
+      {yql:{xpath:"//meta", from:'html'
+          , datareturn:function(results){
+              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
             }
           }
       }),
     new $.fn.oembed.OEmbedProvider("arstechnica", "rich", ["arstechnica.com/.+/news/.+"], null,
       {yql:{xpath:"//meta", from:'html'
           , datareturn:function(results){
-              var data={};
-              for(var i=0, l=results.meta.length; i<l; i++){
-                var name = results.meta[i].name||results.meta[i].property||null;
-                if(name==null)continue;
-                data[name]=results.meta[i].content;
-              }
-              return '<p><b>'+data['title']+'</b><br/>'+data['description']+'</p>';
+              return '<p><b>'+results['title']+'</b><br/>'+results['description']+'</p>';
             }
           }
       }),

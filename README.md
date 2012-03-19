@@ -127,6 +127,8 @@ Current 3rd party sources include:
   http://graphicly.com/eldritch/eldritch/2  - currenly broken due to bad iframe code returned.
 * dribble - jsonp lookup
   http://dribbble.com/shots/464661-Rebounding-Station-Shot
+* Lockerz - YQL lookup
+  http://lockerz.com/d/5504214
 
 ####Rich
 
@@ -215,15 +217,11 @@ Current 3rd party sources include:
 * TwitLonger
 * TED
 * Spotify
-* Rap Genius
 * Path??
-* Lockerz
 * Imgur & Imgur Gallery
 * Giant Bomb
 * CloudApp
 * Beer Advocate
-
-
 
 
 Plus a lot more :) Feel free to submit
