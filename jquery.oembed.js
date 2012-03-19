@@ -114,7 +114,8 @@
         var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var from = embedProvider.yql.from || 'htmlstring';
         var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
-        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/') + "' and compat='html5'";
+        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/')+"'" ;
+        if(from=='html') query += " and compat='html5'";
         ajaxopts = $.extend({
           url: "http://query.yahooapis.com/v1/public/yql",
           dataType: 'jsonp',
@@ -688,6 +689,14 @@
           , datareturn:function(results){
               if(!results.result) return false;
               return '<div class="lanyard">'+results.result+'</div>';
+              }
+          }
+      }),
+    new $.fn.oembed.OEmbedProvider("asciiartfarts", "rich", ["asciiartfarts.com/\\d+.html"], null,
+      {yql:{xpath:'//pre/font', from: 'htmlstring'
+          , datareturn:function(results){
+              if(!results.result) return false;
+              return '<pre style="background-color:000;">'+results.result+'</div>';
               }
           }
       }),

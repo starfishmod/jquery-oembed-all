@@ -178,7 +178,8 @@ Current 3rd party sources include:
   http://www.urbandictionary.com/define.php?term=qwerty%20nosedive&defid=6423917
 * Ars Technica - YQL Lookup
   http://arstechnica.com/tech-policy/news/2012/03/op-ed-imminent-six-strikes-copyright-alert-system-needs-antitrust-scrutiny.ars
-  
+* AsciiArtFarts - YQL Lookup
+  http://www.asciiartfarts.com/20111016.html
 ---
 ####TODO:
 
@@ -221,7 +222,7 @@ Current 3rd party sources include:
 * Giant Bomb
 * CloudApp
 * Beer Advocate
-* AsciiArtFarts
+
 
 
 
