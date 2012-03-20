@@ -135,6 +135,8 @@ Current 3rd party sources include:
   http://www.asciiartfarts.com/20111016.html
 * lego cusoo - YQL Lookup
   http://lego.cuusoo.com/ideas/view/96
+* plannary - YQL Lookup
+  http://svihackathon3.plannary.com/
 
 ####Rich
 
@@ -197,11 +199,8 @@ Current 3rd party sources include:
 * digg?
 * Eventbrite
 * posterous.com
-* vodpod
-* plannary
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
-
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://pdfobject.com/generator.php
@@ -223,11 +222,5 @@ Current 3rd party sources include:
 * TED
 * Spotify
 * Path
-
-<iframe class="youtube-player" type="text/html" width="480" height="415" src="http://www.youtube.com/embed/XaJ0QEAWXow?autoplay=&amp;wmode=Opaque" frameborder="0"></iframe>
-            <div style="font-size:0.9em;">
-  <a href="http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong">blind Erhu street performer in Hong Kong</a>
-- Watch more <a href="http://vodpod.com">Videos</a> at Vodpod.</div>
-
 
 Plus a lot more :) Feel free to submit

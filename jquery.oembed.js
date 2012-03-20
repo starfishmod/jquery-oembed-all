@@ -139,6 +139,7 @@
               result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
             }
             var oembedData = $.extend({}, result);
+            oembedData.code = result;
             success(oembedData, externalUrl, container);
           },
           error: settings.onError.call(container, externalUrl, embedProvider)
@@ -684,6 +685,13 @@
           }
       }),
     new $.fn.oembed.OEmbedProvider("cuusoo", "rich", ["lego.cuusoo.com/ideas/.+"], null,
+      {yql:{xpath:"//meta", from:'html'
+          , datareturn:function(results){
+              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
+            }
+          }
+      }),
+    new $.fn.oembed.OEmbedProvider("plannary", "rich", ["plannary.com"], null,
       {yql:{xpath:"//meta", from:'html'
           , datareturn:function(results){
               return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
