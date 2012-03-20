@@ -89,6 +89,8 @@ Current 3rd party sources include:
   http://www.traileraddict.com/trailer/abraham-lincoln-vampire-hunter/trailer-b
 * vodpod - oembed YQL - broken as the oembed has absolute positioning which breaks the display
   http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong?u=brianjonestownmassacre&c=brianjonestownmassac
+* fora.tv -OGP YQL
+  http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
 
 ####Audio 
 
@@ -105,6 +107,8 @@ Current 3rd party sources include:
 * shoudio - oembed
 * audioboo.fm - embed 
   http://audioboo.fm/boos/710079-geofencing-and-the-future
+* Spotify - OGP YQL
+  http://open.spotify.com/album/1YwzJz7CrV9fd9Qeb6oo1d
 
 #### Photo
 
@@ -114,17 +118,21 @@ Current 3rd party sources include:
 * yfrog - oEmbed
 * 23HQ - oEmbed
 * Smugmug - oEmbed
-* twitpic - JSONP lookup
+* twitpic - OGP YQL
+  http://twitpic.com/8wpcby
 * 500px.com - Thumbnail view
+  http://500px.com/photo/5926615
 * visual.ly - YQL Lookup
 * img.ly - Thumbnail view
 * imgur.com - Thumbnail view
 * twitgoo.com - Thumbnail view
 * gravatar - Thumbnail view when using mailto:email@address.com
 * pintrest - YQL - Embedded view of a sort.
+  http://pinterest.com/pin/147422587771702052/
 * circuitlab - image view
   https://www.circuitlab.com/circuit/z242cn/555-timer-as-pulse-width-modulation-pwm-generator/
 * skitch - YQL oembed
+  http://skitch.com/sethferreira/nmbr8/the-kings-new-toy
 * graphic.ly  - oembed
   http://graphicly.com/eldritch/eldritch/2  - currenly broken due to bad iframe code returned.
 * dribble - jsonp lookup
@@ -133,9 +141,9 @@ Current 3rd party sources include:
   http://lockerz.com/d/5504214
 * AsciiArtFarts - YQL Lookup
   http://www.asciiartfarts.com/20111016.html
-* lego cusoo - YQL Lookup
+* lego cusoo - OGP over YQL
   http://lego.cuusoo.com/ideas/view/96
-* plannary - YQL Lookup
+* plannary - OGP over YQL
   http://svihackathon3.plannary.com/
 
 ####Rich
@@ -150,6 +158,7 @@ Current 3rd party sources include:
 * imdb - JSONP lookup via imdbapi.com
 * wikipedia- JSONP lookup
 * github- JSONP lookup (CSS) 
+  https://github.com/starfishmod/jquery-oembed-all
 * eventful (venues) - Embedded
 * myspace - JSONP lookup (CSS) 
 * live Journal - JSONP Lookup (CSS)
@@ -163,10 +172,12 @@ Current 3rd party sources include:
 * issuu - YQL Embedded
   http://issuu.com/2bemag/docs/issue__20
 * reelapp.com - Embedded
-* Etsy - JSONP/APIKey Lookup
+* Etsy - OGP over YQL
+  http://www.etsy.com/listing/88613710/1950s-mid-century-modern-chair?ref=fp_treasury_1
 * Amazon - Embedded - Requires Affiliate code
 * linkedin - Embedded IFRAME - found a link that works :)
 * Lanyrd - YQL (CSS)
+  http://lanyrd.com/2012/agile/
 * twitter - Oembed - status only - but that is ok I think
 * github gist - oembed
 * speakerdeck - yql oembed
@@ -188,16 +199,18 @@ Current 3rd party sources include:
   http://www.urbandictionary.com/define.php?term=qwerty%20nosedive&defid=6423917
 * Ars Technica - YQL Lookup
   http://arstechnica.com/tech-policy/news/2012/03/op-ed-imminent-six-strikes-copyright-alert-system-needs-antitrust-scrutiny.ars
-
+* Eventbrite - OGP YQL
+  http://ynbrismarchconway-ehometext.eventbrite.com/
+* last.fm OGP YQL
+  http://www.last.fm/music/Doubting+Thomas
+* Rotten Tomatoes - OGP YQL
+  http://www.rottentomatoes.com/m/john_carter/
 ---
 ####TODO:
 
 * iFixit - Uses a script oembed - does not work
-* Rotten Tomatoes - JSONP available
-* last.fm - JSONP Available - requires API Key
 * delicious
 * digg?
-* Eventbrite
 * posterous.com
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
@@ -214,13 +227,11 @@ Current 3rd party sources include:
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
 * http://www.wiziq.com/
 * http://www.4shared.com/
-* fora.tv i.e. http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
 * http://cubbi.es/oembed ?Not sure how this one works
 * Apple trailers
 * XKCD
 * TwitLonger
 * TED
-* Spotify
 * Path
 
 Plus a lot more :) Feel free to submit

@@ -37,8 +37,7 @@
                     provider.maxWidth = settings.maxWidth;
                     provider.maxHeight = settings.maxHeight;
                     embedCode(container, resourceURL, provider);
-                }
-                else {
+                } else {
                     settings.onProviderNotFound.call(container, resourceURL);
                 }
             }
@@ -464,21 +463,13 @@
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
 		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed",{useYQL:"json"}),
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]+/.+"], "http://api.smugmug.com/services/oembed/"),
-		new $.fn.oembed.OEmbedProvider("twitpic", "photo", ["twitpic.com/.+"], "http://api.twitpic.com/2/media/show.jsonp?callback=?&id=$1",
-      { templateRegex:/.*\/([^\/]+).*/,
-      templateData : function(data){if(!data.user)return false;
-          return  '<div id="content"><div id="view-photo-user"><div id="photo-user-avatar"><img src="'+data.user.avatar_url+'"></div><div id="photo-info"><h3><a id="photo_username" class="nav-link" href="http://twitter.com/#!/'+data.user.username+'">@'+data.user.username+'</a></h3><p><span id="photo-info-name">'+data.user.name+'</span> '+data.user.timestamp+'</p></div></div><div id="photo-wrap" style="margin: auto;width:600px;height:450px;">'
-            +'<img class="photo" id="photo-display" src="http://s3.amazonaws.com/twitpic/photos/large/'+data.id+'.jpg?AWSAccessKeyId=AKIAJF3XCCKACR3QDMOA&amp;Expires=1310509343&amp;Signature=gsukngCVqUE9qb%2FGHvyBqlQTjOo%3D" alt="'+data.message+'"></div><div id="view-photo-caption">'+data.message+'</div></div>';
-        }
-      }),
+		
     new $.fn.oembed.OEmbedProvider("dribbble", "photo", ["dribbble.com/shots/.+"], "http://api.dribbble.com/shots/$1?callback=?",
       { templateRegex:/.*shots\/([\d]+).*/,
       templateData : function(data){if(!data.image_teaser_url)return false;
-          return  '<img class="photo" id="photo-display" src="'+data.image_teaser_url+'"/>';
+          return  '<img src="'+data.image_teaser_url+'"/>';
         }
       }),
-    new $.fn.oembed.OEmbedProvider("500px", "photo", ["500px\\.com/photo/.+"],"http://photos.500px.com/$1/3?",
-      {templateRegex:/.*photo\/([^\/]+).*/ , embedtag : {tag:'img'}}),
     new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/?",
       {templateRegex:/.*circuit\/([^\/]+).*/ , embedtag : {tag:'img'}}),
     new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],"http://www.23hq.com/23/oembed",{useYQL:"json"}),
@@ -498,15 +489,6 @@
         return '<img src="http://gravatar.com/avatar/'+email.md5()+'.jpg" alt="on Gravtar" class="jqoaImg">';
         }
       }),
-    new $.fn.oembed.OEmbedProvider("pintrest", "photo", ["pinterest.com/pin/.+"], null,
-      {yql:{xpath:'//script[contains(.,"embed_code_html_1")]', from: 'html'
-          , datareturn:function(results){
-              if(!results.script) return false;
-              return results.script.content.replace(/[\s\S]*embed_code_html_1 = "([\s\S]*)width='";[\s\S]*embed_code_html_2 = "([\s\S]*)<\/div>";[\s\S]*/,'$1$2</div>');
-              }
-          }
-      }),
-      
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
@@ -543,12 +525,6 @@
       {templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/,
       embedtag : {width:450,height: 407,
         flashvars : "&id=$2&interfaceFolder=eventView&theme=0&numberPerPage=5&displayTitle=1&location=0&venue=0&eventTitle=1&date=1&time=1&peopleCount=1&countDownClock=0&title=Event at $1"
-        }
-      }),
-    new $.fn.oembed.OEmbedProvider("tumblr", "rich", ["tumblr.com/.+"], "http://$1.tumblr.com/api/read/json?callback=?&id=$2",
-      {templateRegex:/.*\/\/([\w]+).*\/post\/([^\/]+).*/,
-      templateData : function(data){if(!data.posts)return false;
-          return  '<div id="content"><h3><a class="nav-link" href="'+data.posts[0]['url-with-slug']+'">'+data.posts[0]['regular-title']+'</a></h3>'+data.posts[0]['regular-body']+'</div>';
         }
       }),
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
@@ -600,12 +576,7 @@
             +'<p class="updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
         }
       }),
-    new $.fn.oembed.OEmbedProvider("myspace", "rich", ["myspace.com/[-.\\w@]+"], "http://api.myspace.com/opensearch/people?searchTerms=$1&callback=?&searchBy=displayname&count=1"
-    ,{templateRegex:/.*\/([^\/]+).*/,
-      templateData : function(data){ if(!data.entries)return false;
-          return  '<div class="myspace1"><div class="myspace2"><a href="http://www.myspace.com/" class="MSIcon">Myspace&nbsp;&nbsp;&nbsp;</a> <a href="'+data.entries[0].profileUrl+'">'+data.entries[0].displayName+'</a></div><div class="myspaceBody"><div><img src="'+data.entries[0].thumbnailUrl+'" align="left"></div><div>Location  <strong>'+data.entries[0].location+'</strong><br/>Type:  <strong>'+data.entries[0].msUserType+'</strong><br/></div></div></div>';
-        }
-      }),
+    
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
@@ -663,41 +634,8 @@
           }
           
       }),
-    new $.fn.oembed.OEmbedProvider("urbandictionary", "rich", ["urbandictionary.com/define.+"], null,
-      {yql:{xpath:"//meta", from:'html'
-          , datareturn:function(results){
-              return '<p><b>'+results['og:title']+':</b>'+results['og:description']+'</p>';
-            }
-          }
-      }),
-    new $.fn.oembed.OEmbedProvider("lockerz", "rich", ["lockerz.com/d/.+"], null,
-      {yql:{xpath:"//meta", from:'html'
-          , datareturn:function(results){
-              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
-            }
-          }
-      }),
-    new $.fn.oembed.OEmbedProvider("arstechnica", "rich", ["arstechnica.com/.+/news/.+"], null,
-      {yql:{xpath:"//meta", from:'html'
-          , datareturn:function(results){
-              return '<p><b>'+results['title']+'</b><br/>'+results['description']+'</p>';
-            }
-          }
-      }),
-    new $.fn.oembed.OEmbedProvider("cuusoo", "rich", ["lego.cuusoo.com/ideas/.+"], null,
-      {yql:{xpath:"//meta", from:'html'
-          , datareturn:function(results){
-              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
-            }
-          }
-      }),
-    new $.fn.oembed.OEmbedProvider("plannary", "rich", ["plannary.com"], null,
-      {yql:{xpath:"//meta", from:'html'
-          , datareturn:function(results){
-              return '<p><b>'+results['og:title']+'</b><br/><img src="'+results['og:image']+'"/></p>';
-            }
-          }
-      }),
+    
+
     new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
     ,{apikey: true,templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
        embedtag : {tag: 'iframe', width:'120px',height: '240px'}      
@@ -722,25 +660,32 @@
           }
       }),
     
-    new $.fn.oembed.OEmbedProvider("etsy", "rich", ["etsy.com/listing/[\\d]+"], "http://openapi.etsy.com/v2/listings/$1.js?callback=?&api_key=_APIKEY_"
-    ,{apikey: true,
-      templateRegex:/.*listing\/([\d]+).*/,
-      templateData : function(data){ 
-          if(!data.results)return false;
-          var q = data.results[0], ql;
-          var image = $.ajax("http://openapi.etsy.com/v2/listings/"+q.listing_id+"/images.js",{
-            async:false
-            ,cache:false
-            ,data : {api_key:settings.apikeys.etsy}
-            ,success:function(data){
-              if(!data.results)return false;
-              var q = data.results[0];
-              $('#etsy'+q.listing_id).prepend('<img align="left" src="'+q.url_75x75+'"/>');
-              }
-              ,dataType: 'jsonp'
-            });
-            var out = '<div class="etsyembed" id="etsy' + q.listing_id + '"><h3><a href="' + q.url + '">' + q.title + ' ' + q.price + q.currency_code + '</a></h3>' + data.results[0].description + '</div>';
-            return out;
+   
+    
+    //Use Open Graph Where applicable
+    new $.fn.oembed.OEmbedProvider("opengraph", "rich", [".*"], null,
+    {yql:{xpath:"//meta", from:'html'
+        , datareturn:function(results){
+            if(!results['og:title'])return false;
+            var code = $('<p/>');
+            if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
+            if(results['og:description'])
+             code.append(results['og:description']+'<br/>');
+            else if(results['description'])
+              code.append(results['description']+'<br/>');
+            if(results['og:video']) {
+              var embed = code.append('<embed src="'+results['og:video']+'"/>');
+              embed
+                  .attr('type',results['og:video:type'] || "application/x-shockwave-flash");
+              if(results['og:video:width']) embed.attr('width',results['og:video:width']);
+              if(results['og:video:height']) embed.attr('height',results['og:video:height']);
+            }else if(results['og:image']) {
+              var img = code.append('<img src="'+results['og:image']+'">');
+              if(results['og:image:width']) img.attr('width',results['og:image:width']);
+              if(results['og:image:height']) img.attr('height',results['og:image:height']);
+            }
+            return code;
+          }
         }
     })
 
