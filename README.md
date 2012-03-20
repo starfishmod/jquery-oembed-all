@@ -1,19 +1,25 @@
-Jquery-Oembed
-============
+Jquery-Oembed-All
+=================
 
 This is a fork (with a lot of changes) of the jquery-oembed located at http://code.google.com/p/jquery-oembed/.
 
 Instead of using oohembed or other such services it tries to embed the object natively without having to use some kind of local server.
 This project will happily use native oembed services when it can, however it also use other types of embedding whenever oembed is not possible.
 
+Using the Open Graph protocol (http://ogp.me/) over Yahoo's YQL (http://developer.yahoo.com/yql/), as a fallback, will display some kind of information for a lot of pages.
+Sites like TED, Ifixit, Ars Technica, twitpic can use this service. However some sites like bandcamp stop YQL from working because of their robots.txt file.
+Over time I'll be removing the some providers that have been hardcoded and using OGP instead to provide a standard embed layout and reduce the file size.
+
 This project tries to use embedding techniques in the following order of preference:
 
 * oEmbed - JSONP available - e.g.  flickr, meetup etc
 * embedding (IFRAME/Object) based on URL information - e.g.  youtube
 * oEmbed - JSONP not Available - use YQL to correct - e.g. Ustream, viddler
-* JSONP Api lookups Source - With HTML and CSS built in this project - e.g. github, Myspace, Facebook
-* YQL Screenscape to get embedding details - e.g. BandCamp
+* OGP over YQL - used as a fall back.
+* YQL Screenscape to get embedding details
 * YQL Screenscrape - e.g. pastie
+* JSONP Api lookups Source - With HTML and CSS built in this project - e.g. github, Myspace, Facebook
+
 
 to use...
 ````
@@ -27,7 +33,7 @@ to use...
 $(".oembed").oembed(null,{
     embedMethod: 'auto',	// "auto", "append", "fill"	
     apikeys: {
-      etsy : '<your etsy key>',
+      amazon : '<your amazon key>',
     }
 });
 ````
@@ -91,6 +97,8 @@ Current 3rd party sources include:
   http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong?u=brianjonestownmassacre&c=brianjonestownmassac
 * fora.tv -OGP YQL
   http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
+* TED - OGP YQL
+  http://www.ted.com/talks/scott_summit_beautiful_artificial_limbs.html
 
 ####Audio 
 
@@ -120,12 +128,15 @@ Current 3rd party sources include:
 * Smugmug - oEmbed
 * twitpic - OGP YQL
   http://twitpic.com/8wpcby
-* 500px.com - Thumbnail view
+* 500px.com - OGP
   http://500px.com/photo/5926615
 * visual.ly - YQL Lookup
 * img.ly - Thumbnail view
+  http://img.ly/fwVM
 * imgur.com - Thumbnail view
+  http://imgur.com/gallery/t4i8O
 * twitgoo.com - Thumbnail view
+  http://twitgoo.com/5met93
 * gravatar - Thumbnail view when using mailto:email@address.com
 * pintrest - YQL - Embedded view of a sort.
   http://pinterest.com/pin/147422587771702052/
@@ -133,8 +144,8 @@ Current 3rd party sources include:
   https://www.circuitlab.com/circuit/z242cn/555-timer-as-pulse-width-modulation-pwm-generator/
 * skitch - YQL oembed
   http://skitch.com/sethferreira/nmbr8/the-kings-new-toy
-* graphic.ly  - oembed
-  http://graphicly.com/eldritch/eldritch/2  - currenly broken due to bad iframe code returned.
+* graphic.ly  - OGP
+  http://graphicly.com/eldritch/eldritch/2  
 * dribble - jsonp lookup
   http://dribbble.com/shots/464661-Rebounding-Station-Shot
 * Lockerz - YQL lookup
@@ -145,6 +156,12 @@ Current 3rd party sources include:
   http://lego.cuusoo.com/ideas/view/96
 * plannary - OGP over YQL
   http://svihackathon3.plannary.com/
+* propic - OGP
+  http://propic.com/254
+* avairy.com - OGP
+  http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
+* lomography - ogp
+  http://www.lomography.com/photos/cameras/3334141-lomo-lc-wide/popular/14660387
 
 ####Rich
 
@@ -160,7 +177,8 @@ Current 3rd party sources include:
 * github- JSONP lookup (CSS) 
   https://github.com/starfishmod/jquery-oembed-all
 * eventful (venues) - Embedded
-* myspace - JSONP lookup (CSS) 
+* myspace - OGP
+  http://www.myspace.com/historionyx
 * live Journal - JSONP Lookup (CSS)
 * wordpress - oEmbed (wordpress.com, wp.me, blogs.cnn.com, techcrunch.com). I can add other wordpress sites as well.
 * circuitbee -Embedded
@@ -169,16 +187,19 @@ Current 3rd party sources include:
 * Pastebin - Embedded
 * Pastie - YQL lookup
 * kickstarter - Embedded
-* issuu - YQL Embedded
+* issuu - OGP
   http://issuu.com/2bemag/docs/issue__20
 * reelapp.com - Embedded
 * Etsy - OGP over YQL
   http://www.etsy.com/listing/88613710/1950s-mid-century-modern-chair?ref=fp_treasury_1
 * Amazon - Embedded - Requires Affiliate code
+  http://www.amazon.com/gp/product/B000026ZFW/ref=s9_simh_gw_p15_d22_g15_i6?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-3&pf_rd_r=0XY8PM8ER1K0W1SPFJEF&pf_rd_t=101&pf_rd_p=470938811&pf_rd_i=507846
 * linkedin - Embedded IFRAME - found a link that works :)
+  http://www.linkedin.com/pub/andrew-mee/32/a06/546
 * Lanyrd - YQL (CSS)
   http://lanyrd.com/2012/agile/
 * twitter - Oembed - status only - but that is ok I think
+  https://twitter.com/#!/starfish_mod/status/176794900875051009
 * github gist - oembed
 * speakerdeck - yql oembed
 * dipity - yql oembed
@@ -187,6 +208,7 @@ Current 3rd party sources include:
 * mobypictures - oembed
 * prezi - embedded
 * popplet - embedded
+  http://popplet.com/app/#/489
 * authorstream - embedded
 * googlecalendar - Iframe
 * cacoo - oembed
@@ -205,33 +227,28 @@ Current 3rd party sources include:
   http://www.last.fm/music/Doubting+Thomas
 * Rotten Tomatoes - OGP YQL
   http://www.rottentomatoes.com/m/john_carter/
+* iFixit - OGP
+  http://www.ifixit.com/Guide/Installing-MacBook-Core-2-Duo-AirPort-Card/519/1
+* qwiki - OGP
+  http://www.qwiki.com/q/Damascus
+  
 ---
 ####TODO:
-
-* iFixit - Uses a script oembed - does not work
 * delicious
 * digg?
-* posterous.com
 * picasa
-* propic - http://www.propic.com/oembed/ - xml
 * http://www.scoreexchange.com/scores/78287.html
-* http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://pdfobject.com/generator.php
-* http://simpleviewer.net/simpleviewer/support/embedding.html
-* http://www.qwiki.com/api
 * http://tinychat.com/embedmaker.html
 * http://blog.tourwrist.com/?p=271
 * http://www.userplane.com/docs/embed
 * http://www.surveygizmo.com/
-* http://www.lomography.com/
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
-* http://www.wiziq.com/
 * http://www.4shared.com/
 * http://cubbi.es/oembed ?Not sure how this one works
-* Apple trailers
+* Apple trailers - http://trailers.apple.com/trailers/wb/wrathofthetitans/
 * XKCD
 * TwitLonger
-* TED
 * Path
 
 Plus a lot more :) Feel free to submit

@@ -137,6 +137,7 @@
             }else{
               result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
             }
+            if(result===false)return;
             var oembedData = $.extend({}, result);
             oembedData.code = result;
             success(oembedData, externalUrl, container);
@@ -456,8 +457,8 @@
         }
     }),
 		new $.fn.oembed.OEmbedProvider("mobypicture", "photo", ["mobypicture.com/user/.+/view/.+","moby.to/.+"], "http://api.mobypicture.com/oEmbed"),
-		new $.fn.oembed.OEmbedProvider("graphicly", "photo", ["http://graphicly.com/.+/.+/.+"], "http://oembed.graphicly.com/1/oembed"),
-		new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed",{useYQL:'xml'}),
+		//new $.fn.oembed.OEmbedProvider("graphicly", "photo", ["http://graphicly.com/.+/.+/.+"], "http://oembed.graphicly.com/1/oembed"),
+		//new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed",{useYQL:'xml'}),
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
@@ -502,7 +503,7 @@
       {templateRegex:/.*Presentation\/([^\/]+).*/, embedtag : {width:425,height: 354}}),
     
     new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],"http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1",
-      {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), //Not perhaps Working -due to popplet
+      {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), 
     
     new $.fn.oembed.OEmbedProvider("pearltrees", "rich", ["pearltrees.com/.*"],"http://cdn.pearltrees.com/s/embed/getApp?",
       {templateRegex:/.*N-f=1_(\d+).*N-p=(\d+).*/, embedtag : {width:460,height: 460,
@@ -516,11 +517,11 @@
       }),
     
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
-    new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
-      {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
-        flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
-        } 
-      }),
+    //new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
+    //{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
+    //    flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
+    //    } 
+    //  }),
     new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],"http://static.eventful.com/store/flash/widgets/eventWidget.swf?",
       {templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/,
       embedtag : {width:450,height: 407,
@@ -626,15 +627,6 @@
       {templateRegex:/([^\?]+).*/ ,
       embedtag : {tag: 'iframe', width:'220',height: 380}      
       }),
-    new $.fn.oembed.OEmbedProvider("issuu", "rich", ["issuu\\.com/[-.\\w@]+/docs/.+"], null,
-      {yql:{xpath:"//meta[@property=\"og:video\"]", from:'html'
-          , datareturn:function(results){
-              return results.meta ?'<embed type="application/x-shockwave-flash" allowfullscreen="true" menu="false" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></embed>':false;
-              }
-          }
-          
-      }),
-    
 
     new $.fn.oembed.OEmbedProvider("amazon", "rich", ["amzn.com/B+","amazon.com.*/(B\\S+)($|\\/.*)"], "http://rcm.amazon.com/e/cm?t=_APIKEY_&o=1&p=8&l=as1&asins=$1&ref=qf_br_asin_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr"
     ,{apikey: true,templateRegex:/.*\/(B[0-9A-Z]+)($|\/.*)/,
@@ -674,15 +666,17 @@
             else if(results['description'])
               code.append(results['description']+'<br/>');
             if(results['og:video']) {
-              var embed = code.append('<embed src="'+results['og:video']+'"/>');
+              var embed = $('<embed src="'+results['og:video']+'"/>');
               embed
                   .attr('type',results['og:video:type'] || "application/x-shockwave-flash");
               if(results['og:video:width']) embed.attr('width',results['og:video:width']);
               if(results['og:video:height']) embed.attr('height',results['og:video:height']);
+              code.append(embed);
             }else if(results['og:image']) {
-              var img = code.append('<img src="'+results['og:image']+'">');
+              var img = $('<img src="'+results['og:image']+'">');
               if(results['og:image:width']) img.attr('width',results['og:image:width']);
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
+              code.append(img);
             }
             return code;
           }
