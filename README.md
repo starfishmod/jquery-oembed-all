@@ -87,6 +87,8 @@ Current 3rd party sources include:
   http://embed.minoto-video.com/90/ZfMaq5kow9ki
 * TrailerAddict - Embeded YQL
   http://www.traileraddict.com/trailer/abraham-lincoln-vampire-hunter/trailer-b
+* vodpod - oembed YQL - broken as the oembed has absolute positioning which breaks the display
+  http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong?u=brianjonestownmassacre&c=brianjonestownmassac
 
 ####Audio 
 
@@ -199,7 +201,7 @@ Current 3rd party sources include:
 * plannary
 * picasa
 * propic - http://www.propic.com/oembed/ - xml
-* vodpod - http://vodpod.com/sharebutton
+
 * http://www.scoreexchange.com/scores/78287.html
 * http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * http://pdfobject.com/generator.php
@@ -221,6 +223,11 @@ Current 3rd party sources include:
 * TED
 * Spotify
 * Path
+
+<iframe class="youtube-player" type="text/html" width="480" height="415" src="http://www.youtube.com/embed/XaJ0QEAWXow?autoplay=&amp;wmode=Opaque" frameborder="0"></iframe>
+            <div style="font-size:0.9em;">
+  <a href="http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong">blind Erhu street performer in Hong Kong</a>
+- Watch more <a href="http://vodpod.com">Videos</a> at Vodpod.</div>
 
 
 Plus a lot more :) Feel free to submit
