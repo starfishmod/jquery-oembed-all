@@ -231,7 +231,12 @@ Current 3rd party sources include:
   http://www.ifixit.com/Guide/Installing-MacBook-Core-2-Duo-AirPort-Card/519/1
 * qwiki - OGP
   http://www.qwiki.com/q/Damascus
-  
+* brighttalk - Meta info
+  http://www.brighttalk.com/webcast/499/42317
+* tinychat - OGP
+  http://tinychat.com/omginternetparty
+* tourwrist - embedded
+  http://tourwrist.com/tours/27406
 ---
 ####TODO:
 * delicious
@@ -239,9 +244,7 @@ Current 3rd party sources include:
 * picasa
 * http://www.scoreexchange.com/scores/78287.html
 * http://pdfobject.com/generator.php
-* http://tinychat.com/embedmaker.html
 * http://blog.tourwrist.com/?p=271
-* http://www.userplane.com/docs/embed
 * http://www.surveygizmo.com/
 * http://help.creator.zoho.com/Embed-Form-View-in-Website.html
 * http://www.4shared.com/
@@ -249,6 +252,7 @@ Current 3rd party sources include:
 * Apple trailers - http://trailers.apple.com/trailers/wb/wrathofthetitans/
 * XKCD
 * TwitLonger
-* Path
+* http://robohash.org/
+
 
 Plus a lot more :) Feel free to submit

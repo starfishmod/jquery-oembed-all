@@ -414,14 +414,7 @@
     new $.fn.oembed.OEmbedProvider("VHX", "video", ["vhx.tv/.+"], "http://vhx.tv/services/oembed.json"),
     new $.fn.oembed.OEmbedProvider("bambuser", "video", ["bambuser.com/.+"], "http://api.bambuser.com/oembed/iframe.json"),
     new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+"], 'http://api.justin.tv/api/embed/from_url.json',{useYQL:'json'}),
-    new $.fn.oembed.OEmbedProvider("traileraddict", "rich", ["traileraddict.com/trailer/.+"], null,
-      {yql:{xpath:"//meta[@property=\"og:video\"]", from:'html'
-          , datareturn:function(results){
-              return results.meta ?'<embed type="application/x-shockwave-flash" allowfullscreen="true" menu="false" src="'+results.meta.content+'" allowtransparency="true" frameborder="0" width="360" height="247"></embed>':false;
-              }
-          }
-          
-      }),
+    
     
     //Audio
     new $.fn.oembed.OEmbedProvider("audioboo", "rich", ["audioboo.fm/boos/.+"],"$1/embed?",
@@ -515,13 +508,21 @@
         flashvars : "prezi_id=$1&amp;lock_to_path=0&amp;color=ffffff&amp;autoplay=no&amp;autohide_ctrls=0"
         } 
       }),
+      
+    new $.fn.oembed.OEmbedProvider("tourwrist", "rich", ["tourwrist.com/tours/.+"], null,
+     { templateRegex:/.*tours.([\d]+).*/,
+      template : function(wm,tourid){
+        setTimeout(function(){if(loadEmbeds)loadEmbeds();},2000);
+        return "<div id='"+tourid+"' class='tourwrist-tour-embed direct'></div> <script type='text/javascript' src='http://tourwrist.com/tour_embed.js'></script>";
+        }
+      }),
     
 		new $.fn.oembed.OEmbedProvider("meetup", "rich", ["meetup\\.(com|ps)/.+"], "http://api.meetup.com/oembed"),
-    //new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
-    //{templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
-    //    flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
-    //    } 
-    //  }),
+    new $.fn.oembed.OEmbedProvider("ebay", "rich", ["ebay\\.*"],"http://togo.ebay.com/togo/togo.swf?2008013100",
+    {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
+        flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
+        } 
+      }),
     new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],"http://static.eventful.com/store/flash/widgets/eventWidget.swf?",
       {templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/,
       embedtag : {width:450,height: 407,
@@ -658,7 +659,8 @@
     new $.fn.oembed.OEmbedProvider("opengraph", "rich", [".*"], null,
     {yql:{xpath:"//meta", from:'html'
         , datareturn:function(results){
-            if(!results['og:title'])return false;
+            if(!results['og:title'] && results['title'] &&results['description'])results['og:title']=results['title'];
+            if(!results['og:title'] && !results['title'])return false;
             var code = $('<p/>');
             if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
             if(results['og:description'])
