@@ -73,8 +73,8 @@ Current 3rd party sources include:
   http://www.5min.com/Video/iPad-to-Embrace-New-Name-517297508
 * ustream.tv - oEmbed is not JSONP enabled - using YQL to translate it
   http://www.ustream.tv/recorded/20144582
-* viddler - oEmbed is not JSONP enabled - using YQL to translate it
-  http://www.viddler.com/v/4a7e233c - reponse is broken need to investigate
+* viddler - OGP
+  http://www.viddler.com/v/4a7e233c 
 * twitvid - Embedded
 * bambuser - Embedded
 * xtranormal - Embedded
@@ -106,14 +106,16 @@ Current 3rd party sources include:
 * HuffDuffer - oEmbed
 * BandCamp - YQL and Embedded
   http://clearsoulforces.bandcamp.com/album/detroit-revolution-s - Seems to be broken
-* podomatic - Embedded
+* podomatic - OGP
+  http://wahwah.podomatic.com/
 * rdio.com - oEmbed
-* hark.com - Embedded - not working?
+* hark.com - OGP
+  http://www.hark.com/clips/bgqbwlkvwb-your-king-is-a-vile-bag-of-filth
 * chirb.it - YQL and oembed
 * official.fm - YQL and oembed
 * mixcloud - YQL and oembed
 * shoudio - oembed
-* audioboo.fm - embed 
+* audioboo.fm - OGP 
   http://audioboo.fm/boos/710079-geofencing-and-the-future
 * Spotify - OGP YQL
   http://open.spotify.com/album/1YwzJz7CrV9fd9Qeb6oo1d
@@ -176,7 +178,9 @@ Current 3rd party sources include:
 * wikipedia- JSONP lookup
 * github- JSONP lookup (CSS) 
   https://github.com/starfishmod/jquery-oembed-all
-* eventful (venues) - Embedded
+* eventful - OGP
+  http://eventful.com/brisbane/venues/rna-showgrounds-/V0-001-000481663-9
+  http://eventful.com/brisbane/events/supafest-2012-/E0-001-042915503-4
 * myspace - OGP
   http://www.myspace.com/historionyx
 * live Journal - JSONP Lookup (CSS)
@@ -207,12 +211,15 @@ Current 3rd party sources include:
 * deviantart - oembed
 * mobypictures - oembed
 * prezi - embedded
+  http://prezi.com/row6dzyapfic/jr-inside-out-project/
 * popplet - embedded
   http://popplet.com/app/#/489
-* authorstream - embedded
+* authorstream - OGP
+  http://www.authorstream.com/Presentation/avalok-1367833-ever-imagine-this/
 * googlecalendar - Iframe
 * cacoo - oembed
 * pearltrees - embedded
+  http://www.pearltrees.com/#/N-f=1_4339252&N-s=1_4339252&N-p=36189761&N-u=1_359252&N-fa=3269727
 * urtak - oembed - is broken in iframe return atm -seems to be an embed.ly issue??
   https://urtak.com/u/6588
 * jotform - embedded
@@ -244,9 +251,7 @@ Current 3rd party sources include:
 * picasa
 * http://www.scoreexchange.com/scores/78287.html
 * http://pdfobject.com/generator.php
-* http://blog.tourwrist.com/?p=271
 * http://www.surveygizmo.com/
-* http://help.creator.zoho.com/Embed-Form-View-in-Website.html
 * http://www.4shared.com/
 * http://cubbi.es/oembed ?Not sure how this one works
 * Apple trailers - http://trailers.apple.com/trailers/wb/wrathofthetitans/
@@ -254,5 +259,6 @@ Current 3rd party sources include:
 * TwitLonger
 * http://robohash.org/
 
+<link rel="image_src" href="http://img.skitch.com/20091210-m9cq9r2e6cy1j1sn23acn38kx.medium.jpg"/>
 
 Plus a lot more :) Feel free to submit

@@ -161,7 +161,9 @@
             .attr('width',width)
             .attr('height',height)
             .attr('allowfullscreen',embedProvider.embedtag.allowfullscreen || 'true')
-            .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always');
+            .attr('allowscriptaccess',embedProvider.embedtag.allowfullscreen || 'always')
+            .css('max-height', settings.maxHeight || 'auto' )
+            .css('max-width', settings.maxWidth || 'auto' );
           if(tag=='embed')
             code
               .attr('type',embedProvider.embedtag.type || "application/x-shockwave-flash")
@@ -400,11 +402,6 @@
 		new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 		new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"],'http://www.dailymotion.com/services/oembed'), 
     new $.fn.oembed.OEmbedProvider("5min", "video", ["www\\.5min\\.com/.+"], 'http://api.5min.com/oembed.xml',{useYQL:'xml'}),
-    
-     new $.fn.oembed.OEmbedProvider("viddler", "video", ["viddler\\.com/.+"], "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Flab.viddler.com%2Fservices%2Foembed%2f%3Furl%3D$1%22%20and%20xpath%3D%22%2F%2F*%2Fobject%22&format=xml&callback=?",
-      {templateRegex:/(.*)/,
-      templateData : function(data){if(!data.results[0])return false;return  data.results[0];},
-      }),
     new $.fn.oembed.OEmbedProvider("National Film Board of Canada", "video", ["nfb\\.ca/film/.+"],'http://www.nfb.ca/remote/services/oembed/',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("qik", "video", ["qik\\.com/\\w+"], 'http://qik.com/api/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("revision3", "video", ["revision3\\.com"], "http://revision3.com/api/oembed/"),
@@ -416,9 +413,7 @@
     new $.fn.oembed.OEmbedProvider("justin.tv", "video", ["justin.tv/.+"], 'http://api.justin.tv/api/embed/from_url.json',{useYQL:'json'}),
     
     
-    //Audio
-    new $.fn.oembed.OEmbedProvider("audioboo", "rich", ["audioboo.fm/boos/.+"],"$1/embed?",
-      {templateRegex:/(.*)/, embedtag : {tag:'iframe',width:400,height: 145 }}), 
+    //Audio 
     new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], 'http://official.fm/services/oembed',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], 'http://chirb.it/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
@@ -433,13 +428,6 @@
               }
           }
       }),
-    new $.fn.oembed.OEmbedProvider("podomatic", "audio", [".+\\.podomatic\\.com/"],"http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1",
-      {templateRegex:/http:\/\/([^\/]+).*/ , embedtag : {width:480,height: 360,
-        flashvars : "minicast=false&jsonLocation=http%3A%2F%2F$1%2Fembed%2Fmulti%2Fcomixclaptrap?%26color%3D43bee7%26autoPlay%3Dfalse%26width%3D480%26height%3D360"
-        }        
-      }), 
-    new $.fn.oembed.OEmbedProvider("hark", "audio", ["hark\\.com/clips/.+"],"http://ecdn0.hark.com/swfs/player_fb.swf?pid=$1",
-      {templateRegex:/.*clips\/([^-]+).*/ , embedtag : {width:300 ,height: 28} }), 
     
      //Photo
 		new $.fn.oembed.OEmbedProvider("deviantart", "photo", ["deviantart.com/.+","fav.me/.+","deviantart.com/.+"], "http://backend.deviantart.com/oembed",{format:'jsonp'}),
@@ -450,8 +438,6 @@
         }
     }),
 		new $.fn.oembed.OEmbedProvider("mobypicture", "photo", ["mobypicture.com/user/.+/view/.+","moby.to/.+"], "http://api.mobypicture.com/oEmbed"),
-		//new $.fn.oembed.OEmbedProvider("graphicly", "photo", ["http://graphicly.com/.+/.+/.+"], "http://oembed.graphicly.com/1/oembed"),
-		//new $.fn.oembed.OEmbedProvider("propic", "photo", ["propic.com/.+"], "http://propic.com/api/oembed",{useYQL:'xml'}),
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/[-.\\w@]+/\\d+/?"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
@@ -491,10 +477,6 @@
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
     new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],'http://www.dipity.com/oembed/timeline/',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],'http://speakerdeck.com/oembed.json',{useYQL:'json'}),
-    
-    new $.fn.oembed.OEmbedProvider("authorstream", "rich", ["authorstream.com/Presentation/.*"],"http://www.authorstream.com/player.swf?fb=0&nb=1&pl=as&ap=0&c=#dfdfdf&p=$1",
-      {templateRegex:/.*Presentation\/([^\/]+).*/, embedtag : {width:425,height: 354}}),
-    
     new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],"http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1",
       {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), 
     
@@ -522,12 +504,6 @@
     {templateRegex:/.*\/([^\/]+)\/(\d{10,13}).*/, embedtag : {width:355,height: 300,
         flashvars : "base=http://togo.ebay.com/togo/&lang=en-us&mode=normal&itemid=$2&query=$1"
         } 
-      }),
-    new $.fn.oembed.OEmbedProvider("eventful_venue", "rich", ["eventful.com/.*/venues/.*"],"http://static.eventful.com/store/flash/widgets/eventWidget.swf?",
-      {templateRegex:/.*venues\/([^\/]+)\/([^\/]+).*/,
-      embedtag : {width:450,height: 407,
-        flashvars : "&id=$2&interfaceFolder=eventView&theme=0&numberPerPage=5&displayTitle=1&location=0&venue=0&eventTitle=1&date=1&time=1&peopleCount=1&countDownClock=0&title=Event at $1"
-        }
       }),
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
@@ -670,12 +646,15 @@
             if(results['og:video']) {
               var embed = $('<embed src="'+results['og:video']+'"/>');
               embed
-                  .attr('type',results['og:video:type'] || "application/x-shockwave-flash");
+                  .attr('type',results['og:video:type'] || "application/x-shockwave-flash")
+                  .css('max-height', settings.maxHeight || 'auto' )
+                  .css('max-width', settings.maxWidth || 'auto' );
               if(results['og:video:width']) embed.attr('width',results['og:video:width']);
               if(results['og:video:height']) embed.attr('height',results['og:video:height']);
               code.append(embed);
             }else if(results['og:image']) {
               var img = $('<img src="'+results['og:image']+'">');
+              img.css('max-height', settings.maxHeight || 'auto' ).css('max-width', settings.maxWidth || 'auto' );
               if(results['og:image:width']) img.attr('width',results['og:image:width']);
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
               code.append(img);
