@@ -85,13 +85,14 @@ Current 3rd party sources include:
 * dailymotion.com - oembed
 * animoto - oembed
 * justin.tv - YQL JSON
-* livestream - embedded
+* livestream - OGP
+  http://www.livestream.com/globalrevolution
 * scivee - embedded
 * veoh - embedded
   http://www.veoh.com/watch/v21193116NBT83Enw?h1=Lady+GaGa+and+Kanye+West+Invest+in+Turntable.FM!+-+Diggnation
 * minoto-video - oembed using YQL
   http://embed.minoto-video.com/90/ZfMaq5kow9ki
-* TrailerAddict - Embeded YQL
+* TrailerAddict - OGP
   http://www.traileraddict.com/trailer/abraham-lincoln-vampire-hunter/trailer-b
 * vodpod - oembed YQL - broken as the oembed has absolute positioning which breaks the display
   http://vodpod.com/watch/16225320-blind-erhu-street-performer-in-hong-kong?u=brianjonestownmassacre&c=brianjonestownmassac
@@ -244,8 +245,11 @@ Current 3rd party sources include:
   http://tinychat.com/omginternetparty
 * tourwrist - embedded
   http://tourwrist.com/tours/27406
+  
 ---
+
 ####TODO:
+
 * delicious
 * digg?
 * picasa

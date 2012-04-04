@@ -110,10 +110,11 @@
         var oembedData = {code: $('#jqoembeddata').data(externalUrl)};
         success(oembedData, externalUrl, container);
       }else if (embedProvider.yql) {
-        var urlq = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var from = embedProvider.yql.from || 'htmlstring';
-        var pathq = /html/.test(from) ? 'xpath' : 'itemPath';
-        var query = 'SELECT * FROM ' + from + ' WHERE url="' + urlq + '"' + " and " + pathq + "='" + (embedProvider.yql.xpath || '/')+"'" ;
+        var query = 'SELECT * FROM ' 
+            + from 
+            + ' WHERE url="' + (embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl) + '"' 
+            + " and " + (/html/.test(from) ? 'xpath' : 'itemPath') + "='" + (embedProvider.yql.xpath || '/')+"'" ;
         if(from=='html') query += " and compat='html5'";
         ajaxopts = $.extend({
           url: "http://query.yahooapis.com/v1/public/yql",
@@ -234,41 +235,29 @@
         return normalizedParams;
     }
 
-    function isNullOrEmpty(object) {
-        if (typeof object == "undefined" || object === null || ($.isArray(object) && object.length === 0)) return true;
-        return false;
-    }
-
     /* Public functions */
     $.fn.oembed.insertCode = function(container, embedMethod, oembedData) {
         if (oembedData === null) return;
-
+        if(embedMethod=='auto' && container.attr("href") !== null) embedMethod='append';
+        else if(embedMethod=='auto') embedMethod='replace';
         switch (embedMethod) {
-        case "auto":
-            if (container.attr("href") !== null) {
-                $.fn.oembed.insertCode(container, "append", oembedData);
-            }
-            else {
-                $.fn.oembed.insertCode(container, "replace", oembedData);
-            }
-            break;
-        case "replace":
-            container.replaceWith(oembedData.code);
-            break;
-        case "fill":
-            container.html(oembedData.code);
-            break;
-        case "append":
-            container.wrap('<div class="oembed-container"></div>');
-            var oembedContainer = container.parent();
-            $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function() {
-                var encodedString = encodeURIComponent($(this).text());
-                $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
-                $(this).parent().children().last().toggle();
-            });
-            oembedContainer.append('<br/>');
-            oembedContainer.append(oembedData.code);
-            break;
+          case "replace":
+              container.replaceWith(oembedData.code);
+              break;
+          case "fill":
+              container.html(oembedData.code);
+              break;
+          case "append":
+              container.wrap('<div class="oembed-container"></div>');
+              var oembedContainer = container.parent();
+              $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function() {
+                  var encodedString = encodeURIComponent($(this).text());
+                  $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
+                  $(this).parent().children().last().toggle();
+              });
+              oembedContainer.append('<br/>');
+              oembedContainer.append(oembedData.code);
+              break;
         }
     };
 
@@ -293,14 +282,12 @@
         return code;
     };
 
-    $.fn.oembed.isProviderAvailable = function(url) {
-        var provider = getOEmbedProvider(url);
-        return (provider !== null);
-    };
-
     $.fn.oembed.getOEmbedProvider = function(url) {
         for (var i = 0; i < this.providers.length; i++) {
-            if (this.providers[i].matches(url)) return this.providers[i];
+            for (var j = 0, l =this.providers[i].urlschemes.length; j < l; j++) {
+                var regExp = new RegExp(this.providers[i].urlschemes[j], "i");
+                if (url.match(regExp) !== null) return this.providers[i];
+            }
         }
         return null;
     };
@@ -308,12 +295,13 @@
     $.fn.oembed.OEmbedProvider = function(name, type, urlschemesarray, apiendpoint, extraSettings) {
         this.name = name;
         this.type = type; // "photo", "video", "link", "rich", null
-        this.urlschemes = getUrlSchemes(urlschemesarray);
+        this.urlschemes = urlschemesarray;
         this.apiendpoint = apiendpoint;
         this.maxWidth = 500;
         this.maxHeight = 400;
+        extraSettings =extraSettings ||{};
         
-        if(extraSettings && extraSettings.useYQL){
+        if(extraSettings.useYQL){
           
           if(extraSettings.useYQL=='xml'){
             extraSettings.yql = {xpath:"//oembed/html", from:'xml'
@@ -331,44 +319,23 @@
           this.apiendpoint = null;
         }
         
-        this.fromJSON = function(json) {
-            for (property in json) {
-                if (property != "urlschemes") this[property] = json[property];
-                else this[property] = getUrlSchemes(json[property]);
-            }
-            return true;
-        };
-        if (!isNullOrEmpty(extraSettings)) this.fromJSON(extraSettings);
+        
+        for (var property in extraSettings) {
+             this[property] = extraSettings[property];
+        }
+        
         this.format = this.format || 'json';
         this.callbackparameter = this.callbackparameter || "callback";
-        
-        
-        
         this.embedtag = this.embedtag || {tag:""};
-        var i, property, regExp;
 
-        this.matches = function(externalUrl) {
-            for (i = 0; i < this.urlschemes.length; i++) {
-                regExp = new RegExp(this.urlschemes[i], "i");
-                if (externalUrl.match(regExp) !== null) return true;
-            }
-            return false;
-        };
-
-        function getUrlSchemes(urls) {
-            if (isNullOrEmpty(urls)) return ["."];
-            if ($.isArray(urls)) return urls;
-            return urls.split(";");
-        }
+        
     };
 
     /* Native & common providers */
     $.fn.oembed.providers = [
     
     //Video
-    new $.fn.oembed.OEmbedProvider("livestream", "video", ["livestream\\.com/.+"], "http://cdn.livestream.com/embed/$1?layout=4&amp;height=340&amp;width=560&amp;autoplay=false", {
-        templateRegex: /.*com\/(.*)/, embedtag: {tag: 'iframe', width: '560', height: '340' } }),
-    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], 'http://www.youtube.com/oembed', {useYQL:'json'}), 
+   new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], 'http://www.youtube.com/oembed', {useYQL:'json'}), 
     new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"], "http://www.xtranormal.com/xtraplayr/$1/$2", {
         templateRegex: /.*com\/watch\/([\w\-]+)\/([\w\-]+).*/,embedtag: {tag: 'iframe',width: '320',height: '269'}}), 
     new $.fn.oembed.OEmbedProvider("scivee", "video", ["scivee.tv/node/.+"], "http://www.scivee.tv/flash/embedCast.swf?", {
