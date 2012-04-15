@@ -102,6 +102,8 @@ Current 3rd party sources include:
   http://www.ted.com/talks/scott_summit_beautiful_artificial_limbs.html
 * Aniboom - embedded
   http://www.aniboom.com/animation-video/187178/The-Flower/
+* Comedy Central - OGP
+  http://www.comedycentral.com/video-clips/qdybr3/cc-studios-tiny-hands-tiny-hands--glove-shopping
   
   
 ####Audio 
@@ -172,6 +174,8 @@ Current 3rd party sources include:
   http://weheartit.com/entry/26832936
 * glogster - ogp
   http://www.glogster.com/lacocom/glog/g-6m025lt047et8od1f3iona0
+* chart.ly - embedded
+  http://chart.ly/v3eemh9
 
 ####Rich
 
@@ -252,6 +256,10 @@ Current 3rd party sources include:
   http://tinychat.com/omginternetparty
 * tourwrist - embedded
   http://tourwrist.com/tours/27406
+* bnter - OGP  
+  https://banters.com/p/55840
+* bigthink - OGP
+  http://bigthink.com/series/43542
   
 ---
 

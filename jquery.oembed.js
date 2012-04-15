@@ -420,6 +420,8 @@
           return  '<img src="'+data.image_teaser_url+'"/>';
         }
       }),
+    new $.fn.oembed.OEmbedProvider("chart.ly", "photo", ["chart\\.ly/[a-z0-9]{6,8}"],"http://chart.ly/uploads/large_$1.png?",
+      {templateRegex:/.*ly\/([^\/]+).*/ , embedtag : {tag:'img'}}), 
     new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/?",
       {templateRegex:/.*circuit\/([^\/]+).*/ , embedtag : {tag:'img'}}),
     new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],"http://www.23hq.com/23/oembed",{useYQL:"json"}),
