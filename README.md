@@ -100,7 +100,10 @@ Current 3rd party sources include:
   http://fora.tv/2011/09/21/GENERATOR_Turntablefm_Discussion__Demonstration
 * TED - OGP YQL
   http://www.ted.com/talks/scott_summit_beautiful_artificial_limbs.html
-
+* Aniboom - embedded
+  http://www.aniboom.com/animation-video/187178/The-Flower/
+  
+  
 ####Audio 
 
 * Soundcloud - oEmbed
@@ -165,6 +168,10 @@ Current 3rd party sources include:
   http://advanced.aviary.com/artists/jas7229/creations/glowing_orb
 * lomography - ogp
   http://www.lomography.com/photos/cameras/3334141-lomo-lc-wide/popular/14660387
+* weheartit - ogp 
+  http://weheartit.com/entry/26832936
+* glogster - ogp
+  http://www.glogster.com/lacocom/glog/g-6m025lt047et8od1f3iona0
 
 ####Rich
 
@@ -263,6 +270,6 @@ Current 3rd party sources include:
 * TwitLonger
 * http://robohash.org/
 
-<link rel="image_src" href="http://img.skitch.com/20091210-m9cq9r2e6cy1j1sn23acn38kx.medium.jpg"/>
+
 
 Plus a lot more :) Feel free to submit
