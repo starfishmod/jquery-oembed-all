@@ -104,6 +104,13 @@ Current 3rd party sources include:
   http://www.aniboom.com/animation-video/187178/The-Flower/
 * Comedy Central - OGP
   http://www.comedycentral.com/video-clips/qdybr3/cc-studios-tiny-hands-tiny-hands--glove-shopping
+* snotr - embedded
+  http://www.snotr.com/video/9125/Fun_at_work
+* zapiks - OGP
+  http://www.zapiks.com/teva-slopestyle-2012.html
+* youku - embedded
+  http://v.youku.com/v_show/id_XMzgxNzY3NTU2.html
+
   
   
 ####Audio 
@@ -125,6 +132,7 @@ Current 3rd party sources include:
   http://audioboo.fm/boos/710079-geofencing-and-the-future
 * Spotify - OGP YQL
   http://open.spotify.com/album/1YwzJz7CrV9fd9Qeb6oo1d
+ 
 
 #### Photo
 
@@ -176,6 +184,8 @@ Current 3rd party sources include:
   http://www.glogster.com/lacocom/glog/g-6m025lt047et8od1f3iona0
 * chart.ly - embedded
   http://chart.ly/v3eemh9
+* twitrpix - OGP
+  http://twitrpix.com/l39c
 
 ####Rich
 
@@ -260,6 +270,12 @@ Current 3rd party sources include:
   https://banters.com/p/55840
 * bigthink - OGP
   http://bigthink.com/series/43542
+* wirewax - OGP
+  http://www.wirewax.com/5001608
+* whosay - OGP
+  http://www.whosay.com/EvaLongoria/photos/159328
+* timetoast - embedded
+  http://www.timetoast.com/timelines/225819
   
 ---
 
@@ -277,7 +293,6 @@ Current 3rd party sources include:
 * XKCD
 * TwitLonger
 * http://robohash.org/
-
 
 
 Plus a lot more :) Feel free to submit
