@@ -250,9 +250,9 @@
               container.html(oembedData.code);
               break;
           case "append":
-              container.wrap('<div class="oembed-container"></div>');
+              container.wrap('<div class="oembedall-container"></div>');
               var oembedContainer = container.parent();
-              $('<span class="oembedclosehide">&darr;</span>').insertBefore(container).click(function() {
+              $('<span class="oembedall-closehide">&darr;</span>').insertBefore(container).click(function() {
                   var encodedString = encodeURIComponent($(this).text());
                   $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
                   $(this).parent().children().last().toggle();
@@ -500,7 +500,7 @@
     new $.fn.oembed.OEmbedProvider("livejournal", "rich", ["livejournal.com/"], "http://ljpic.seacrow.com/json/$2$4?jsonp=?"
     ,{templateRegex:/(http:\/\/(((?!users).)+)\.livejournal\.com|.*users\.livejournal\.com\/([^\/]+)).*/,
       templateData : function(data){if(!data.username)return false;
-          return  '<div id="content"><img src="'+data.image+'" align="left" style="margin-right: 1em;" /><span class="ljuser"><a href="http://'+data.username+'.livejournal.com/profile"><img src="http://www.livejournal.com/img/userinfo.gif" alt="[info]" width="17" height="17" /></a><a href="http://'+data.username+'.livejournal.com/">'+data.username+'</a></span><br />'+data.name+'</div>';
+          return  '<div><img src="'+data.image+'" align="left" style="margin-right: 1em;" /><span class="oembedall-ljuser"><a href="http://'+data.username+'.livejournal.com/profile"><img src="http://www.livejournal.com/img/userinfo.gif" alt="[info]" width="17" height="17" /></a><a href="http://'+data.username+'.livejournal.com/">'+data.username+'</a></span><br />'+data.name+'</div>';
         }
       }),  
     new $.fn.oembed.OEmbedProvider("circuitbee", "rich", ["circuitbee\\.com/circuit/view/.+"],"http://c.circuitbee.com/build/r/schematic-embed.html?id=$1",
@@ -532,16 +532,16 @@
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
       templateData : function(data){ if(!data.data.html_url)return false;
-          return  '<div class="githubrepos"><ul class="repo-stats"><li>'+data.data.language+'</li><li class="watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">'+data.data.watchers+'</a></li>'
-            +'<li class="forks"><a title="Forks" href="'+data.data.html_url+'/network">'+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="body"><p class="description">'+data.data.description+'</p>'
-            +'<p class="updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
+          return  '<div class="oembedall-githubrepos"><ul class="oembedall-repo-stats"><li>'+data.data.language+'</li><li class="oembedall-watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">'+data.data.watchers+'</a></li>'
+            +'<li class="oembedall-forks"><a title="Forks" href="'+data.data.html_url+'/network">'+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="oembedall-body"><p class="oembedall-description">'+data.data.description+'</p>'
+            +'<p class="oembedall-updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
         }
       }),
     
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
-          var out =  '<div class="facebook1"><div class="facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="facebookBody"><div>';
+          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="oembedall-facebookBody"><div>';
           if(data.picture) out += '<img src="'+data.picture+'" align="left"></div><div>';
           if(data.category) out += 'Category  <strong>'+data.category+'</strong><br/>';
           if(data.website) out += 'Website  <strong>'+data.website+'</strong><br/>';
@@ -556,16 +556,16 @@
           if(!data.questions)return false;
           var q = data.questions[0];
           var body = $(q.body).text();
-          var out = '<div class="stoqembed"><div class="statscontainer"><div class="statsarrow"></div><div class="stats"><div class="vote"><div class="votes">'
-                +'<span class="vote-count-post"><strong>'+ (q.up_vote_count - q.down_vote_count)+ '</strong></span><div class="viewcount">vote(s)</div></div>'
-                +'</div><div class="status"><strong>'+q.answer_count+'</strong>answer</div></div><div class="views">'+q.view_count+' view(s)</div></div>'
-                +'<div class="summary"><h3><a class="question-hyperlink" href="http://stackoverflow.com/questions/'+q.question_id+'/">'+q.title+'</a></h3>'
-                +'<div class="excerpt">'+ body.substring(0,100)+'...</div><div class="tags">';
+          var out = '<div class="oembedall-stoqembed"><div class="oembedall-statscontainer"><div class="oembedall-statsarrow"></div><div class="oembedall-stats"><div class="oembedall-vote"><div class="oembedall-votes">'
+                +'<span class="oembedall-vote-count-post"><strong>'+ (q.up_vote_count - q.down_vote_count)+ '</strong></span><div class="oembedall-viewcount">vote(s)</div></div>'
+                +'</div><div class="oembedall-status"><strong>'+q.answer_count+'</strong>answer</div></div><div class="oembedall-views">'+q.view_count+' view(s)</div></div>'
+                +'<div class="oembedall-summary"><h3><a class="oembedall-question-hyperlink" href="http://stackoverflow.com/questions/'+q.question_id+'/">'+q.title+'</a></h3>'
+                +'<div class="oembedall-excerpt">'+ body.substring(0,100)+'...</div><div class="oembedall-tags">';
           for(i in q.tags) 
-            out += '<a title="" class="post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>';
-          out += '</div><div class="fr"><div class="user-info"><div class="user-gravatar32"><a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'
-            +'<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/'+q.owner.email_hash+'?s=32&amp;d=identicon&amp;r=PG"></a></div><div class="user-details">'
-            +'<a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'+q.owner.display_name+'</a><br><span title="reputation score" class="reputation-score">'
+            out += '<a title="" class="oembedall-post-tag" href="http://stackoverflow.com/questions/tagged/'+q.tags[i]+'">'+q.tags[i]+'</a>';
+          out += '</div><div class="oembedall-fr"><div class="oembedall-user-info"><div class="oembedall-user-gravatar32"><a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'
+            +'<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/'+q.owner.email_hash+'?s=32&amp;d=identicon&amp;r=PG"></a></div><div class="oembedall-user-details">'
+            +'<a href="http://stackoverflow.com/users/'+q.owner.user_id+'/'+q.owner.display_name+'">'+q.owner.display_name+'</a><br><span title="reputation score" class="oembedall-reputation-score">'
             +q.owner.reputation+'</span></div></div></div></div></div>';
             return out;
         }
@@ -599,7 +599,7 @@
       {yql:{xpath:'(//div[@class="primary"])[1]', from: 'htmlstring'
           , datareturn:function(results){
               if(!results.result) return false;
-              return '<div class="lanyard">'+results.result+'</div>';
+              return '<div class="oembedall-lanyard">'+results.result+'</div>';
               }
           }
       }),

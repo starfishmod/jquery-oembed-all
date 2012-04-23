@@ -186,6 +186,8 @@ Current 3rd party sources include:
   http://chart.ly/v3eemh9
 * twitrpix - OGP
   http://twitrpix.com/l39c
+* chictopia - OGP
+  http://www.chictopia.com/photo/show/641423-homeless-black-leather-vintage-shorts-beige-forever-21-jacket
 
 ####Rich
 

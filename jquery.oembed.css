@@ -1,4 +1,4 @@
-div.githubrepos  {
+div.oembedall-githubrepos  {
     border: 1px solid #DDD;
     border-radius: 4px 4px 4px 4px;
     list-style-type: none;
@@ -10,7 +10,7 @@ div.githubrepos  {
     background-color:#fff;
 }
 
-div.githubrepos .body {
+div.oembedall-githubrepos .oembedall-body {
     background: -moz-linear-gradient(center top , #FAFAFA, #EFEFEF) repeat scroll 0 0 transparent;
     background:  -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EFEFEF));;
     border-bottom-left-radius: 4px;
@@ -22,26 +22,26 @@ div.githubrepos .body {
     width: 100%;
 }
 
-div.githubrepos h3 {
+div.oembedall-githubrepos h3 {
     font-size: 14px;
     margin: 0;
     padding-left: 18px;
     white-space: nowrap;
 }
 
-div.githubrepos p.description {
+div.oembedall-githubrepos p.oembedall-description {
     color: #444;
     font-size: 12px;
     margin: 0 0 3px;
 }
 
-div.githubrepos p.updated-at {
+div.oembedall-githubrepos p.oembedall-updated-at {
     color: #888;
     font-size: 11px;
     margin: 0;
 }
 
-div.githubrepos ul.repo-stats {
+div.oembedall-githubrepos ul.oembedall-repo-stats {
     background: url("http://github.com/images/modules/pagehead/actions_fade.png") no-repeat scroll 0 0 transparent;
     border: medium none;
     float: right;
@@ -52,14 +52,14 @@ div.githubrepos ul.repo-stats {
     z-index: 5;
     margin:0;
 }
-div.githubrepos ul.repo-stats li {
+div.oembedall-githubrepos ul.oembedall-repo-stats li {
     border: medium none;
     color: #666;
     display: inline-block;
     list-style-type: none;
     margin: 0 !important;
 }
-div.githubrepos ul.repo-stats li a {
+div.oembedall-githubrepos ul.oembedall-repo-stats li a {
     background-color: transparent;
     background-position: 5px -2px;
     border: medium none;
@@ -74,91 +74,55 @@ div.githubrepos ul.repo-stats li a {
 }
 
 
-div.githubrepos ul.repo-stats li:first-child a {
+div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a {
     border-left: medium none;
     margin-right: -3px;
 }
-div.githubrepos ul.repo-stats li a:hover {
+div.oembedall-githubrepos ul.oembedall-repo-stats li a:hover {
     background: none no-repeat scroll 5px -27px #4183C4;
     color: #FFFFFF !important;
     text-decoration: none;
 }
-div.githubrepos ul.repo-stats li:first-child a:hover {
+div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a:hover {
     border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
 }
-ul.repo-stats li:last-child a:hover {
+ul.oembedall-repo-stats li:last-child a:hover {
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
 }
-div.githubrepos ul.repo-stats li.watchers a {
+div.oembedall-githubrepos ul.oembedall-repo-stats li.oembedall-watchers a {
     background-image: url("http://github.com/images/modules/pagehead/repostat_watchers.png");
 }
 
-div.githubrepos ul.repo-stats li.forks a {
+div.oembedall-githubrepos ul.oembedall-repo-stats li.oembedall-forks a {
     background-image: url("http://github.com/images/modules/pagehead/repostat_forks.png");
 }
 
 
-.myspace1 {
-    border: medium none;
-    border-radius: 6px;
-   padding:0px;
-    font: 13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;
-    width : 500px;
-    
-}
-
-.myspace2 {
-    background-color: #282828;
-    font-size: 16pt;
-    font-weight : bold;
-    padding:4px;
-    border-radius: 6px 6px 0px 0px;
-}
-.myspace2 a {
-  color: #e8e8e8;
-  text-decoration:none;
-}
-
-.myspace2 a.MSIcon{
-  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGMAAAAVCAYAAABSQFBJAAABXUlEQVR42u2YYW3DMBBGDSEQAiEQAiEQDMEQwsAQDMEQDKEQAqEQbpfqtvNOl7iaNu+H70lfU/WrUumebEd1ADBjVsriELx6TMYUTDo7R9D3InWF3s9Vv/D9+PO7Hq8WzPmyA3NQNBIN/gpPgy3AZCcQ999NhpTxOzwxEyaIz6dKxCy67exHl9CSkWirelwMPVz0K2bSVgxvf4yJaMsIjqBhPUW/iB6UbSdrW9VLMlNsi2qcGU7wxhnwUGRscgUo50UwGfcySkPG/mYvB+/leWFPUn1lRGAyxssVaDI6yZArQciJDjEhfWTweaKzmYz+MjwomISOMhqPxtlk9JERlD4JGUH08+gSKF/D2CleGaav+vWmD5hJ6QPU8O8Vih9YwFLNIbs/Rq6MQ1ttA8tYoaKHjAOYeLn1tTEZP0f/l9Zk/O/KWD9zcegn6kdMEDK6wjKMFybDZHyTEcGQlA87nyMST1I0NAAAAABJRU5ErkJggg==") no-repeat scroll 0 0 transparent;
-  color: transparent;
-  
-}
-
-.myspaceBody{
-  background-color: #e8e8e8;
-  border-bottom: 4px solid #333;
-  border-radius: 0px 0px 6px 6px;
-  
-}
-
-.myspaceBody div{ display:inline-block;vertical-align: top;}
-
-span.oembedclosehide{
+span.oembedall-closehide{
   background-color: #aaa;
   border-radius: 2px;
   cursor: pointer;
   margin-right: 3px;
 }
 
-div.oembed-container {
+div.oembedall-container {
  margin-top : 5px;
  text-align: left;
 }
 
-.ljuser {
+.oembedall-ljuser {
     font-weight: bold;
 }
 
-.ljuser img {
+.oembedall-ljuser img {
     vertical-align: bottom;
     border: 0;
     padding-right: 1px;
 }
 
-.stoqembed {
+.oembedall-stoqembed {
     border-bottom: 1px dotted #999999;
     float: left;
     overflow: hidden;
@@ -174,20 +138,20 @@ div.oembed-container {
     padding: 0;
 }
 
-.stoqembed a {
+.oembedall-stoqembed a {
     color: #0077CC;
     text-decoration: none;
     margin: 0;
     padding: 0;
 }
-.stoqembed a:hover {
+.oembedall-stoqembed a:hover {
     text-decoration: underline;
 }
-.stoqembed a:visited {
+.oembedall-stoqembed a:visited {
     color: #4A6B82;
 }
 
-.stoqembed h3 {
+.oembedall-stoqembed h3 {
     font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
     font-size: 130%;
     font-weight: bold;
@@ -195,7 +159,7 @@ div.oembed-container {
     padding: 0;
 }
 
-.stoqembed .reputation-score {
+.oembedall-stoqembed .oembedall-reputation-score {
     color: #444444;
     font-size: 120%;
     font-weight: bold;
@@ -203,17 +167,17 @@ div.oembed-container {
 }
 
 
-.stoqembed .user-info {
+.oembedall-stoqembed .oembedall-user-info {
     height: 35px;
     width: 185px;
 }
-.stoqembed .user-info .user-gravatar32 {
+.oembedall-stoqembed .oembedall-user-info .oembedall-user-gravatar32 {
     float: left;
     height: 32px;
     width: 32px;
 }
 
-.stoqembed .user-info .user-details {
+.oembedall-stoqembed .oembedall-user-info .oembedall-user-details {
     float: left;
     margin-left: 5px;
     overflow: hidden;
@@ -221,29 +185,29 @@ div.oembed-container {
     width: 145px;
 }
 
-.stoqembed .question-hyperlink {
+.oembedall-stoqembed .oembedall-question-hyperlink {
     font-weight: bold;
 }
 
-.stoqembed .stats {
+.oembedall-stoqembed .oembedall-stats {
     background: none repeat scroll 0 0 #EEEEEE;
     margin: 0 0 0 7px;
     padding: 4px 7px 6px;
     width: 58px;
 }
-.stoqembed .statscontainer {
+.oembedall-stoqembed .oembedall-statscontainer {
     float: left;
     margin-right: 8px;
     width: 86px;
 }
 
-.stoqembed .votes {
+.oembedall-stoqembed .oembedall-votes {
     color: #555555;
     padding: 0 0 7px;
     text-align: center;
 }
 
-.stoqembed .vote-count-post {
+.oembedall-stoqembed .oembedall-vote-count-post {
     display: block;
     font-size: 240%;
     color: #808185;
@@ -252,13 +216,13 @@ div.oembed-container {
 }
 
 
-.stoqembed .views {
+.oembedall-stoqembed .oembedall-views {
     color: #999999;
     padding-top: 4px;
     text-align: center;
 }
 
-.stoqembed .status {
+.oembedall-stoqembed .oembedall-status {
     margin-top: -3px;
     padding: 4px 0;
     text-align: center;
@@ -266,33 +230,33 @@ div.oembed-container {
     color: #FFFFFF;
 }
 
-.stoqembed .status strong {
+.oembedall-stoqembed .oembedall-status strong {
     color: #FFFFFF;
     display: block;
     font-size: 140%;
 }
 
 
-.stoqembed .summary {
+.oembedall-stoqembed .oembedall-summary {
     float: left;
     width: 635px;
 }
 
-.stoqembed .excerpt {
+.oembedall-stoqembed .oembedall-excerpt {
     line-height: 1.2;
     margin: 0;
     padding: 0 0 5px;
 }
 
-.stoqembed .tags {
+.oembedall-stoqembed .oembedall-tags {
     float: left;
     line-height: 18px;
 }
-.stoqembed .tags a:hover {
+.oembedall-stoqembed .oembedall-tags a:hover {
     text-decoration: none;
 }
 
-.stoqembed .post-tag {
+.oembedall-stoqembed .oembedall-post-tag {
     background-color: #E0EAF1;
     border-bottom: 1px solid #3E6D8E;
     border-right: 1px solid #7F9FB6;
@@ -304,7 +268,7 @@ div.oembed-container {
     text-decoration: none;
     white-space: nowrap;
 }
-.stoqembed .post-tag:hover {
+.oembedall-stoqembed .oembedall-post-tag:hover {
     background-color: #3E6D8E;
     border-bottom: 1px solid #37607D;
     border-right: 1px solid #37607D;
@@ -312,11 +276,11 @@ div.oembed-container {
 }
 
 
-.stoqembed .fr {
+.oembedall-stoqembed .oembedall-fr {
     float: right;
 }
 
-.stoqembed .statsarrow {
+.oembedall-stoqembed .oembedall-statsarrow {
     background-image: url("http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=3");
     background-repeat: no-repeat;
     overflow: hidden;
@@ -327,7 +291,7 @@ div.oembed-container {
     width: 7px;
 }
 
-.facebook1 {
+.oembedall-facebook1 {
     border: #1A3C6C solid 1px;
     padding:0px;
     font: 13.34px/1.4 verdana;
@@ -335,25 +299,25 @@ div.oembed-container {
     
 }
 
-.facebook2 {
+.oembedall-facebook2 {
     background-color: #627add;    
 }
-.facebook2 a {
+.oembedall-facebook2 a {
   color: #e8e8e8;
   text-decoration:none;
 }
 
 
 
-.facebookBody{
+.oembedall-facebookBody{
   background-color: #fff;
   
   
 }
 
-.facebookBody div{ display:inline-block;vertical-align: top;}
+.oembedall-facebookBody div{ display:inline-block;vertical-align: top;}
 
-div.lanyard{
+div.oembedall-lanyard{
 -webkit-box-shadow: none;
 -webkit-transition-delay: 0s;
 -webkit-transition-duration: 0.4000000059604645s;
@@ -397,22 +361,22 @@ vertical-align: baseline;
 width: 804px;
 }
 
-div.lanyard .tagline{
+div.oembedall-lanyard .tagline{
   font-size: 1.5em;
 }
 
-div.lanyard .wrapper{
+div.oembedall-lanyard .wrapper{
   overflow: hidden;
   clear: both;
 }
-div.lanyard .split{
+div.oembedall-lanyard .split{
   float: left;
 display: inline;
 
 }
 
-div.lanyard .prominent-place .flag:link, div.lanyard .prominent-place .flag:visited,div.lanyard .prominent-place .flag:hover
-  ,div.lanyard .prominent-place .flag:focus,div.lanyard .prominent-place .flag:active {
+div.oembedall-lanyard .prominent-place .flag:link, div.oembedall-lanyard .prominent-place .flag:visited,div.oembedall-lanyard .prominent-place .flag:hover
+  ,div.oembedall-lanyard .prominent-place .flag:focus,div.oembedall-lanyard .prominent-place .flag:active {
 float: left;
 display: block;
 width: 48px;
@@ -422,29 +386,29 @@ top: -5px;
 margin-right: 10px;
 }
 
-div.lanyard .place-context {
+div.oembedall-lanyard .place-context {
 font-size: 0.889em;
 }
 
-div.lanyard .prominent-place .sub-place {
+div.oembedall-lanyard .prominent-place .sub-place {
 display: block;
 }
 
-div.lanyard .prominent-place{
+div.oembedall-lanyard .prominent-place{
   font-size: 1.125em;
 line-height: 1.1em;
 font-weight: normal;
 
 }
 
-div.lanyard .main-date{
+div.oembedall-lanyard .main-date{
 color: #8CB4E0;
 font-weight: bold;
 line-height: 1.1;
 
 }
 
-div.lanyard .first{
+div.oembedall-lanyard .first{
   margin-left: 0;
   width: 48.57%;
 margin: 0 0 0 2.857%;
