@@ -532,8 +532,8 @@
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
     ,{templateRegex:/.*\/([^\/]+)\/([^\/]+).*/,
       templateData : function(data){ if(!data.data.html_url)return false;
-          return  '<div class="oembedall-githubrepos"><ul class="oembedall-repo-stats"><li>'+data.data.language+'</li><li class="oembedall-watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">'+data.data.watchers+'</a></li>'
-            +'<li class="oembedall-forks"><a title="Forks" href="'+data.data.html_url+'/network">'+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="oembedall-body"><p class="oembedall-description">'+data.data.description+'</p>'
+          return  '<div class="oembedall-githubrepos"><ul class="oembedall-repo-stats"><li>'+data.data.language+'</li><li class="oembedall-watchers"><a title="Watchers" href="'+data.data.html_url+'/watchers">&#x25c9; '+data.data.watchers+'</a></li>'
+            +'<li class="oembedall-forks"><a title="Forks" href="'+data.data.html_url+'/network">&#x0265; '+data.data.forks+'</a></li></ul><h3><a href="'+data.data.html_url+'">'+data.data.name+'</a></h3><div class="oembedall-body"><p class="oembedall-description">'+data.data.description+'</p>'
             +'<p class="oembedall-updated-at">Last updated: '+data.data.pushed_at+'</p></div></div>';
         }
       }),
