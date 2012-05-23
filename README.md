@@ -20,6 +20,13 @@ This project tries to use embedding techniques in the following order of prefere
 * YQL Screenscrape - e.g. pastie
 * JSONP Api lookups Source - With HTML and CSS built in this project - e.g. github, Myspace, Facebook
 
+Shortened Urls
+------------
+This project now handles shortened url's using the JSONP service from http://longurl.org. e.g. http://bit.ly/oP77mm will first lengthen the URL 
+to http://tinychat.com/omginternetparty and then embed as normal. This is experimental - so let me know of problems!
+
+
+
 
 to use...
 ````
@@ -295,7 +302,6 @@ Current 3rd party sources include:
 * XKCD
 * TwitLonger
 * http://robohash.org/
-
 
 
 
