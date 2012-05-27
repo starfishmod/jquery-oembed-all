@@ -30,7 +30,7 @@
 							"shout.to", "show.my", "shrinkify.com", "shrinkr.com", "shrt.fr", "shrt.st", "shrten.com", "shrunkin.com", "simurl.com", "slate.me", "smallr.com", "smsh.me", "smurl.name", 
 							"sn.im", "snipr.com", "snipurl.com", "snurl.com", "sp2.ro", "spedr.com", "srnk.net", "srs.li", "starturl.com", "su.pr", "surl.co.uk", "surl.hu", "t.cn", "t.co", "t.lh.com", 
 							"ta.gd", "tbd.ly", "tcrn.ch", "tgr.me", "tgr.ph", "tighturl.com", "tiniuri.com", "tiny.cc", "tiny.ly", "tiny.pl", "tinylink.in", "tinyuri.ca", "tinyurl.com", "tk.", "tl.gd", 
-							"tmi.me", "tnij.org", "tnw.to", "tny.com", "to.", "to.ly", "togoto.us", "totc.us", "toysr.us", "tpm.ly", "tr.im", "tra.kz", "trunc.it", "twhub.com", "twirl.at", 
+							"tmi.me", "tnij.org", "tnw.to", "tny.com", "to.ly", "togoto.us", "totc.us", "toysr.us", "tpm.ly", "tr.im", "tra.kz", "trunc.it", "twhub.com", "twirl.at", 
 							"twitclicks.com", "twitterurl.net", "twitterurl.org", "twiturl.de", "twurl.cc", "twurl.nl", "u.mavrev.com", "u.nu", "u76.org", "ub0.cc", "ulu.lu", "updating.me", "ur1.ca", 
 							"url.az", "url.co.uk", "url.ie", "url360.me", "url4.eu", "urlborg.com", "urlbrief.com", "urlcover.com", "urlcut.com", "urlenco.de", "urli.nl", "urls.im", 
 							"urlshorteningservicefortwitter.com", "urlx.ie", "urlzen.com", "usat.ly", "use.my", "vb.ly", "vgn.am", "vl.am", "vm.lc", "w55.de", "wapo.st", "wapurl.co.uk", "wipi.es", 
@@ -42,7 +42,7 @@
         return this.each(function() {
 
             var container = $(this),
-                resourceURL = (url && !url.indexOf('http://')) ? url : container.attr("href"),
+                resourceURL =  (url && (!url.indexOf('http://') || !url.indexOf('https://'))) ? url : container.attr("href"),
                 provider;
 
             if (embedAction) {
@@ -57,7 +57,7 @@
             if (resourceURL !== null) {
 				//Check if shorten URL
 				for (var j = 0, l =shortURLList.length; j < l; j++) {
-					var regExp = new RegExp(shortURLList[j], "i");
+					var regExp = new RegExp('://'+shortURLList[j]+'/', "i");
 					if (resourceURL.match(regExp) !== null) {
 					//AJAX to http://api.longurl.org/v2/expand?url=http://bit.ly/JATvIs&format=json&callback=hhh
 					var ajaxopts = $.extend({
@@ -318,6 +318,8 @@
               });
               oembedContainer.append('<br/>');
               oembedContainer.append(oembedData.code);
+              if(settings.maxWidth)oembedContainer.css('max-width',settings.maxWidth);
+              if(settings.maxHeight)oembedContainer.css('max-height',settings.maxHeight);
               break;
         }
     };
