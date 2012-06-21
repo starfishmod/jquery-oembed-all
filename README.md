@@ -238,6 +238,7 @@ Current 3rd party sources include:
 * twitter - Oembed - status only - but that is ok I think
   https://twitter.com/#!/starfish_mod/status/176794900875051009
 * github gist - oembed
+  https://gist.github.com/1321768
 * speakerdeck - yql oembed
 * dipity - yql oembed
 * dailymile - oembed
@@ -289,6 +290,8 @@ Current 3rd party sources include:
   http://www.timetoast.com/timelines/225819
 * tripline - OGP
   http://tripline.net/trip/Experience_Art_in_Barcelona__buycatalunya-0523526613621005B2BAA989B5068FDD
+* jsfiddle - embedded
+  http://jsfiddle.net/x3NaN/
   
 ---
 

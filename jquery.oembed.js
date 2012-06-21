@@ -572,6 +572,9 @@
     new $.fn.oembed.OEmbedProvider("googlecalendar", "rich", ["www.google.com/calendar/embed?.+"],"$1",
       {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'800',height: '600' }
       }),
+    new $.fn.oembed.OEmbedProvider("jsfiddle", "rich", ["jsfiddle.net/[^/]+/?"],"http://jsfiddle.net/$1/embedded/?",
+      {templateRegex:/.*net\/([^\/]+).*/ ,embedtag : {tag: 'iframe', width:'100%',height: '300' }
+      }),
       
     new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1?",
       {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
