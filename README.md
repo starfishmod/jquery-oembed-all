@@ -117,6 +117,8 @@ Current 3rd party sources include:
   http://www.zapiks.com/teva-slopestyle-2012.html
 * youku - embedded
   http://v.youku.com/v_show/id_XMzgxNzY3NTU2.html
+* wistia - Oembed
+  http://home.wistia.com/m/NI3bSQ
 
   
   
@@ -285,6 +287,8 @@ Current 3rd party sources include:
   http://www.whosay.com/EvaLongoria/photos/159328
 * timetoast - embedded
   http://www.timetoast.com/timelines/225819
+* tripline - OGP
+  http://tripline.net/trip/Experience_Art_in_Barcelona__buycatalunya-0523526613621005B2BAA989B5068FDD
   
 ---
 
@@ -302,7 +306,7 @@ Current 3rd party sources include:
 * XKCD
 * TwitLonger
 * http://robohash.org/
-
+* http://infogr.am/british-council/burma/
 
 
 Plus a lot more :) Feel free to submit
