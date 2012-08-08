@@ -48,7 +48,7 @@
             if (embedAction) {
                 settings.onEmbed = embedAction;
             }
-            else {
+            else if (!settings.onEmbed){
                 settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
                 };
@@ -70,6 +70,7 @@
 						  },
 						  success: function(data) {
 							//this = $.fn.oembed;
+							resourceURL = data['long-url'];
 							provider = $.fn.oembed.getOEmbedProvider(data['long-url']);
 
 							if (provider !== null) {
@@ -88,7 +89,6 @@
 						return container;
 					}
 				}
-				
                 provider = $.fn.oembed.getOEmbedProvider(resourceURL);
 
                 if (provider !== null) {
@@ -113,12 +113,13 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
+		includeHandle: false,
         embedMethod: 'auto',
         // "auto", "append", "fill"		
         onProviderNotFound: function() {},
         beforeEmbed: function() {},
         afterEmbed: function() {},
-        onEmbed: function() {},
+        onEmbed: false,
         onError: function() {},
         ajaxOptions: {}
     };
@@ -188,6 +189,9 @@
             var result;
             if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta'){
                 var meta={};
+				if (data.query.results == null) {
+				 data.query.results = {"meta": []};
+				}
                 for(var i=0, l=data.query.results.meta.length; i<l; i++){
                   var name = data.query.results.meta[i].name||data.query.results.meta[i].property||null;
                   if(name==null)continue;
@@ -311,13 +315,16 @@
           case "append":
               container.wrap('<div class="oembedall-container"></div>');
               var oembedContainer = container.parent();
-              $('<span class="oembedall-closehide">&darr;</span>').insertBefore(container).click(function() {
-                  var encodedString = encodeURIComponent($(this).text());
-                  $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
-                  $(this).parent().children().last().toggle();
-              });
+			  if (settings.includeHandle) {
+				  $('<span class="oembedall-closehide">&darr;</span>').insertBefore(container).click(function() {
+					  var encodedString = encodeURIComponent($(this).text());
+					  $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
+					  $(this).parent().children().last().toggle();
+				  });
+			  }
               oembedContainer.append('<br/>');
-              oembedContainer.append(oembedData.code);
+			  oembedData.code.clone().appendTo(oembedContainer);
+              // oembedContainer.append(oembedData.code);
               if(settings.maxWidth)oembedContainer.css('max-width',settings.maxWidth);
               if(settings.maxHeight)oembedContainer.css('max-height',settings.maxHeight);
               break;
@@ -686,11 +693,6 @@
             if(!results['og:title'] && results['title'] &&results['description'])results['og:title']=results['title'];
             if(!results['og:title'] && !results['title'])return false;
             var code = $('<p/>');
-            if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
-            if(results['og:description'])
-             code.append(results['og:description']+'<br/>');
-            else if(results['description'])
-              code.append(results['description']+'<br/>');
             if(results['og:video']) {
               var embed = $('<embed src="'+results['og:video']+'"/>');
               embed
@@ -707,6 +709,11 @@
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
               code.append(img);
             }
+            if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
+            if(results['og:description'])
+             code.append(results['og:description']+'<br/>');
+            else if(results['description'])
+              code.append(results['description']+'<br/>');
             return code;
           }
         }
