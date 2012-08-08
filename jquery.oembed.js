@@ -46,7 +46,6 @@
                 provider;
 
             if (embedAction) {
-				console.log("setting action");
                 settings.onEmbed = embedAction;
             }
             else if (!settings.onEmbed){
@@ -384,10 +383,15 @@
             , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
             };
           }else{
-            extraSettings.yql = {xpath:"json.html", from:'json'
+            extraSettings.yql = {from:'json'
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
-              , datareturn:function(results){return results.html || ''}
+              , datareturn:function(results){
+					if ("url" in results.json) {
+						return '<img src="' + results.json.url + '" />';
+					}
+					return results.json.html || ''
+				}
             };
           }
           this.apiendpoint = null;
