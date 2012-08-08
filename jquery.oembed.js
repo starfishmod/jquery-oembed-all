@@ -46,6 +46,7 @@
                 provider;
 
             if (embedAction) {
+				console.log("setting action");
                 settings.onEmbed = embedAction;
             }
             else if (!settings.onEmbed){
@@ -323,8 +324,11 @@
 				  });
 			  }
               oembedContainer.append('<br/>');
-			  oembedData.code.clone().appendTo(oembedContainer);
-              // oembedContainer.append(oembedData.code);
+			  try {
+				  oembedData.code.clone().appendTo(oembedContainer);
+			  } catch(e) {
+              oembedContainer.append(oembedData.code);
+			  }			
               if(settings.maxWidth)oembedContainer.css('max-width',settings.maxWidth);
               if(settings.maxHeight)oembedContainer.css('max-height',settings.maxHeight);
               break;
