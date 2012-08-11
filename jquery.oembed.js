@@ -171,9 +171,10 @@
         success(oembedData, externalUrl, container);
       }else if (embedProvider.yql) {
         var from = embedProvider.yql.from || 'htmlstring';
+		var url = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var query = 'SELECT * FROM ' 
             + from 
-            + ' WHERE url="' + (embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl) + '"' 
+            + ' WHERE url="' + (url) + '"' 
             + " and " + (/html/.test(from) ? 'xpath' : 'itemPath') + "='" + (embedProvider.yql.xpath || '/')+"'" ;
         if(from=='html') query += " and compat='html5'";
         var ajaxopts = $.extend({
@@ -187,7 +188,7 @@
           },
           success: function(data) {
             var result;
-            if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta'){
+            if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta|//title|//link'){
                 var meta={};
 				if (data.query.results == null) {
 				 data.query.results = {"meta": []};
@@ -195,8 +196,26 @@
                 for(var i=0, l=data.query.results.meta.length; i<l; i++){
                   var name = data.query.results.meta[i].name||data.query.results.meta[i].property||null;
                   if(name==null)continue;
-                  meta[name]=data.query.results.meta[i].content;
+                  meta[name.toLowerCase()]=data.query.results.meta[i].content;
                 }
+				if (!meta.hasOwnProperty("title") || !meta.hasOwnProperty("og:title") ) {
+					if ( data.query.results.title != null ) {
+						meta.title = data.query.results.title;
+					}
+				}
+				if (!meta.hasOwnProperty("og:image") && data.query.results.hasOwnProperty("link")) {
+					for ( var i=0, l=data.query.results.link.length; i<l; i++){
+						if ( data.query.results.link[i].hasOwnProperty("rel") ) {
+							if (data.query.results.link[i].rel == "apple-touch-icon") {
+								if ( data.query.results.link[i].href.charAt(0) == "/" ) {
+									meta["og:image"] = url.match(/^(([a-z]+:)?(\/\/)?[^\/]+\/).*$/)[1] + data.query.results.link[i].href;
+								} else {
+									meta["og:image"] = data.query.results.link[i].href;
+								}
+							}
+						}
+					}
+				}
                 result = embedProvider.yql.datareturn(meta);
             }else{
               result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
@@ -696,7 +715,7 @@
     
     //Use Open Graph Where applicable
     new $.fn.oembed.OEmbedProvider("opengraph", "rich", [".*"], null,
-    {yql:{xpath:"//meta", from:'html'
+    {yql:{xpath:"//meta|//title|//link", from:'html'
         , datareturn:function(results){
             if(!results['og:title'] && results['title'] &&results['description'])results['og:title']=results['title'];
             if(!results['og:title'] && !results['title'])return false;
