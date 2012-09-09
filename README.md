@@ -243,6 +243,7 @@ Current 3rd party sources include:
 * dipity - yql oembed
 * dailymile - oembed
 * deviantart - oembed
+* Roomshare Japan - oembed
 * mobypictures - oembed
 * prezi - embedded
   http://prezi.com/row6dzyapfic/jr-inside-out-project/
