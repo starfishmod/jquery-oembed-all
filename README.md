@@ -244,6 +244,7 @@ Current 3rd party sources include:
 * dailymile - oembed
 * deviantart - oembed
 * Roomshare Japan - oembed
+  http://roomshare.jp/post/122511
 * mobypictures - oembed
 * prezi - embedded
   http://prezi.com/row6dzyapfic/jr-inside-out-project/
