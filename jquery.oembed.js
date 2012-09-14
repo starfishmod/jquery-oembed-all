@@ -113,7 +113,7 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
-		includeHandle: false,
+		includeHandle: true,
         embedMethod: 'auto',
         // "auto", "append", "fill"		
         onProviderNotFound: function() {},
