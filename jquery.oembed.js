@@ -48,7 +48,7 @@
             if (embedAction) {
                 settings.onEmbed = embedAction;
             }
-            else {
+            else if (!settings.onEmbed){
                 settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
                 };
@@ -70,6 +70,7 @@
 						  },
 						  success: function(data) {
 							//this = $.fn.oembed;
+							resourceURL = data['long-url'];
 							provider = $.fn.oembed.getOEmbedProvider(data['long-url']);
 
 							if (provider !== null) {
@@ -88,7 +89,6 @@
 						return container;
 					}
 				}
-				
                 provider = $.fn.oembed.getOEmbedProvider(resourceURL);
 
                 if (provider !== null) {
@@ -113,12 +113,13 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
+		includeHandle: false,
         embedMethod: 'auto',
         // "auto", "append", "fill"		
         onProviderNotFound: function() {},
         beforeEmbed: function() {},
         afterEmbed: function() {},
-        onEmbed: function() {},
+        onEmbed: false,
         onError: function() {},
         ajaxOptions: {}
     };
@@ -170,9 +171,10 @@
         success(oembedData, externalUrl, container);
       }else if (embedProvider.yql) {
         var from = embedProvider.yql.from || 'htmlstring';
+		var url = embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl;
         var query = 'SELECT * FROM ' 
             + from 
-            + ' WHERE url="' + (embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl) + '"' 
+            + ' WHERE url="' + (url) + '"' 
             + " and " + (/html/.test(from) ? 'xpath' : 'itemPath') + "='" + (embedProvider.yql.xpath || '/')+"'" ;
         if(from=='html') query += " and compat='html5'";
         var ajaxopts = $.extend({
@@ -186,13 +188,34 @@
           },
           success: function(data) {
             var result;
-            if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta'){
+            if(embedProvider.yql.xpath && embedProvider.yql.xpath=='//meta|//title|//link'){
                 var meta={};
+				if (data.query.results == null) {
+				 data.query.results = {"meta": []};
+				}
                 for(var i=0, l=data.query.results.meta.length; i<l; i++){
                   var name = data.query.results.meta[i].name||data.query.results.meta[i].property||null;
                   if(name==null)continue;
-                  meta[name]=data.query.results.meta[i].content;
+                  meta[name.toLowerCase()]=data.query.results.meta[i].content;
                 }
+				if (!meta.hasOwnProperty("title") || !meta.hasOwnProperty("og:title") ) {
+					if ( data.query.results.title != null ) {
+						meta.title = data.query.results.title;
+					}
+				}
+				if (!meta.hasOwnProperty("og:image") && data.query.results.hasOwnProperty("link")) {
+					for ( var i=0, l=data.query.results.link.length; i<l; i++){
+						if ( data.query.results.link[i].hasOwnProperty("rel") ) {
+							if (data.query.results.link[i].rel == "apple-touch-icon") {
+								if ( data.query.results.link[i].href.charAt(0) == "/" ) {
+									meta["og:image"] = url.match(/^(([a-z]+:)?(\/\/)?[^\/]+\/).*$/)[1] + data.query.results.link[i].href;
+								} else {
+									meta["og:image"] = data.query.results.link[i].href;
+								}
+							}
+						}
+					}
+				}
                 result = embedProvider.yql.datareturn(meta);
             }else{
               result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
@@ -311,13 +334,19 @@
           case "append":
               container.wrap('<div class="oembedall-container"></div>');
               var oembedContainer = container.parent();
-              $('<span class="oembedall-closehide">&darr;</span>').insertBefore(container).click(function() {
-                  var encodedString = encodeURIComponent($(this).text());
-                  $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
-                  $(this).parent().children().last().toggle();
-              });
+			  if (settings.includeHandle) {
+				  $('<span class="oembedall-closehide">&darr;</span>').insertBefore(container).click(function() {
+					  var encodedString = encodeURIComponent($(this).text());
+					  $(this).html((encodedString == '%E2%86%91') ? '&darr;' : '&uarr;');
+					  $(this).parent().children().last().toggle();
+				  });
+			  }
               oembedContainer.append('<br/>');
+			  try {
+				  oembedData.code.clone().appendTo(oembedContainer);
+			  } catch(e) {
               oembedContainer.append(oembedData.code);
+			  }			
               if(settings.maxWidth)oembedContainer.css('max-width',settings.maxWidth);
               if(settings.maxHeight)oembedContainer.css('max-height',settings.maxHeight);
               break;
@@ -373,10 +402,15 @@
             , datareturn:function(results){return results.html.replace(/.*\[CDATA\[(.*)\]\]>$/,'$1') || ''}
             };
           }else{
-            extraSettings.yql = {xpath:"json.html", from:'json'
+            extraSettings.yql = {from:'json'
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
-              , datareturn:function(results){return results.html || ''}
+              , datareturn:function(results){
+					if ("url" in results.json) {
+						return '<img src="' + results.json.url + '" />';
+					}
+					return results.json.html || ''
+				}
             };
           }
           this.apiendpoint = null;
@@ -682,16 +716,11 @@
     
     //Use Open Graph Where applicable
     new $.fn.oembed.OEmbedProvider("opengraph", "rich", [".*"], null,
-    {yql:{xpath:"//meta", from:'html'
+    {yql:{xpath:"//meta|//title|//link", from:'html'
         , datareturn:function(results){
             if(!results['og:title'] && results['title'] &&results['description'])results['og:title']=results['title'];
             if(!results['og:title'] && !results['title'])return false;
             var code = $('<p/>');
-            if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
-            if(results['og:description'])
-             code.append(results['og:description']+'<br/>');
-            else if(results['description'])
-              code.append(results['description']+'<br/>');
             if(results['og:video']) {
               var embed = $('<embed src="'+results['og:video']+'"/>');
               embed
@@ -708,6 +737,11 @@
               if(results['og:image:height']) img.attr('height',results['og:image:height']);
               code.append(img);
             }
+            if(results['og:title']) code.append('<b>'+results['og:title']+'</b><br/>');
+            if(results['og:description'])
+             code.append(results['og:description']+'<br/>');
+            else if(results['description'])
+              code.append(results['description']+'<br/>');
             return code;
           }
         }
