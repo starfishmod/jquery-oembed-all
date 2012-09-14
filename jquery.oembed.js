@@ -347,8 +347,29 @@
 			  } catch(e) {
               oembedContainer.append(oembedData.code);
 			  }			
-              if(settings.maxWidth)oembedContainer.css('max-width',settings.maxWidth);
-              if(settings.maxHeight)oembedContainer.css('max-height',settings.maxHeight);
+              /* Make videos semi-responsive
+              * If parent div width less than embeded iframe video then iframe gets shrunk to fit smaller width
+              * If parent div width greater thans embed iframe use the max widht
+              * - works on youtubes and vimeo
+              */
+              if(settings.maxWidth){
+                  var post_width =  oembedContainer.parent().width();
+                  if(post_width < settings.maxWidth)
+                  {
+                      var iframe_width_orig = $('iframe',oembedContainer).width();
+                      var iframe_height_orig = $('iframe',oembedContainer).height();
+                      var ratio =  iframe_width_orig / post_width;
+                      $('iframe',oembedContainer).width(iframe_width_orig / ratio);
+                      $('iframe',oembedContainer).height(iframe_height_orig / ratio);
+                  } else {
+                      if(settings.maxWidth){
+                          $('iframe',oembedContainer).width(settings.maxWidth);
+                      }
+                      if(settings.maxHeight){
+                          $('iframe',oembedContainer).height(setting.maxHeight);
+                      }
+                  }
+              }
               break;
         }
     };
