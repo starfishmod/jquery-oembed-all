@@ -632,7 +632,10 @@
     new $.fn.oembed.OEmbedProvider("jsfiddle", "rich", ["jsfiddle.net/[^/]+/?"],"http://jsfiddle.net/$1/embedded/result,js,resources,html,css/?",
       {templateRegex:/.*net\/([^\/]+).*/ ,embedtag : {tag: 'iframe', width:'100%',height: '300' }
       }),
-      
+    new $.fn.oembed.OEmbedProvider("jsbin", "rich", ["jsbin.com/.+"],"http://jsbin.com/$1/?",
+      {templateRegex:/.*com\/([^\/]+).*/ ,embedtag : {tag: 'iframe', width:'100%',height: '300' }
+      }),
+     
     new $.fn.oembed.OEmbedProvider("jotform", "rich", ["form.jotform.co/form/.+"],"$1?",
       {templateRegex:/(.*)/ ,embedtag : {tag: 'iframe', width:'100%',height: '507' }
       }),
