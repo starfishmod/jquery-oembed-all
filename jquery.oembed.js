@@ -366,7 +366,7 @@
                           $('iframe',oembedContainer).width(settings.maxWidth);
                       }
                       if(settings.maxHeight){
-                          $('iframe',oembedContainer).height(setting.maxHeight);
+                          $('iframe',oembedContainer).height(settings.maxHeight);
                       }
                   }
               }
@@ -570,7 +570,8 @@
       
 		//Rich
     new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),
-    new $.fn.oembed.OEmbedProvider("urtak", "rich", ["urtak.com/(u|clr)   /.+"], "http://oembed.urtak.com/1/oembed"),
+    //new $.fn.oembed.OEmbedProvider("gmep", "rich", ["gmep.imeducate.com/.*"], "http://gmep.imeducate.com/oembed"),
+    new $.fn.oembed.OEmbedProvider("urtak", "rich", ["urtak.com/(u|clr)/.+"], "http://oembed.urtak.com/1/oembed"),
     new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"),
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
     new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],'http://www.dipity.com/oembed/timeline/',{useYQL:'json'}),
