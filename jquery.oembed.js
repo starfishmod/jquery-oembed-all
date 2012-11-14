@@ -35,7 +35,7 @@
 							"url.az", "url.co.uk", "url.ie", "url360.me", "url4.eu", "urlborg.com", "urlbrief.com", "urlcover.com", "urlcut.com", "urlenco.de", "urli.nl", "urls.im", 
 							"urlshorteningservicefortwitter.com", "urlx.ie", "urlzen.com", "usat.ly", "use.my", "vb.ly", "vgn.am", "vl.am", "vm.lc", "w55.de", "wapo.st", "wapurl.co.uk", "wipi.es", 
 							"wp.me", "x.vu", "xr.com", "xrl.in", "xrl.us", "xurl.es", "xurl.jp", "y.ahoo.it", "yatuc.com", "ye.pe", "yep.it", "yfrog.com", "yhoo.it", "yiyd.com", "youtu.be", "yuarel.com", 
-							"z0p.de", "zi.ma", "zi.mu", "zipmyurl.com", "zud.me", "zurl.ws", "zz.gd", "zzang.kr", "›.ws", "✩.ws", "✿.ws", "❥.ws", "➔.ws", "➞.ws", "➡.ws", "➨.ws", "➯.ws", "➹.ws", "➽.ws"];
+							"z0p.de", "zi.ma", "zi.mu", "zipmyurl.com", "zud.me", "zurl.ws", "zz.gd", "zzang.kr",  "›.ws", "✩.ws", "✿.ws", "❥.ws", "➔.ws", "➞.ws", "➡.ws", "➨.ws", "➯.ws", "➹.ws", "➽.ws"];
 
         if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
@@ -237,7 +237,7 @@
           var nocache = embedProvider.embedtag.nocache || 0;
           var height = embedProvider.embedtag.height || 'auto';
           var src =externalUrl.replace(embedProvider.templateRegex,embedProvider.apiendpoint);
-          if(!nocache) src += '&jqoemcache='+rand(5);
+          if(!embedProvider.nocache) src += '&jqoemcache='+rand(5);
           if (embedProvider.apikey) src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
           
            
@@ -427,8 +427,8 @@
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
               , datareturn:function(results){
-					if ("url" in results.json) {
-						return '<img src="' + results.json.url + '" />';
+					if (results.json.url || results.json.thumbnail_url) {
+						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '" />';
 					}
 					return results.json.html || ''
 				}
@@ -537,7 +537,7 @@
 		new $.fn.oembed.OEmbedProvider("flickr", "photo", ["flickr\\.com/photos/.+"], "http://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
 		new $.fn.oembed.OEmbedProvider("photobucket", "photo", ["photobucket\\.com/(albums|groups)/.+"], "http://photobucket.com/oembed/"),
 		new $.fn.oembed.OEmbedProvider("instagram", "photo", ["instagr\\.?am(\\.com)?/.+"], "http://api.instagram.com/oembed"),
-		new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed",{useYQL:"json"}),
+		//new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], "http://www.yfrog.com/api/oembed",{useYQL:"json"}),
 		new $.fn.oembed.OEmbedProvider("SmugMug", "photo", ["smugmug.com/[-.\\w@]+/.+"], "http://api.smugmug.com/services/oembed/"),
 		
     new $.fn.oembed.OEmbedProvider("dribbble", "photo", ["dribbble.com/shots/.+"], "http://api.dribbble.com/shots/$1?callback=?",
@@ -546,18 +546,18 @@
           return  '<img src="'+data.image_teaser_url+'"/>';
         }
       }),
-    new $.fn.oembed.OEmbedProvider("chart.ly", "photo", ["chart\\.ly/[a-z0-9]{6,8}"],"http://chart.ly/uploads/large_$1.png?",
-      {templateRegex:/.*ly\/([^\/]+).*/ , embedtag : {tag:'img'}}), 
-    new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/?",
-      {templateRegex:/.*circuit\/([^\/]+).*/ , embedtag : {tag:'img'}}),
+    new $.fn.oembed.OEmbedProvider("chart.ly", "photo", ["chart\\.ly/[a-z0-9]{6,8}"],"http://chart.ly/uploads/large_$1.png",
+      {templateRegex:/.*ly\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
+    new $.fn.oembed.OEmbedProvider("circuitlab", "photo", ["circuitlab.com/circuit/.+"],"https://www.circuitlab.com/circuit/$1/screenshot/540x405/",
+      {templateRegex:/.*circuit\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}),
     new $.fn.oembed.OEmbedProvider("23hq", "photo", ["23hq.com/[-.\\w@]+/photo/.+"],"http://www.23hq.com/23/oembed",{useYQL:"json"}),
-    new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],"http://img.ly/show/thumb/$1?",
-      {templateRegex:/.*com\/([^\/]+).*/ , embedtag : {tag:'img'}
+    new $.fn.oembed.OEmbedProvider("img.ly", "photo", ["img\\.ly/.+"],"http://img.ly/show/thumb/$1",
+      {templateRegex:/.*ly\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1
       }), 
-    new $.fn.oembed.OEmbedProvider("twitgoo.com", "photo", ["twitgoo\\.com/.+"],"http://twitgoo.com/show/thumb/$1?",
-      {templateRegex:/.*com\/([^\/]+).*/ , embedtag : {tag:'img'}}), 
-    new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],"http://imgur.com/$1l.jpg?",
-      {templateRegex:/.*gallery\/([^\/]+).*/ , embedtag : {tag:'img'}}), 
+    new $.fn.oembed.OEmbedProvider("twitgoo.com", "photo", ["twitgoo\\.com/.+"],"http://twitgoo.com/show/thumb/$1",
+      {templateRegex:/.*com\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
+    new $.fn.oembed.OEmbedProvider("imgur.com", "photo", ["imgur\\.com/gallery/.+"],"http://imgur.com/$1l.jpg",
+      {templateRegex:/.*gallery\/([^\/]+).*/ , embedtag : {tag:'img'},nocache:1}), 
     new $.fn.oembed.OEmbedProvider("visual.ly", "rich", ["visual\\.ly/.+"], null,
       {yql:{xpath:"//a[@id=\\'gc_article_graphic_image\\']/img", from:'htmlstring'}
       }),
