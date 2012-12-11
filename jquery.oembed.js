@@ -427,7 +427,7 @@
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
               , datareturn:function(results){
-					if (results.json.url || results.json.thumbnail_url) {
+					if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
 						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '" />';
 					}
 					return results.json.html || ''
