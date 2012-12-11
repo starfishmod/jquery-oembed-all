@@ -522,12 +522,12 @@
     new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+","rdio.com"], "http://www.rdio.com/api/oembed/"),
     new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+","snd.sc/.+"], "http://soundcloud.com/oembed",{format:'js'}),
     new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
-      {yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]", from:'html'
-          , datareturn:function(results){
-              return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
-              }
-          }
-      }),
+		{yql:{xpath:"//meta[contains(@content, \\'EmbeddedPlayer\\')]", from:'html'
+		  , datareturn:function(results){
+			  return results.meta ?'<iframe width="400" height="100" src="'+results.meta.content+'" allowtransparency="true" frameborder="0"></iframe>':false;
+			  }
+		  }
+		}),
     
      //Photo
 		new $.fn.oembed.OEmbedProvider("deviantart", "photo", ["deviantart.com/.+","fav.me/.+","deviantart.com/.+"], "http://backend.deviantart.com/oembed",{format:'jsonp'}),
