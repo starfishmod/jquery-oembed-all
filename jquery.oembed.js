@@ -667,7 +667,12 @@
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
-          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="oembedall-facebookBody"><div>';
+          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> '
+          if(data.link) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          else if(data.username) out += '<a href="http://www.facebook.com/'+data.username+'">'+data.name+'</a>';
+          else if(data.id) out += '<a href="http://www.facebook.com/'+data.id+'">'+data.name+'</a>';
+          else out += data.name;
+          out += '</div><div class="oembedall-facebookBody"><div>';
           if(data.picture) out += '<img src="'+data.picture+'" align="left"></div><div>';
           if(data.category) out += 'Category  <strong>'+data.category+'</strong><br/>';
           if(data.website) out += 'Website  <strong>'+data.website+'</strong><br/>';
