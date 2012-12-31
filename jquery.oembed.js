@@ -607,7 +607,7 @@
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
       templateData : function(data){if(!data.parse)return false;
-          var text = data.parse['text']['*'].replace('href="/wiki','href="http://en.wikipedia.org/wiki');
+          var text = data.parse['text']['*'].replace(/href="\/wiki/g,'href="http://en.wikipedia.org/wiki');
           return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+text+'</div>';
         }
       }),
