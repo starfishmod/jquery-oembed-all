@@ -52,6 +52,8 @@ Current 3rd party sources include:
 
 * Youtube - oembed - YQL
   http://www.youtube.com/watch?v=oHg5SJYRHA0
+* Sapo - oembed YQL
+  http://videos.sapo.pt/vz0UeKVkl92vQ2bDhIYl
 * Blip - oEmbed
   http://blip.tv/linuxconfau/lightning-talks-incl-html5-media-accessibility-update-4870511
 * Hulu - oEmbed
