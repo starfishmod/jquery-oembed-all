@@ -427,7 +427,7 @@
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl}
               , datareturn:function(results){
-					if (results.json.url || results.json.thumbnail_url) {
+					if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
 						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '" />';
 					}
 					return results.json.html || ''
@@ -486,7 +486,9 @@
       
     new $.fn.oembed.OEmbedProvider("youku", "video", ["v.youku.com/v_show/id_.+"],"http://player.youku.com/player.php/sid/$1/v.swf",
       {templateRegex:/.*id_(.+)\.html.*/, embedtag : {width:480,height:400, nocache:1 }}), 
-      
+    new $.fn.oembed.OEmbedProvider("tudou", "video", ["tudou.com/programs/view/.+\/"],"http://www.tudou.com/v/$1/v.swf",
+      {templateRegex:/.*view\/(.+)\//, embedtag : {width:480,height:400, nocache:1 }}),
+
     new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"],"http://embedr.com/swf/slider/$1/425/520/default/false/std?",
       {templateRegex:/.*playlist\/([^\/]+).*/, embedtag : {width:425,height: 520}}), 
     new $.fn.oembed.OEmbedProvider("blip", "video", ["blip\\.tv/.+"], "http://blip.tv/oembed/"),
@@ -609,7 +611,7 @@
     new $.fn.oembed.OEmbedProvider("wikipedia", "rich", ["wikipedia.org/wiki/.+"], "http://$1.wikipedia.org/w/api.php?action=parse&page=$2&format=json&section=0&callback=?",{
       templateRegex:/.*\/\/([\w]+).*\/wiki\/([^\/]+).*/,
       templateData : function(data){if(!data.parse)return false;
-          var text = data.parse['text']['*'].replace('href="/wiki','href="http://en.wikipedia.org/wiki');
+          var text = data.parse['text']['*'].replace(/href="\/wiki/g,'href="http://en.wikipedia.org/wiki');
           return  '<div id="content"><h3><a class="nav-link" href="http://en.wikipedia.org/wiki/'+data.parse['displaytitle']+'">'+data.parse['displaytitle']+'</a></h3>'+text+'</div>';
         }
       }),
@@ -669,12 +671,21 @@
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
-          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="oembedall-facebookBody"><div>';
-          if(data.picture) out += '<img src="'+data.picture+'" align="left"></div><div>';
-          if(data.category) out += 'Category  <strong>'+data.category+'</strong><br/>';
-          if(data.website) out += 'Website  <strong>'+data.website+'</strong><br/>';
-          if(data.gender) out += 'Gender  <strong>'+data.gender+'</strong><br/>';
-          out += '</div></div></div>';
+          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> ';
+          if(data.from) out += '<a href="http://www.facebook.com/'+data.from.id+'">'+data.from.name+'</a>';
+          else if(data.link) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          else if(data.username) out += '<a href="http://www.facebook.com/'+data.username+'">'+data.name+'</a>';
+          else out += '<a href="http://www.facebook.com/'+data.id+'">'+data.name+'</a>';
+          out += '</div><div class="oembedall-facebookBody"><div class="contents">';
+          if(data.picture) out += '<a href="'+data.link+'"><img src="'+data.picture+'"></a>';
+          else out += '<img src="https://graph.facebook.com/'+data.id+'/picture">';
+          if(data.from) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          if(data.founded) out += 'Founded: <strong>'+data.founded+'</strong><br>'
+          if(data.category) out += 'Category: <strong>'+data.category+'</strong><br>';
+          if(data.website) out += 'Website: <strong><a href="'+data.website+'">'+data.website+'</a></strong><br>';
+          if(data.gender) out += 'Gender: <strong>'+data.gender+'</strong><br>';
+          if(data.description) out += data.description + '<br>';
+          out += '</div></div>';
           return out;
         }
       }),
