@@ -669,12 +669,21 @@
     new $.fn.oembed.OEmbedProvider("facebook", "rich", ["facebook.com/(people/[^\\/]+/\\d+|[^\\/]+$)"], "https://graph.facebook.com/$2$3/?callback=?"
     ,{templateRegex:/.*facebook.com\/(people\/[^\/]+\/(\d+).*|([^\/]+$))/,
       templateData : function(data){ if(!data.id)return false;
-          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> <a href="'+data.link+'">'+data.name+'</a></div><div class="oembedall-facebookBody"><div>';
-          if(data.picture) out += '<img src="'+data.picture+'" align="left"></div><div>';
-          if(data.category) out += 'Category  <strong>'+data.category+'</strong><br/>';
-          if(data.website) out += 'Website  <strong>'+data.website+'</strong><br/>';
-          if(data.gender) out += 'Gender  <strong>'+data.gender+'</strong><br/>';
-          out += '</div></div></div>';
+          var out =  '<div class="oembedall-facebook1"><div class="oembedall-facebook2"><a href="http://www.facebook.com/">facebook</a> ';
+          if(data.from) out += '<a href="http://www.facebook.com/'+data.from.id+'">'+data.from.name+'</a>';
+          else if(data.link) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          else if(data.username) out += '<a href="http://www.facebook.com/'+data.username+'">'+data.name+'</a>';
+          else out += '<a href="http://www.facebook.com/'+data.id+'">'+data.name+'</a>';
+          out += '</div><div class="oembedall-facebookBody"><div class="contents">';
+          if(data.picture) out += '<a href="'+data.link+'"><img src="'+data.picture+'"></a>';
+          else out += '<img src="https://graph.facebook.com/'+data.id+'/picture">';
+          if(data.from) out += '<a href="'+data.link+'">'+data.name+'</a>';
+          if(data.founded) out += 'Founded: <strong>'+data.founded+'</strong><br>'
+          if(data.category) out += 'Category: <strong>'+data.category+'</strong><br>';
+          if(data.website) out += 'Website: <strong><a href="'+data.website+'">'+data.website+'</a></strong><br>';
+          if(data.gender) out += 'Gender: <strong>'+data.gender+'</strong><br>';
+          if(data.description) out += data.description + '<br>';
+          out += '</div></div>';
           return out;
         }
       }),

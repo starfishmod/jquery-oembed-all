@@ -307,15 +307,21 @@ div.oembedall-container {
   text-decoration:none;
 }
 
-
-
-.oembedall-facebookBody{
+.oembedall-facebookBody {
   background-color: #fff;
-  
-  
+  vertical-align: top;
+  padding: 5px;
 }
 
-.oembedall-facebookBody div{ display:inline-block;vertical-align: top;}
+.oembedall-facebookBody .contents {
+    display: inline-block;
+    width: 100%;
+}
+
+.oembedall-facebookBody div img {
+    float: left;
+    margin-right: 5px;
+}
 
 div.oembedall-lanyard{
 -webkit-box-shadow: none;
