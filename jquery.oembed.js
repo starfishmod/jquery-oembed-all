@@ -54,7 +54,7 @@
                 };
             }
 
-            if (resourceURL !== null) {
+            if (resourceURL !== null && resourceURL !== undefined) {
 				//Check if shorten URL
 				for (var j = 0, l =shortURLList.length; j < l; j++) {
 					var regExp = new RegExp('://'+shortURLList[j]+'/', "i");
