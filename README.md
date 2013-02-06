@@ -296,6 +296,8 @@ Current 3rd party sources include:
   http://tripline.net/trip/Experience_Art_in_Barcelona__buycatalunya-0523526613621005B2BAA989B5068FDD
 * jsfiddle - embedded
   http://jsfiddle.net/x3NaN/
+* gmep - oembed
+  https://gmep.org/media/11041
   
 ---
 
