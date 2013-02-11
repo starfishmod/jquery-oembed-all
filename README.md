@@ -298,6 +298,8 @@ Current 3rd party sources include:
   http://jsfiddle.net/x3NaN/
 * gmep - oembed
   https://gmep.org/media/11041
+* sketchfab - oembed YQL
+  https://sketchfab.com/show/9lVs96AuFUAjKjwvsMG0Uf7Yy7b
   
 ---
 

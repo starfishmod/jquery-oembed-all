@@ -585,6 +585,7 @@
     new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"),
     new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"),
     new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"],'http://www.dipity.com/oembed/timeline/',{useYQL:'json'}),
+    new $.fn.oembed.OEmbedProvider("sketchfab", "rich", ["sketchfab.com/show/.+"],'http://sketchfab.com/oembed',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"],'http://speakerdeck.com/oembed.json',{useYQL:'json'}),
     new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"],"http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1",
       {templateRegex:/.*#\/([^\/]+).*/,embedtag : {width:460,height: 460} }), 
