@@ -664,6 +664,9 @@
     new $.fn.oembed.OEmbedProvider("pastebin", "rich", ["pastebin\\.com/[\\S]{8}"],"http://pastebin.com/embed_iframe.php?i=$1",
       {templateRegex:/.*\/(\S{8}).*/ ,embedtag : {tag: 'iframe', width:'100%',height: 'auto'}
       }),
+      new $.fn.oembed.OEmbedProvider("mixlr", "rich", ["mixlr.com/.+"],"http://mixlr.com/embed/$1?autoplay=ae",
+          {templateRegex:/.*com\/([^\/]+).*/ ,embedtag : {tag: 'iframe', width:'100%',height: 'auto' }
+          }),
     new $.fn.oembed.OEmbedProvider("pastie", "rich", ["pastie\\.org/pastes/.+"],null,{yql:{xpath:'//pre[@class="textmate-source"]'}}),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["gist.github.com/.+"], "https://github.com/api/oembed"),
     new $.fn.oembed.OEmbedProvider("github", "rich", ["github.com/[-.\\w@]+/[-.\\w@]+"], "https://api.github.com/repos/$1/$2?callback=?"
