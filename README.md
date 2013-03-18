@@ -20,6 +20,18 @@ This project tries to use embedding techniques in the following order of prefere
 * YQL Screenscrape - e.g. pastie
 * JSONP Api lookups Source - With HTML and CSS built in this project - e.g. github, Myspace, Facebook
 
+Quick Start
+-----------
+Add this to your javascript file.
+````
+$(function(){
+   $("a.embed").oembed();
+});
+````
+
+Add `class="embed"` to anchor tag which contains the URL you wish to embed.  
+Ex: `<a href="http://www.youtube.com/watch?v=8mwKq7_JlS8" class="embed"></a>`
+
 Shortened Urls
 ------------
 This project now handles shortened url's using the JSONP service from http://longurl.org. e.g. http://bit.ly/oP77mm will first lengthen the URL 
