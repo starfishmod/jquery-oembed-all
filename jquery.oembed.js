@@ -625,7 +625,7 @@
     new $.fn.oembed.OEmbedProvider("imdb", "rich", ["imdb.com/title/.+"], "http://www.imdbapi.com/?i=$1&callback=?",
       {templateRegex:/.*\/title\/([^\/]+).*/,
       templateData : function(data){if(!data.Title)return false;
-          return  '<div id="content"><h3><a class="nav-link" href="http://imdb.com/title/'+data.ID+'/">'+data.Title+'</a> ('+data.Year+')</h3><p>Starring: '+data.Actors+'</p><div id="photo-wrap" style="margin: auto;width:600px;height:450px;"><img class="photo" id="photo-display" src="'+data.Poster+'" alt="'+data.Title+'"></div>  <div id="view-photo-caption">'+data.Plot+'</div></div>';
+          return  '<div id="content"><h3><a class="nav-link" href="http://imdb.com/title/'+data.imdbID+'/">'+data.Title+'</a> ('+data.Year+')</h3><p>Rating: ' + data.imdbRating + '<br/>Genre: ' + data.Genre + '<br/>Starring: '+data.Actors+'</p></div>  <div id="view-photo-caption">'+data.Plot+'</div></div>';
         }
       }),
     new $.fn.oembed.OEmbedProvider("livejournal", "rich", ["livejournal.com/"], "http://ljpic.seacrow.com/json/$2$4?jsonp=?"
