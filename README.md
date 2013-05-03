@@ -153,7 +153,7 @@ Current 3rd party sources include:
 * shoudio - oembed
 * audioboo.fm - OGP 
   http://audioboo.fm/boos/710079-geofencing-and-the-future
-* Spotify - OGP YQL
+* Spotify - Oembed
   http://open.spotify.com/album/1YwzJz7CrV9fd9Qeb6oo1d
  
 
