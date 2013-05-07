@@ -378,7 +378,14 @@
         var code, alt = oembedData.title ? oembedData.title : '';
         alt += oembedData.author_name ? ' - ' + oembedData.author_name : '';
         alt += oembedData.provider_name ? ' - ' + oembedData.provider_name : '';
-        code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
+        if (oembedData.url){
+            code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
+        } else if (oembedData.thumbnail_url){
+            var newURL = oembedData.thumbnail_url.replace('_s','_b');
+            code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + newURL + '" alt="' + alt + '"/></a></div>';
+        } else {
+            code = '<div>Error loading this picture</div>';
+        }
         if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
         return code;
     };
@@ -447,6 +454,39 @@
         this.embedtag = this.embedtag || {tag:""};
 
         
+    };
+
+    /*
+     * Function to update existing providers
+     *
+     * @param  {String}    name             The name of the provider
+     * @param  {String}    type             The type of the provider can be "file", "photo", "video", "rich"
+     * @param  {String}    urlshemesarray   Array of url of the provider
+     * @param  {String}    apiendpoint      The endpoint of the provider
+     * @param  {String}    extraSettings    Extra settings of the provider
+     */
+    $.fn.updateOEmbedProvider = function(name, type, urlschemesarray, apiendpoint, extraSettings) {
+        for (var i = 0; i < $.fn.oembed.providers.length; i++) {
+            if ($.fn.oembed.providers[i].name === name) {
+                if (type !== null) {
+                    $.fn.oembed.providers[i].type = type;
+                }
+                if (urlschemesarray !== null) {
+                    $.fn.oembed.providers[i].urlschemes = urlschemesarray;
+                }
+                if (apiendpoint !== null) {
+                    $.fn.oembed.providers[i].apiendpoint = apiendpoint;
+                }
+                if (extraSettings !== null) {
+                    $.fn.oembed.providers[i].extraSettings = extraSettings;
+                    for (var property in extraSettings) {
+                        if (property !== null && extraSettings[property] !== null) {
+                            $.fn.oembed.providers[i][property] = extraSettings[property];
+                        }
+                    }
+                }
+            }
+        }
     };
 
     /* Native & common providers */
